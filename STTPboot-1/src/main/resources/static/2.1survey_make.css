@@ -89,3 +89,22 @@
   height: 150px;
   background-color: #1d7659;
 }
+
+#createAllDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createDiv {
+  margin-bottom: 80px;
+  width: 80%;
+  height: 180px;
+
+  background-color: #83B5A6;
+  color: #FBFAFB;
+}
+
+#newCrateDiv {
+  margin-top: 50px;
+}
