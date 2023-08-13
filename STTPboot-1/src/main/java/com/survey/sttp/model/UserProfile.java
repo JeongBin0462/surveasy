@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.survey.sttp.model;
 
 public class UserProfile {
 	private String id;

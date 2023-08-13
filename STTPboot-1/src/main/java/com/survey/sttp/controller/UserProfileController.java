@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.survey.sttp.controller;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.mapper.UserProfileMapper;
-import com.example.demo.model.UserProfile;
+import com.survey.sttp.mapper.UserProfileMapper;
+import com.survey.sttp.model.UserProfile;
 
 @RestController
 public class UserProfileController {
@@ -47,4 +47,3 @@ public class UserProfileController {
 		mapper.deleteUserProfile(id);
 	}
 }
-
