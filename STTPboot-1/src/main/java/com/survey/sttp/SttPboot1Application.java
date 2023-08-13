@@ -1,4 +1,4 @@
-package com.survey.sttp.survey;
+package com.survey.sttp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
