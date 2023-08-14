@@ -3,14 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <title>STTP</title>
-    <link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="../static/0.header_footer.css"
+      type="text/css"
+    />
   </head>
   <body>
     <header id="header">
-      <img src="/img/임시로고.png" id="headerTitle"></img>
+      <img src="../img/임시로고.png" id="headerTitle" />
       <p id="headerLogin">로그인</p>
       <div id="headerNavi">
-        <a href="/test/main" class="naviLink">설문지 작성</a>
+        <div id="surveyMainDiv">
+          <p class="naviLink">설문지 작성</p>
+          <div id="hiddenDiv">
+            <p class="hiddenText">새로만들기</p>
+            <p class="hiddenText">불러오기</p>
+            <p class="hiddenText">가져오기</p>
+          </div>
+        </div>
         <a href="#" class="naviLink">설문참여</a>
         <a href="#" class="naviLink">설문결과</a>
         <a href="#" class="naviLink">MY PAGE</a>
@@ -28,4 +39,6 @@
     </main>
     <footer id="footer">footer가들어갈 공간</footer>
   </body>
+  <script src="../static/0.header_footer.js">
+  </script>
 </html>
