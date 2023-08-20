@@ -59,23 +59,69 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     descriptiveLabel.setAttribute("for", "descriptiveRadio" + formCount);
     descriptiveLabel.innerText = "서술형";
 
+    // 삭제 버튼 생성
+    let deleteButton = document.createElement("button");
+    deleteButton.innerText = "삭제";
+    // 삭제 버튼에 추가될 이벤트 리스너
+    deleteButton.addEventListener("click", function(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        // 해당 form 요소 삭제
+        newForm.remove();
+
+        // 이후의 모든 form 요소들의 이름 및 아이디 갱신
+        for(let i = formCount; i > newForm.dataset.formNumber; i--) {
+            const formToUpdate = document.querySelector(`[data-form-number='${i}']`);
+            if (formToUpdate) {
+                // 이름 및 아이디 갱신
+                formToUpdate.setAttribute('data-form-number', i - 1);
+                
+                const questionLabel = formToUpdate.querySelector(`[for='input${i}']`);
+                if(questionLabel) {
+                    questionLabel.setAttribute("for", "input" + (i - 1));
+                    questionLabel.innerText = "질문 " + (i - 1);
+                }
+
+                const questionContent = formToUpdate.querySelector(`#input${i}`);
+                if(questionContent) {
+                    questionContent.setAttribute("id", "input" + (i - 1));
+                    questionContent.setAttribute("name", "input" + (i - 1));
+                }
+
+                // 다른 요소들도 비슷한 방법으로 갱신 (라디오 버튼, 라벨 등)
+            }
+        }
+
+        // formCount 값 감소
+        formCount--;
+    });
+    
     // 체크박스 라디오 버튼의 이벤트 리스너
-    checkboxRadio.addEventListener("change", function () {
-      if (checkboxRadio.checked) {
-        let checkboxInput = document.createElement("input");
-        checkboxInput.setAttribute("type", "checkbox");
-        checkboxInput.setAttribute("name", "checkboxAnswer" + formCount);
-        newForm.appendChild(checkboxInput);
-      }
+    checkboxRadio.addEventListener("change", function() {
+        if (checkboxRadio.checked) {
+            // 개수 선택(20개 이하)
+
+            // 최소 응답 개수
+
+            // 최대 응답 개수
+
+            // ()
+        }
+    });
+
+    // 라디오 라디오 버튼의 이벤트 리스너
+    radioRadio.addEventListener("change", function() {
+        if (radioRadio.checked) {
+            
+        }
     });
 
     // 서술형 라디오 버튼의 이벤트 리스너
-    descriptiveRadio.addEventListener("change", function () {
-      if (descriptiveRadio.checked) {
-        let textarea = document.createElement("textarea");
-        textarea.setAttribute("name", "descriptiveAnswer" + formCount);
-        newForm.appendChild(textarea);
-      }
+    descriptiveRadio.addEventListener("change", function() {
+        if (descriptiveRadio.checked) {
+            
+        }
     });
 
     // form에 label과 input 요소 추가
@@ -89,6 +135,9 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     newForm.appendChild(radioLabel);
     newForm.appendChild(descriptiveRadio);
     newForm.appendChild(descriptiveLabel);
+
+    // newForm에 삭제 버튼 추가
+    newForm.appendChild(deleteButton);
 
     newSurveyArea.append(newForm);
 
