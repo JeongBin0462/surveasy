@@ -5,6 +5,8 @@
 
 .body {
   background-color: #fbfafb;
+   margin: 0;
+  border: 0;
 }
 
 @font-face {
@@ -32,6 +34,8 @@
   align-items: center;
 
   font-family: NanumSquareNeo-Variable;
+  
+  width: 100%;
 }
 
 #headerTitle {
@@ -120,7 +124,7 @@
 }
 
 .center-div {
-  width: 1280px;
+  width: 80%;
   background: #fbfafb;
 }
 
