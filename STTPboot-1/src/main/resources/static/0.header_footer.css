@@ -139,6 +139,8 @@
 
 .center-div {
   width: 55%;
+  min-height: 640px;
+  
   background-color: #bdd6d0;
 }
 
@@ -165,6 +167,8 @@
   position: relative;
   top: 30px;
   left: 25%;
+  
+  width: 200px;
 }
 
 .footerGitImg {
@@ -180,6 +184,8 @@
 #gitAdress {
   position: relative;
   left: 60%;
+  width: 500px;
+
 
   display: flex;
 }
