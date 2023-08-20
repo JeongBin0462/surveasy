@@ -15,6 +15,6 @@ public class test {
 	@GetMapping(value = "/test/main")
 	public String main() {
 		
-		return "1.main";
+		return "/1.main";
 	}
 }

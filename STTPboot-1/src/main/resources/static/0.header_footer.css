@@ -24,8 +24,7 @@
 }
 
 #header {
-  height: 300px;
-  background-color: #83b5a6;
+  height: 240px;
 
   display: flex;
   flex-direction: column;
@@ -44,15 +43,17 @@
 
 #headerLogin {
   position: relative;
+  background-color:transparent;
 
   left: 40%;
   bottom: 50%;
 
   font-size: 18px;
+  color: #83b5a6;
 }
 
 #headerNavi {
-  background-color: #65b6cd;
+  background-color: #1d7659;
   width: 55%;
   height: 60px;
 
@@ -70,15 +71,13 @@
 }
 
 #hiddenDiv {
-  margin-top: 5px;
-
   display: none;
   position: absolute;
-  top: 100%; 
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   width: auto;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,14 +85,33 @@
 }
 
 .hiddenText {
-  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+  width: 100px;
+  color: #fbfafb;
+
+  outline-style: solid;
+  outline-width: 0.5px;
+  outline-color: #fbfafb;
+  background-color: #1d7659;
 }
 
 .naviLink {
   margin-left: 60px;
   margin-right: 60px;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+
   font-size: 18px;
+  color: #fbfafb;
+
+  text-decoration-line: none;
 }
 
 .container {
@@ -112,6 +130,34 @@
 }
 
 #footer {
-  height: 150px;
+  height: 120px;
   background-color: #1d7659;
+
+  color: #fbfafb;
+}
+
+.gitDivOne {
+  display: flex;
+  align-items: center;
+  
+  position: relative;
+  top: 30px;
+  left: 25%;
+}
+
+.footerGitImg {
+  width: 20px;
+  height: 20px;
+  margin-right: 20px;
+}
+
+.gitId {
+  font-size: 18px;
+}
+
+#gitAdress {
+  position: relative;
+  left: 60%;
+
+  display: flex;
 }
