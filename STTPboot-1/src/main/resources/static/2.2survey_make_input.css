@@ -137,14 +137,12 @@
 }
 
 .center-div {
+  flex: 3;
   width: 80%;
 
   font-size: 18px;
   font-weight: 600;
-
-  position: relative;
-  left: 10%;
-  top: 5%;
+  background-color: #83B5A6;
 }
 
 #subjectTitle {

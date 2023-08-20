@@ -129,13 +129,16 @@
 */
 
 .container {
+  width: 100%;
   display: flex;
+  justify-content: center;
   width: 100%;
 }
 
 .center-div {
-  width: 80%;
+  width: 55%;
   background: #fbfafb;
+  height: 640px;
 }
 
 .side-div {
