@@ -7,19 +7,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class test {
 	
-	@GetMapping(value = "/test")
+	@GetMapping(value = "/STTP")
 	public String start() {
 		return "0.header_footer";
 	}
 	
-	@GetMapping(value = "/test/main")
+	@GetMapping(value = "/STTP/main")
 	public String main() {
 		
 		return "/1.main";
 	}
 	
-	@GetMapping(value = "/test/makesurvey")
+	@GetMapping(value = "/STTP/inputsurvey")
+	public String inputSurvey() {
+		return "2.2survey_make_input";
+	}
+	
+	@GetMapping(value = "/STTP/makesurvey")
 	public String makesurvey() {
 		return "2.3survey_make_main";
 	}
+	
+	
 }

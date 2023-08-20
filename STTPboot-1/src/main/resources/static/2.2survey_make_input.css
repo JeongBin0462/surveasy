@@ -26,7 +26,7 @@
 }
 
 /*
-  헤더~~
+헤더
 */
 
 #header {
@@ -124,10 +124,6 @@
   text-decoration-line: none;
 }
 
-/*
-  ~~헤더
-*/
-
 .container {
   display: flex;
   width: 100%;
@@ -143,8 +139,9 @@
   background: black;
 }
 
+
 /*
-  푸터~~
+푸터
 */
 
 #footer {
@@ -179,7 +176,3 @@
 
   display: flex;
 }
-
-/*
-  ~~푸터
-*/
