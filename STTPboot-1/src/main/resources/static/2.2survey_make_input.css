@@ -5,7 +5,7 @@
 
 .body {
   background-color: #fbfafb;
-   margin: 0;
+  margin: 0;
   border: 0;
 }
 
@@ -26,7 +26,7 @@
 }
 
 /*
-  헤더~~
+헤더
 */
 
 #header {
@@ -38,8 +38,9 @@
   align-items: center;
 
   font-family: NanumSquareNeo-Variable;
-  
+
   width: 100%;
+  background: #fbfafb;
 }
 
 #headerTitle {
@@ -51,7 +52,7 @@
 
 #headerLogin {
   position: relative;
-  background-color:transparent;
+  background-color: transparent;
 
   left: 40%;
   bottom: 50%;
@@ -124,30 +125,172 @@
   text-decoration-line: none;
 }
 
-/*
-  ~~헤더
-*/
-
 .container {
-  width: 100%;
   display: flex;
-  justify-content: center;
   width: 100%;
-}
-
-.center-div {
-  width: 55%;
+  height: 580px;
   background: #fbfafb;
-  height: 640px;
 }
 
 .side-div {
   flex: 1;
-  background: black;
+}
+
+.center-div {
+  flex: 3;
+  width: 80%;
+
+  font-size: 18px;
+  font-weight: 600;
+  background-color: #83B5A6;
+}
+
+#subjectTitle {
+  margin-bottom: 20px;
+}
+
+select {
+  font-size: 18px;
+  font-weight: 600;
+
+  width: 200px;
+  height: 30px;
+  line-height: 30px;
+
+  border: 1px solid #000000;
+  background-color: #fbfafb;
+
+  display: flex;
+  text-align: center;
+}
+
+#firstFormDiv {
+  display: flex;
+}
+
+#periodDiv {
+  position: relative;
+  left: 30%;
+}
+
+#dayDiv {
+  display: flex;
+}
+
+#periodInputDiv {
+  font-size: 18px;
+  font-weight: 600;
+
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+
+  border: 1px solid #000000;
+  background-color: #fbfafb;
+
+  display: flex;
+  text-align: center;
+
+  margin-top: 10px;
+}
+
+#dyaTextDiv {
+  display: flex;
+  align-items: center;
+
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+#normalInfoDiv {
+  margin-top: 50px;
+}
+
+#normalInfoInputDiv {
+  margin-top: 30px;
+  display: flex;
+}
+
+.inputInfo {
+  flex: 1;
+}
+
+.checkBox {
+  margin-right: 20px;
+}
+
+#targetContainer {
+  margin-top: 50px;
+  display: flex;
+}
+
+#targetText {
+  margin-right: 40px;
+}
+
+#targetSelectDiv {
+  margin-top: 30px;
+  flex: 1;
+}
+
+#employeesInputDiv {
+  display: flex;
+}
+
+.employeesInputInfoDiv {
+  flex: 1;
+}
+
+#employeesHiddenInput {
+  flex: 3;
+}
+
+#studentInputDiv {
+  position: relative;
+  top: -24px;
+  display: flex;
+}
+
+.studentInputInfoDiv {
+  flex: 1;
+}
+
+#studentInputHiddenDiv {
+  flex: 3;
+}
+
+#subInfoText {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+#subInfoDiv {
+  display: flex;
+}
+
+.subInfoInputDiv {
+  flex: 1;
+}
+
+#subInputHiddenDiv {
+  flex: 2;
+}
+
+#submitContainerDiv{
+  width: 75%;
+  display: flex;
+  justify-content: center;
+}
+
+#submitDiv {
+  margin-top: 20px;
+  font-size: 24px;
+  background-color: #1d7659;
+  color: #fbfafb;
 }
 
 /*
-  푸터~~
+푸터
 */
 
 #footer {
@@ -160,7 +303,7 @@
 .gitDivOne {
   display: flex;
   align-items: center;
-  
+
   position: relative;
   top: 30px;
   left: 25%;
@@ -182,7 +325,3 @@
 
   display: flex;
 }
-
-/*
-  ~~푸터
-*/
