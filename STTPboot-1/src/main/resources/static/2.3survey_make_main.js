@@ -1,3 +1,5 @@
+
+
 let newSurveyBtn = document.getElementById("newSurveyBtn");
 let newSurveyArea = document.getElementById("survey-question");
 
@@ -6,6 +8,7 @@ newSurveyBtn.addEventListener("click", function (e) {
     let newForm = document.createElement("form");
     formCount++;
     newForm.setAttribute("data-form-number", formCount);
+    newForm.id = "answerForm";
 
     // 질문 n:
     let questionLabel = document.createElement("label");
@@ -92,4 +95,7 @@ newSurveyBtn.addEventListener("click", function (e) {
     newForm.appendChild(descriptiveLabel);
 
     newSurveyArea.append(newForm);
+
+    // 새로 생성된 form 요소로 스크롤 이동
+    newForm.scrollIntoView({ behavior: 'smooth' });
 });
