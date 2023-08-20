@@ -5,23 +5,25 @@
 }
 
 .survey-box {
+    width: 1280px;
     background-color: #666666;
     display: block;
     text-align: center;
 }
 
 .survey-title-content {
-    margin-bottom: 20px;
+    margin: 20px;
     background-color: red;
     color: blue;
-    text-align: center;
+
 }
 
 #survey-question {
-    margin-bottom: 20px;
+    margin: 20px;
+    padding: 20px;
     background-color: blue;
     color: red;
-    text-align: center;
+
 }
 
 #newSurveyBtn {
