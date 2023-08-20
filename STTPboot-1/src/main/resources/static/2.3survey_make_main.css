@@ -1,5 +1,30 @@
-.survey-title-box {
-    background-color: #666666;
+.center-div {
     padding: 20px;
     margin: 20px;
+    text-align: center;
+}
+
+.survey-box {
+    background-color: #666666;
+    display: block;
+    text-align: center;
+}
+
+.survey-title-content {
+    margin-bottom: 20px;
+    background-color: red;
+    color: blue;
+    text-align: center;
+}
+
+#survey-question {
+    margin-bottom: 20px;
+    background-color: blue;
+    color: red;
+    text-align: center;
+}
+
+#newSurveyBtn {
+    margin-bottom: 20px;
+    color: black;
 }

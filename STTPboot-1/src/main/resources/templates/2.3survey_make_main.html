@@ -24,16 +24,21 @@
           <p>side</p>
         </div>
         <div class="center-div">
-          <div class="survey-title-box">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+          <div class="survey-box">
+            <div class="survey-title-content">
+              <div id="surveyTitle">설문지 제목을 적는 공간</div>
+              <div id="surveyContent">설문지 설명을 적는 공간</div>
+            </div>
+
+            <div id="survey-question">설문지 질문 영역</div>
+            <button id="newSurveyBtn" type="button">+ 새 질문 추가</button>
           </div>
+
+          <form method="post">
+            <input type="submit" value="제출" />
+          </form>
         </div>
+
         <div class="side-div">
           <p>side</p>
         </div>
@@ -41,4 +46,5 @@
     </main>
     <footer id="footer">footer가들어갈 공간</footer>
   </body>
+  <script src="/2.3survey_make_main.js"></script>
 </html>
