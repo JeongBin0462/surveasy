@@ -5,7 +5,7 @@
 
 .body {
   background-color: #fbfafb;
-   margin: 0;
+  margin: 0;
   border: 0;
 }
 
@@ -26,7 +26,7 @@
 }
 
 /*
-  헤더~~
+헤더
 */
 
 #header {
@@ -38,8 +38,9 @@
   align-items: center;
 
   font-family: NanumSquareNeo-Variable;
-  
+
   width: 100%;
+  background: #fbfafb;
 }
 
 #headerTitle {
@@ -51,7 +52,7 @@
 
 #headerLogin {
   position: relative;
-  background-color:transparent;
+  background-color: transparent;
 
   left: 40%;
   bottom: 50%;
@@ -124,26 +125,26 @@
   text-decoration-line: none;
 }
 
-/*
-  ~~헤더
-*/
-
 .container {
   width: 100%;
+  padding-bottom: 30px;
+  background-color: #fbfafb;
+  
   display: flex;
   justify-content: center;
-  width: 100%;
+
+  font-family: NanumSquareNeo-Variable;
+  font-size: 18px;
 }
 
 .center-div {
   width: 55%;
-  background: #fbfafb;
-  height: 640px;
+  background-color: #bdd6d0;
 }
 
 .side-div {
   flex: 1;
-  background: black;
+  background-color: #fbfafb;
 }
 
 /*
