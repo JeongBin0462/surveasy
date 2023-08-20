@@ -1,52 +1,70 @@
 .center-div {
-    padding: 20px;
-    /* margin-top: 20px; */
-    /* margin-bottom: 20px; */
-    text-align: center;
+  padding: 20px;
+  text-align: center;
 }
 
 .survey-box {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background-color: #666666;
-    display: block;
-
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #666666;
+  display: block;
 }
 
 .survey-title-content {
-    /* margin: 20px;
-    padding: 20px; */
-    background-color: red;
-    color: blue;
-    text-align: left;
+  background-color: red;
+  color: blue;
+  text-align: left;
 }
 
 #surveyTitle {
-    /* margin: 20px; */
-    padding: 20px;
+  padding: 20px;
 }
 
 #surveyContent {
-    /* margin: 20px; */
-    padding: 20px;
+  padding: 20px;
 }
 
 #survey-question {
-    /* margin: 20px;
-    padding: 20px; */
-    background-color: blue;
-    color: red;
-    text-align: left;
+  background-color: blue;
+  color: red;
+  text-align: left;
 }
 
 #answerForm {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: green;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: green;
 }
 
-#newSurveyBtn {
-    margin-bottom: 20px;
-    color: black;
+.newSurveyBtn {
+  margin-bottom: 20px;
+  color: black;
+}
+
+/* 리모컨 css */
+#controller {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: #bdd6d0;
+
+  position: fixed;
+  right: 50%;
+  top: 40%;
+  margin-right: -720px;
+  text-align: center;
+  width: 120px;
+  height: 250px;
+
+  font-size: 15px;
+}
+
+#controllerCheckHiddenDiv {
+    margin-top: 10px;
+}
+
+.controllerInputDiv {
+    margin-top: 40px;
 }
