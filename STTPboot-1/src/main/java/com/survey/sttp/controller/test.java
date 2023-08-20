@@ -27,6 +27,4 @@ public class test {
 	public String makesurvey() {
 		return "2.3survey_make_main";
 	}
-	
-	
 }
