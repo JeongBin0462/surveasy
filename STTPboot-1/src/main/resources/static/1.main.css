@@ -1,0 +1,28 @@
+.survey {
+  width: 80%;
+  height: 40%;
+
+  background-color: aqua;
+}
+
+#survey-view-container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#survey-view-top {
+  margin-bottom: 30px;
+}
+
+#survey-view-bottom {
+  margin-top: 30px;
+}
+
+#surveyOption {
+  font-size: 16px;
+}

@@ -144,7 +144,6 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
 					// 다른 요소들도 비슷한 방법으로 갱신 (라디오 버튼, 라벨 등)
 				}
 			}
-
 			// formCount 값 감소
 			formCount--;
 		});

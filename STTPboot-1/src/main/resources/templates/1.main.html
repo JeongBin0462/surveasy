@@ -3,29 +3,62 @@
   <head>
     <meta charset="utf-8" />
     <title>STTP</title>
-    <link rel="stylesheet" href="./1.main.css" type="text/css" />
+    <link rel="stylesheet" href="/static/0.header_footer.css" type="text/css" />
+    <link rel="stylesheet" href="/static/1.main.css" type="text/css" />
   </head>
   <body>
     <header id="header">
-      <img src="../static/img/임시로고.png" id="headerTitle"></img>
-      <p id="headerLogin">로그인(버튼)</p>
+      <img src="/static/img/로고.png" id="headerTitle" />
+      <button id="headerLogin">로그인</button>
       <div id="headerNavi">
-        <a href="/test">설문지 작성(링크)</a>
-        <a href="#">설문참여(링크)</a>
-        <a href="#">설문결과(링크)</a>
-        <a href="#">MY PAGE(링크)</a>
-        <a href="#">고객센터(링크)</a>
+        <div id="surveyMainDiv">
+          <p class="naviLink">설문지 작성</p>
+          <div id="hiddenDiv">
+            <a href="#" class="hiddenText">새로만들기</a>
+            <a href="#" class="hiddenText">불러오기</a>
+            <a href="#" class="hiddenText">가져오기</a>
+          </div>
+        </div>
+        <a href="#" class="naviLink">설문참여</a>
+        <a href="#" class="naviLink">설문결과</a>
+        <a href="#" class="naviLink">MY PAGE</a>
+        <a href="#" class="naviLink">고객센터</a>
       </div>
     </header>
     <main>
       <div class="container">
         <div class="side-div"></div>
         <div class="center-div">
-          <p>여기로이동했는지확인</p>
+          <div id="survey-view-container">
+            <div class="survey" id="survey-view-top">
+              <select id="surveyOption">
+                <option>남은기간</option>
+                <option>인기순</option>
+                <option>최신순</option>
+              </select>
+            </div>
+            <div class="survey" id="survey-view-bottom"></div>
+          </div>
         </div>
         <div class="side-div"></div>
       </div>
     </main>
-    <footer id="footer">footer가들어갈 공간</footer>
+    <footer id="footer">
+      <div id="gitDiv">
+        <div class="gitDivOne">
+          <img src="/static/img/깃.png" class="footerGitImg" />
+          <p class="gitId">Jisu-Seong</p>
+        </div>
+        <div class="gitDivOne">
+          <img src="/static/img/깃.png" class="footerGitImg" />
+          <p class="gitId">JeongBin0462</p>
+        </div>
+      </div>
+      <div id="gitAdress">
+        <img src="/static/img/깃.png" class="footerGitImg" />
+        <p class="gitId">https://github.com/Jisu-Seong/STTP</p>
+      </div>
+    </footer>
   </body>
+  <script src="/static/0.header_footer.js"></script>
 </html>
