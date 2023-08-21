@@ -145,3 +145,35 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     newForm.scrollIntoView({ behavior: "smooth" });
   });
 }
+
+
+// 리모컨 로직
+document.addEventListener("DOMContentLoaded", initializeValues);
+
+function initializeValues() {
+  let answerType = sessionStorage.getItem('answerTypeSelect') || '선택안함';
+  let inputRequirement = sessionStorage.getItem('inputRequirementSelect') || '필수입력';
+
+  document.getElementById('answerTypeSelect').value = answerType;
+  document.getElementById('inputRequirementSelect').value = inputRequirement;
+}
+
+function updateSessionStorage(selectElement) {
+  let key = selectElement.id;
+  let value = selectElement.value;
+
+  sessionStorage.setItem(key, value);
+  console.log('SessionStorage updated with key:', key, 'and value:', value);
+}
+
+
+// 설정화면 로직
+function showScreen(screenId) {
+    const screens = document.querySelectorAll('.screen');
+    screens.forEach(screen => {
+        screen.classList.remove('active');
+    });
+
+    const selectedScreen = document.getElementById(screenId);
+    selectedScreen.classList.add('active');
+}

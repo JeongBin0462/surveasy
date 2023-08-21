@@ -33,54 +33,122 @@
         <a href="#" class="naviLink">고객센터</a>
       </div>
     </header>
-    <main>
-      <div class="container">
-        <div class="side-div">
-          <p>side</p>
-        </div>
-        <div class="center-div">
-          <div class="survey-box">
-            <div class="survey-title-content">
-              <div id="surveyTitle">설문지 제목을 적는 공간</div>
+    <div id="screenDiv">
+      <button
+        onclick="showScreen('screen1')"
+        class="screenBtn"
+        id="screenBtnLeft"
+      >
+        설문작성
+      </button>
+      <button
+        onclick="showScreen('screen2')"
+        class="screenBtn"
+        id="screenBtnRight"
+      >
+        설정하기
+      </button>
+    </div>
+    <div id="screen1" class="screen active">
+      <main>
+        <div class="container">
+          <div class="side-div">
+            <p>side</p>
+          </div>
+          <div class="center-div">
+            <div class="survey-box">
+              <div class="survey-title-content">
+                <div id="surveyTitle">설문지 제목을 적는 공간</div>
 
-              <div id="surveyContent">설문지 설명을 적는 공간</div>
+                <div id="surveyContent">설문지 설명을 적는 공간</div>
+              </div>
+
+              <div id="survey-question">(설문지 질문 영역)</div>
+              <button class="newSurveyBtn" type="button">+ 새 질문 추가</button>
             </div>
 
-            <div id="survey-question">(설문지 질문 영역)</div>
-            <button class="newSurveyBtn" type="button">+ 새 질문 추가</button>
+            <form method="post">
+              <button id="tempSaveBtn" type="button">임시저장</button>
+              <input type="submit" value="제출" />
+            </form>
           </div>
 
-          <form method="post">
-            <button id="tempSaveBtn" type="button">임시저장</button>
-            <input type="submit" value="제출" />
-          </form>
-        </div>
-
-        <!-- 리모컨자리야 -->
-        <div class="side-div">
-          <div id="controller">
-            <div class="controllerInputDiv">
-              <p>답변설정</p>
-              <div id="controllerCheckHiddenDiv"></div>
-              <select class="controllerSelectBox">
-                <option>체크박스</option>
-                <option>라디오버튼</option>
-                <option>서술형</option>
-              </select>
-            </div>
-            <div class="controllerInputDiv">
-              <select class="controllerSelectBox">
-                <option>필수입력</option>
-                <option>선택입력</option>
-              </select>
+          <!-- 리모컨자리야 -->
+          <div class="side-div">
+            <div id="controller">
               <div class="controllerInputDiv">
-                <button class="newSurveyBtn">+ 새 질문 추가</button>
+                <p>답변설정</p>
+                <div id="controllerCheckHiddenDiv"></div>
+                <select
+                  id="answerTypeSelect"
+                  class="controllerSelectBox"
+                  onchange="updateSessionStorage(this)"
+                >
+                  <option>선택안함</option>
+                  <option>체크박스</option>
+                  <option>라디오버튼</option>
+                  <option>서술형</option>
+                </select>
+              </div>
+              <div class="controllerInputDiv">
+                <select
+                  id="inputRequireSelect"
+                  class="controllerSelectBox"
+                  onchange="updateSessionStorage(this)"
+                >
+                  <option>필수입력</option>
+                  <option>선택입력</option>
+                </select>
+                <div class="controllerInputDiv">
+                  <button class="newSurveyBtn">+ 새 질문 추가</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
+
+    <div id="screen2" class="screen">
+      <main>
+        <div class="container">
+          <div class="side-div"></div>
+          <div class="center-div">
+            <div id="settingContainerDiv">
+              <div class="settingDiv">
+                <p>1. 설문지 공개 여부</p>
+                <input type="checkbox" id="publicSurvey" hidden />
+                <label for="publicSurvey" class="toggleSwitch">
+                  <span class="toggleButton"></span>
+                </label>
+              </div>
+              <div class="settingDiv">
+                <p>2. 로그인 필요 여부</p>
+                <input type="checkbox" id="requireLogin" hidden />
+                <label for="requireLogin" class="toggleSwitch">
+                  <span class="toggleButton"></span>
+                </label>
+              </div>
+              <div class="settingDiv">
+                <p>3. 설문지 통계 공개 여부</p>
+                <input type="checkbox" id="publicResult" hidden />
+                <label for="publicResult" class="toggleSwitch">
+                  <span class="toggleButton"></span>
+                </label>
+              </div>
+              <div class="settingDiv">
+                <p>4. 진행률 표시하기</p>
+                <input type="checkbox" id="showProgress" hidden />
+                <label for="showProgress" class="toggleSwitch">
+                  <span class="toggleButton"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="side-div"></div>
+        </div>
+      </main>
+    </div>
     <footer id="footer">
       <div id="gitDiv">
         <div class="gitDivOne">
