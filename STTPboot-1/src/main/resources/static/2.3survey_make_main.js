@@ -101,26 +101,38 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     checkboxRadio.addEventListener("change", function() {
         if (checkboxRadio.checked) {
             // 개수 선택(20개 이하)
+            // input type number
 
             // 최소 응답 개수
+            // input type number
 
             // 최대 응답 개수
+            // input type number
 
-            // ()
         }
     });
 
     // 라디오 라디오 버튼의 이벤트 리스너
     radioRadio.addEventListener("change", function() {
         if (radioRadio.checked) {
-            
+            // 1. 각 라디오
+            // 2점척도(예/아니오)
+
+            // 5점척도
+
+            // 7점척도
+
+            // 개수선택(7개이하)
+
+            // 2. 라디오가 선택되면 
+
         }
     });
 
     // 서술형 라디오 버튼의 이벤트 리스너
     descriptiveRadio.addEventListener("change", function() {
         if (descriptiveRadio.checked) {
-            
+            // 입력칸 1개 
         }
     });
 
