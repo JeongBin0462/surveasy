@@ -25,21 +25,23 @@
 }
 
 #survey-question {
+  margin-top: 20px;
+  margin-bottom: 20px;
   background-color: blue;
   color: red;
   text-align: left;
 }
 
-#answerForm {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: green;
-}
-
 .newSurveyBtn {
   margin-bottom: 20px;
   color: black;
+}
+
+.newDiv {
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: yellow;
 }
 
 /* 리모컨 css */
@@ -80,6 +82,7 @@
 .screen {
   display: none;
 }
+
 .active {
   display: block;
 }
@@ -152,17 +155,17 @@
   background: #1d7659;
 }
 
-#publicSurvey:checked ~ .toggleSwitch,
-#requireLogin:checked ~ .toggleSwitch,
-#publicResult:checked ~ .toggleSwitch,
-#showProgress:checked ~ .toggleSwitch {
+#publicSurvey:checked~.toggleSwitch,
+#requireLogin:checked~.toggleSwitch,
+#publicResult:checked~.toggleSwitch,
+#showProgress:checked~.toggleSwitch {
   background: #1d7659;
 }
 
-#publicSurvey:checked ~ .toggleSwitch .toggleButton,
-#requireLogin:checked ~ .toggleSwitch .toggleButton,
-#publicResult:checked ~ .toggleSwitch .toggleButton,
-#showProgress:checked ~ .toggleSwitch .toggleButton {
+#publicSurvey:checked~.toggleSwitch .toggleButton,
+#requireLogin:checked~.toggleSwitch .toggleButton,
+#publicResult:checked~.toggleSwitch .toggleButton,
+#showProgress:checked~.toggleSwitch .toggleButton {
   left: calc(100% - 44px);
   background: #fff;
 }
