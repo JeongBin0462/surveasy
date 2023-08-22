@@ -1,4 +1,4 @@
-package com.survey.sttp.mapper;
+package com.survey.sttp.mapper.user;
 
 import java.util.List;
 

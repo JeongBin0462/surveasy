@@ -1,4 +1,4 @@
-package com.survey.sttp.controller;
+package com.survey.sttp.controller.user;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.survey.sttp.mapper.UserProfileMapper;
+import com.survey.sttp.mapper.user.UserProfileMapper;
 import com.survey.sttp.model.UserProfile;
 
 @RestController
