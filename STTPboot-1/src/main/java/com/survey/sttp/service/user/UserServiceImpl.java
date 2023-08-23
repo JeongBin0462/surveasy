@@ -1,12 +1,13 @@
 package com.survey.sttp.service.user;
 
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.survey.sttp.mapper.user.UserMapper;
 import com.survey.sttp.model.user.Employees;
 import com.survey.sttp.model.user.Student;
 import com.survey.sttp.model.user.User;
+import com.survey.sttp.model.user.UserDTO;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -16,25 +17,26 @@ public class UserServiceImpl implements UserService {
 		this.userMapper = userMapper;
 	}
 
-	public int insertUser(User user) {
+	public int insertUser(UserDTO userDTO) {
+		User user = new User();
+		Student student = new Student();
+		Employees employees = new Employees();
+
+		BeanUtils.copyProperties(userDTO, user);
+		BeanUtils.copyProperties(userDTO, student);
+		BeanUtils.copyProperties(userDTO, employees);
+		
 	    int result = userMapper.insertUser(user);
 
 	    if ("학생".equals(user.getJob())) {
-	        Student student = new Student();
 	        student.setUserno(user.getUserno());
-	        student.setGrade(user.getGrade());
-	        student.setCollege(user.getCollege());
 	        userMapper.insertStudent(student);
 	    }
 	    
 	    if ("직장인".equals(user.getJob())) {
-	    	Employees employees = new Employees();
 	    	employees.setUserno(user.getUserno());
-	    	employees.setDepartment(user.getDepartment());
-	    	employees.setPosition(user.getPosition());
 	        userMapper.insertEmployees(employees);
 	    }
-
 	    return result;
 	}
 }

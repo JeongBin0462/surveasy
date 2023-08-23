@@ -20,4 +20,5 @@ public class SecurityConfig {
 						new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
 		return http.build();
 	}
+	
 }

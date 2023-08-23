@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.survey.sttp.model.user.User;
+import com.survey.sttp.model.user.UserDTO;
 import com.survey.sttp.service.user.UserService;
 
 @RestController
@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/join")
-    public int createUser(@RequestBody User user) {
-        return userService.insertUser(user);
+    public int createUser(@RequestBody UserDTO userDTO) {
+        return userService.insertUser(userDTO);
     }
 }
