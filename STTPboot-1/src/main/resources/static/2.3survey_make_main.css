@@ -6,7 +6,7 @@
 .survey-box {
   margin-top: 20px;
   margin-bottom: 20px;
-  background-color: #666666;
+  background-color: grey;
   display: block;
 }
 
@@ -16,12 +16,15 @@
   text-align: left;
 }
 
-#surveyTitle {
+#surveyTitle,
+#surveyContent {
   padding: 20px;
 }
 
-#surveyContent {
-  padding: 20px;
+.custom-input {
+  width: 80%;
+  height: 40px;
+  /* font-size: 30px; */
 }
 
 #survey-question {
@@ -37,11 +40,18 @@
   color: black;
 }
 
-.newDiv {
+.topDiv,
+.bottomDiv {
   padding: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
-  background-color: yellow;
+  background-color: green;
+}
+
+.inputQuestion {
+  margin-right: 20px;
+  width: 80%;
+  height: 40px;
 }
 
 /* 리모컨 css */
