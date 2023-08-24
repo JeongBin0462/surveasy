@@ -300,7 +300,6 @@ function createAnswer(
 
 // 답변 요소 공통 생성 메소드
 function defaultAnswerContent(selectElem, topDiv, answerDiv, newAnswerBtn) {
-  let currentAnswerCounts = JSON.parse(topDiv.dataset.answerCounts);
   // input type="text" 요소 생성
   var inputElement = document.createElement("input");
   inputElement.type = "text";
@@ -338,7 +337,6 @@ function defaultAnswerContent(selectElem, topDiv, answerDiv, newAnswerBtn) {
   answerDiv.appendChild(buttonElement);
 
   topDiv.appendChild(answerDiv);
-  topDiv.dataset.currentAnswerCounts = JSON.stringify(currentAnswerCounts); // 저장하기
 }
 
 // let count = 0;
