@@ -1,11 +1,15 @@
 window.onload = function () {
+  
+  let employeesBox = document.getElementById("input-employees-box");
+  let studentBox = document.getElementById("input-student-box");
+  
+  employeesBox.classList.add('hidden');
+  studentBox.classList.add('hidden');
+
   document
     .getElementById("input-job")
     .addEventListener("change", function () {
       let selectedJob = this.value;
-      
-      let employeesBox = document.getElementById("input-employees-box");
-      let studentBox = document.getElementById("input-student-box");
       
       employeesBox.classList.add('hidden');
       studentBox.classList.add('hidden');
@@ -17,6 +21,67 @@ window.onload = function () {
       }
     });
 };
+
+document.getElementById("checkUsernameButton").addEventListener("click", function(event) {
+	event.stopPropagation();
+    console.log("Username button clicked");
+    const username = document.getElementById("usernameInput").value;
+
+    fetch(`././join?username=${username}`, {
+        method: "GET",
+    })
+    .then(response => {
+		return response.json();
+	})
+    .then(data => {
+        if (data.isDuplicate) {
+            document.getElementById("usernameError").textContent = data.message;
+        } else {
+            document.getElementById("usernameError").textContent = data.message;
+        }
+    })
+});
+
+document.getElementById("checkEmailButton").addEventListener("click", function(event) {
+	event.stopPropagation();
+    console.log("email button clicked");
+    const email = document.getElementById("emailInput").value;
+
+    fetch(`././join?email=${email}`, {
+        method: "GET"
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        if (data.isDuplicate) {
+            document.getElementById("emailError").textContent = data.message;
+        } else {
+            document.getElementById("emailError").textContent = data.message;
+        }
+    })
+    });
+
+
+document.getElementById("checkPhonenumberButton").addEventListener("click", function(event) {
+	event.stopPropagation();
+    console.log("phonenumber button clicked");
+    const phonenumber = document.getElementById("phonenumberInput").value;
+
+    fetch(`././join?phonenumber=${phonenumber}`, {
+        method: "GET",
+    })
+    .then(response => {
+		return response.json();
+	})
+    .then(data => {
+        if (data.isDuplicate) {
+            document.getElementById("phonenumberError").textContent = data.message;
+        } else {
+            document.getElementById("phonenumberError").textContent = data.message;
+        }
+    })
+});
 
 function getValueOrDefault(selector, defaultValue = null) {
     const value = document.querySelector(selector).value;
@@ -40,6 +105,7 @@ function submitForm() {
     const formData = {
         username: document.querySelector('[name="username"]').value,
         password: document.querySelector('[name="password"]').value,
+        passwordCheck: document.querySelector('[name="passwordCheck"]').value,
         email: document.querySelector('[name="email"]').value,
         phonenumber: document.querySelector('[name="phonenumber"]').value,
         age: document.querySelector('[name="age"]').value,
@@ -69,13 +135,34 @@ function submitForm() {
         alert('회원가입 성공!');
         window.location.href = data.redirectUrl;
     } else {
-        alert('회원가입 실패: ' + data.message);
+        // 오류 메시지가 반환된 경우 화면에 표시
+        document.querySelector('#usernameError').textContent = "";
+		document.querySelector('#passwordError').textContent = "";
+		document.querySelector('#emailError').textContent = "";
+		document.querySelector('#phonenumberError').textContent = "";
+
+if (data.errors && data.errors.length > 0) {
+    data.errors.forEach(error => {
+        if (error.includes("사용자 이름은 한글, 영어, 숫자를 이용하여 5~20자로 구성되어야 합니다.")) {
+            document.querySelector('#usernameError').textContent = error;
+        }
+        if (error.includes("비밀번호는 5~15자의 길이를 가져야 하며, 특수문자, 숫자, 소문자, 대문자를 모두 포함해야 합니다.")) {
+            document.querySelector('#passwordError').textContent = error;
+        } else if (error.includes("입력한 비밀번호가 서로 다릅니다")) {
+			 document.querySelector('#passwordError').textContent = error;
+		}
+        if (error.includes("유효한 이메일 형식이 아닙니다.")) {
+            document.querySelector('#emailError').textContent = error;
+        }
+        if (error.includes("유효한 전화번호 형식이 아닙니다.")) {
+            document.querySelector('#phonenumberError').textContent = error;
+        }
+    });
+} else {
+            alert('회원가입 실패: ' + data.message);
+        }
     }
 })
-.catch(error => {
-    console.error('Error:', error);
-    alert('회원가입 중 오류 발생!');
-});
 }
 
 document.getElementById('registrationForm').addEventListener('submit', function(event) {

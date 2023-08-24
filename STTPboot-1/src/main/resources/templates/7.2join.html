@@ -29,19 +29,19 @@
       <div class="container">
         <div class="side-div"></div>
         <div class="center-div">
-          <form method="post" id="registrationForm">
+          <form th:action="@{/register}" th:object="${user}" method="post" id="registrationForm">
             <div id="form-container">
               <div class="input-box" id="username-box">
                 <p class="input-text">아이디</p>
-                <input type="text" name="username" class="input-box-input" />
-                <button class="input-btn-Div">아이디 확인</button>
-                <p class="error-massage">아이디오류확인용메시지입니다다다다다</p>
+                <input type="text" name="username" class="input-box-input" id="usernameInput" />
+                <button class="input-btn-Div" id="checkUsernameButton">아이디 확인</button>
+                <p id="usernameError" class="errorMessage"></p>
               </div>
               <div class="input-box">
                 <p class="input-text">비밀번호</p>
                 <input type="password" name="password" class="input-box-input" />
                 <button class="input-btn-Div">비밀번호 확인</button>
-                <p class="error-massage">비밀가같지않습니다다다다다다다다다다</p>
+                <p id="passwordError" class="errorMessage"></p>
               </div>
               <div class="input-box">
                 <p class="input-text">비밀번호 확인</p>
@@ -50,15 +50,15 @@
               </div>
               <div class="input-box">
                 <p class="input-text">이메일</p>
-                <input type="email" name="email" class="input-box-input" />
-                <button class="input-btn-Div">이메일 확인</button>
-                <p class="error-massage">가입된이메일이있습니다다다다다다다다</p>
+                <input type="email" name="email" class="input-box-input" id="emailInput" />
+                <button class="input-btn-Div" id="checkEmailButton">이메일 확인</button>
+                <p id="emailError" class="errorMessage"></p>
               </div>
               <div class="input-box">
                 <p class="input-text">휴대폰번호</p>
-                <input type="number" name="phonenumber" class="input-box-input" />
-                <button class="input-btn-Div">휴대폰번호 확인</button>
-                <p class="error-massage">가입된번호의휴대폰이있습니다다다다다</p>
+                <input type="number" name="phonenumber" class="input-box-input" id="phonenumberInput" />
+                <button class="input-btn-Div" id="checkPhonenumberButton">휴대폰번호 확인</button>
+                <p id="phonenumberError" class="errorMessage"></p>
               </div>
               <div class="input-box">
                 <div class="input-box-left">

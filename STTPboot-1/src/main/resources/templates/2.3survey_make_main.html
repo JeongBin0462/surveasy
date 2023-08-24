@@ -3,12 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <title>설문지 작성</title>
-    <link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
-    <link rel="stylesheet" href="/2.3survey_make_main.css" type="text/css" />
+    <link rel="stylesheet" href="/static/0.header_footer.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="/static/2.3survey_make_main.css"
+      type="text/css"
+    />
   </head>
   <body>
     <header id="header">
-      <img src="/img/로고.png" id="headerTitle" />
+      <img src="/static/img/로고2차.png" id="headerTitle" />
       <button id="headerLogin">로그인</button>
       <div id="headerNavi">
         <div id="surveyMainDiv">
@@ -51,12 +55,24 @@
             <form method="post">
               <div class="survey-box">
                 <div class="survey-title-content">
-                  <div id="surveyTitle">설문지 제목을 적는 공간</div>
+                  <div id="surveyTitle">
+                    <input
+                      type="text"
+                      value="설문지 제목 입력"
+                      class="custom-input"
+                    />
+                  </div>
 
-                  <div id="surveyContent">설문지 설명을 적는 공간</div>
+                  <div id="surveyContent">
+                    <input
+                      type="text"
+                      value="설문지 내용 입력"
+                      class="custom-input"
+                    />
+                  </div>
                 </div>
                 <div id="survey-question">
-                  (설문지 질문 영역)
+                  <!-- 설문지 문항 영역 -->
                   <!-- <div>
                     <button class="newAnswerBtn" type="button">
                       + 새 답변 추가
@@ -68,8 +84,8 @@
                 </button>
               </div>
 
-              <button id="tempSaveBtn" type="button">임시저장</button>
-              <input type="submit" value="제출" />
+              <button class="tempSaveBtn" type="button">임시저장</button>
+              <input type="submit" class="submitBtn" value="제출" />
             </form>
           </div>
 
@@ -152,20 +168,20 @@
     <footer id="footer">
       <div id="gitDiv">
         <div class="gitDivOne">
-          <img src="/img/깃.png" class="footerGitImg" />
+          <img src="/static/img/깃.png" class="footerGitImg" />
           <p class="gitId">Jisu-Seong</p>
         </div>
         <div class="gitDivOne">
-          <img src="/img/깃.png" class="footerGitImg" />
+          <img src="/static/img/깃.png" class="footerGitImg" />
           <p class="gitId">JeongBin0462</p>
         </div>
       </div>
       <div id="gitAdress">
-        <img src="/img/깃.png" class="footerGitImg" />
+        <img src="/static/img/깃.png" class="footerGitImg" />
         <p class="gitId">https:/github.com/Jisu-Seong/STTP</p>
       </div>
     </footer>
   </body>
-  <script src="/0.header_footer.js"></script>
-  <script src="/2.3survey_make_main.js"></script>
+  <script src="/static/0.header_footer.js"></script>
+  <script src="/static/2.3jungbin_test.js"></script>
 </html>

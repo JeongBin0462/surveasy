@@ -51,12 +51,8 @@ public class UserController {
 	@GetMapping(value = "/join", params = "username")
     public ResponseEntity<Map<String, Object>> checkUsername(@RequestParam("username") String username) {
         Map<String, Object> response = new HashMap<>();
-        System.out.println("여기오니?");
-        System.out.println("eee" + username);
         try {
-        	System.out.println("오겠지?");
             int userCount = userService.checkUsername(username);
-            System.out.println("여기까지만와줘");
             if (userCount > 0) {
                 response.put("isDuplicate", true);
                 response.put("message", "이미 사용중인 아이디입니다.");
