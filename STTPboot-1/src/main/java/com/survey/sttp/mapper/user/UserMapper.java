@@ -3,7 +3,10 @@ package com.survey.sttp.mapper.user;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
+import com.survey.sttp.model.UserProfile;
 import com.survey.sttp.model.user.Employees;
 import com.survey.sttp.model.user.Student;
 import com.survey.sttp.model.user.User;
@@ -46,7 +49,6 @@ public interface UserMapper {
 	    ")",
 	    "</script>"
 	})
-
     int insertStudent(Student student);
 	
 	@Insert({
@@ -61,6 +63,14 @@ public interface UserMapper {
 	    ")",
 	    "</script>"
 	})
-
     int insertEmployees(Employees employees);
+	
+	@Select("SELECT userno FROM user WHERE username=#{username}")
+	Integer getUsername(@Param("username") String username);
+	
+	@Select("SELECT userno FROM user WHERE email=#{email}")
+	Integer getEmail(@Param("email") String email);
+	
+	@Select("SELECT userno FROM user WHERE phonenumber=#{phonenumber}")
+	Integer getPhonenumber(@Param("phonenumber") String phonenumber);
 }
