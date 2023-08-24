@@ -320,7 +320,15 @@ function defaultAnswerContent(selectElem, topDiv, answerDiv, newAnswerBtn) {
 
     let selectedIndex = selectElem.selectedIndex;
     let selectedText = selectElem.options[selectedIndex].text;
+
+    // topDiv의 data-answerCounts 속성에서 현재 답변 개수 정보를 가져옵니다.
+    let currentAnswerCounts = JSON.parse(topDiv.dataset.answerCounts);
+
     currentAnswerCounts[selectedText]--;
+
+    // 변경된 currentAnswerCounts를 topDiv의 data-answerCounts 속성에 저장합니다.
+    topDiv.dataset.answerCounts = JSON.stringify(currentAnswerCounts);
+
     checkAnswerCount(selectedText, newAnswerBtn);
     topDiv.removeChild(answerDiv);
   });
