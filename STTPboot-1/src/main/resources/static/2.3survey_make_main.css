@@ -1,19 +1,28 @@
 .center-div {
   padding: 20px;
   text-align: center;
+  border-radius: 10px;
+}
+
+.tempSaveBtn,
+.submitBtn {
+  width: 100px;
+  height: 40px;
+  font-size: 20px;
 }
 
 .survey-box {
   margin-top: 20px;
   margin-bottom: 20px;
-  background-color: grey;
+  /* background-color: grey; */
   display: block;
 }
 
 .survey-title-content {
-  background-color: red;
-  color: blue;
+  background-color: #1d7659;
+  color: white;
   text-align: left;
+  margin-bottom: 50px;
 }
 
 #surveyTitle,
@@ -24,14 +33,14 @@
 .custom-input {
   width: 80%;
   height: 40px;
-  /* font-size: 30px; */
+  font-size: 20px;
 }
 
 #survey-question {
   margin-top: 20px;
   margin-bottom: 20px;
-  background-color: blue;
-  color: red;
+  /* background-color: blue; */
+  color: white;
   text-align: left;
 }
 
@@ -40,18 +49,67 @@
   color: black;
 }
 
-.topDiv,
-.bottomDiv {
+.topDiv {
   padding: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
-  background-color: green;
+  background-color: #3a9677;
+}
+
+.bottomDiv {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .inputQuestion {
   margin-right: 20px;
   width: 80%;
   height: 40px;
+}
+
+.answerTypeCombo {
+  height: 40px;
+}
+
+.answerDesc {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+  padding: 20px;
+  width: 77%;
+  height: 40px;
+  background-color: white;
+}
+
+.btn_deleteQuestion {
+  margin-left: 25px;
+}
+
+.maxLabel {
+  margin-left: 50px;
+}
+
+.answerContainer {
+  margin-top: 20px;
+}
+
+.answerInput {
+  width: 60%;
+  height: 20px;
+}
+
+.btn_answerDelete,
+.answerInput {
+  margin-left: 20px;
+}
+
+.input_questionText {
+  font-size: 30px;
+}
+
+.inputQuestion {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* 리모컨 css */
@@ -74,7 +132,7 @@
 }
 
 #controllerCheckHiddenDiv {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .controllerSelectBox {
