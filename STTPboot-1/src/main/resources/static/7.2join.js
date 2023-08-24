@@ -23,8 +23,11 @@ window.onload = function () {
 };
 
 document.getElementById("checkUsernameButton").addEventListener("click", function(event) {
-	event.stopPropagation();
-    console.log("Username button clicked");
+	event.preventDefault();
+	document.querySelector('#usernameError').textContent = "";
+		document.querySelector('#passwordError').textContent = "";
+		document.querySelector('#emailError').textContent = "";
+		document.querySelector('#phonenumberError').textContent = "";
     const username = document.getElementById("usernameInput").value;
 
     fetch(`././join?username=${username}`, {
@@ -34,7 +37,7 @@ document.getElementById("checkUsernameButton").addEventListener("click", functio
 		return response.json();
 	})
     .then(data => {
-        if (data.isDuplicate) {
+        if (data.isDuplicateUsername) {
             document.getElementById("usernameError").textContent = data.message;
         } else {
             document.getElementById("usernameError").textContent = data.message;
@@ -43,8 +46,11 @@ document.getElementById("checkUsernameButton").addEventListener("click", functio
 });
 
 document.getElementById("checkEmailButton").addEventListener("click", function(event) {
-	event.stopPropagation();
-    console.log("email button clicked");
+	event.preventDefault();
+	document.querySelector('#usernameError').textContent = "";
+		document.querySelector('#passwordError').textContent = "";
+		document.querySelector('#emailError').textContent = "";
+		document.querySelector('#phonenumberError').textContent = "";
     const email = document.getElementById("emailInput").value;
 
     fetch(`././join?email=${email}`, {
@@ -54,18 +60,21 @@ document.getElementById("checkEmailButton").addEventListener("click", function(e
         return response.json();
     })
     .then(data => {
-        if (data.isDuplicate) {
+        if (data.isDuplicateEmail) {
             document.getElementById("emailError").textContent = data.message;
         } else {
             document.getElementById("emailError").textContent = data.message;
         }
     })
-    });
+});
 
 
 document.getElementById("checkPhonenumberButton").addEventListener("click", function(event) {
-	event.stopPropagation();
-    console.log("phonenumber button clicked");
+	event.preventDefault();
+	document.querySelector('#usernameError').textContent = "";
+		document.querySelector('#passwordError').textContent = "";
+		document.querySelector('#emailError').textContent = "";
+		document.querySelector('#phonenumberError').textContent = "";
     const phonenumber = document.getElementById("phonenumberInput").value;
 
     fetch(`././join?phonenumber=${phonenumber}`, {
@@ -75,13 +84,33 @@ document.getElementById("checkPhonenumberButton").addEventListener("click", func
 		return response.json();
 	})
     .then(data => {
-        if (data.isDuplicate) {
+        if (data.isDuplicatePhonenumber) {
             document.getElementById("phonenumberError").textContent = data.message;
         } else {
             document.getElementById("phonenumberError").textContent = data.message;
         }
     })
 });
+
+document.getElementById('checkPasswordSame').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.querySelector('#usernameError').textContent = "";
+		document.querySelector('#passwordError').textContent = "";
+		document.querySelector('#emailError').textContent = "";
+		document.querySelector('#phonenumberError').textContent = "";
+
+    const password = document.querySelector('input[name="password"]').value;
+    const passwordCheck = document.querySelector('input[name="passwordCheck"]').value;
+
+    const passwordError = document.getElementById('passwordError');
+
+    if (password === passwordCheck) {
+        passwordError.textContent = "확인되었습니다";
+    } else {
+        passwordError.textContent = "서로 다른 비밀번호를 입력하였습니다";
+    }
+});
+
 
 function getValueOrDefault(selector, defaultValue = null) {
     const value = document.querySelector(selector).value;
@@ -135,7 +164,6 @@ function submitForm() {
         alert('회원가입 성공!');
         window.location.href = data.redirectUrl;
     } else {
-        // 오류 메시지가 반환된 경우 화면에 표시
         document.querySelector('#usernameError').textContent = "";
 		document.querySelector('#passwordError').textContent = "";
 		document.querySelector('#emailError').textContent = "";
@@ -159,7 +187,7 @@ if (data.errors && data.errors.length > 0) {
         }
     });
 } else {
-            alert('회원가입 실패: ' + data.message);
+            alert('회원가입 실패: 중복확인을 부탁드립니다.');
         }
     }
 })

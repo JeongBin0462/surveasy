@@ -1,5 +1,7 @@
 package com.survey.sttp.mapper.user;
 
+import java.util.Optional;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -73,4 +75,7 @@ public interface UserMapper {
 	
 	@Select("SELECT userno FROM user WHERE phonenumber=#{phonenumber}")
 	Integer getPhonenumber(@Param("phonenumber") String phonenumber);
+	
+	@Select("SELECT * FROM user WHERE username=#{username}")
+	Optional<User> findByusername(@Param("username") String username);
 }

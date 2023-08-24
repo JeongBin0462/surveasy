@@ -8,7 +8,7 @@
   </head>
   <body>
     <header id="header">
-      <img src="/img/로고.png" id="headerTitle" />
+      <img src="/img/로고2차.png" id="headerTitle" />
       <button id="headerLogin">로그인</button>
       <div id="headerNavi">
         <div id="surveyMainDiv">
@@ -40,13 +40,12 @@
               <div class="input-box">
                 <p class="input-text">비밀번호</p>
                 <input type="password" name="password" class="input-box-input" />
-                <button class="input-btn-Div">비밀번호 확인</button>
+                <button class="input-btn-Div" id="checkPasswordSame">비밀번호 확인</button>
                 <p id="passwordError" class="errorMessage"></p>
               </div>
               <div class="input-box">
                 <p class="input-text">비밀번호 확인</p>
                 <input type="password" name="passwordCheck" class="input-box-input" />
-                
               </div>
               <div class="input-box">
                 <p class="input-text">이메일</p>
@@ -152,7 +151,7 @@
                 <div class="input-box-left">
                   <p class="input-text">지역</p>
                   <select name="region" class="input-box-input">
-                    <option value>선택</option>
+                    <option>선택</option>
                     <option>강원</option>
                     <option>경기</option>
                     <option>경남</option>

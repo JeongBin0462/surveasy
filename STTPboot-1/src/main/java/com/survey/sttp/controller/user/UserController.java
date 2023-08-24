@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +23,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.survey.sttp.model.user.User;
 import com.survey.sttp.model.user.UserDTO;
+import com.survey.sttp.service.user.UserRepository;
 import com.survey.sttp.service.user.UserService;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/STTP/user")
+@RequestMapping("/surveasy/user")
 @Slf4j
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 
 	@GetMapping(value = "/joinagree")
@@ -54,10 +59,10 @@ public class UserController {
         try {
             int userCount = userService.checkUsername(username);
             if (userCount > 0) {
-                response.put("isDuplicate", true);
+                response.put("isDuplicateUsername", true);
                 response.put("message", "이미 사용중인 아이디입니다.");
             } else {
-                response.put("isDuplicate", false);
+                response.put("isDuplicateUsername", false);
                 response.put("message", "사용 가능한 아이디입니다.");
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -74,10 +79,10 @@ public class UserController {
         try {
             int userCount = userService.checkEmail(email);
             if (userCount > 0) {
-                response.put("isDuplicate", true);
+                response.put("isDuplicateEmail", true);
                 response.put("message", "이미 사용중인 이메일입니다.");
             } else {
-                response.put("isDuplicate", false);
+                response.put("isDuplicateEmail", false);
                 response.put("message", "사용 가능한 이메일입니다.");
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -93,10 +98,10 @@ public class UserController {
         try {
             int userCount = userService.checkPhonenumber(phonenumber);
             if (userCount > 0) {
-                response.put("isDuplicate", true);
+                response.put("isDuplicatePhonenumber", true);
                 response.put("message", "이미 사용중인 전화번호입니다.");
             } else {
-                response.put("isDuplicate", false);
+                response.put("isDuplicatePhonenumber", false);
                 response.put("message", "사용 가능한 전화번호입니다.");
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -138,5 +143,23 @@ public class UserController {
 		}
 
 		return response;
+	}
+	
+	@GetMapping(value = "/login")
+    public String login() {
+        return "/7.3login";
+    }
+	
+	@PostMapping(value = "/login")
+	public String loginCheckUsername(@RequestParam("username") String username) {
+		Optional<User> user = userRepository.findByusername(username);
+		
+		if(user.isEmpty()) {
+			System.out.println("회원없음");
+		} else {
+			System.out.println("로그인성공");
+		}
+		
+		return "/1.main";
 	}
 }
