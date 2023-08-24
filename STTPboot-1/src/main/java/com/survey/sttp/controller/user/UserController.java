@@ -1,10 +1,14 @@
 package com.survey.sttp.controller.user;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.survey.sttp.model.user.UserDTO;
 import com.survey.sttp.service.user.UserService;
@@ -34,9 +38,25 @@ public class UserController {
 		return "/7.2join";
 	}
 
+    @ResponseBody
     @PostMapping(value = "/join", consumes = "application/json")
-    public String createUser(@RequestBody UserDTO userDTO) {
-    	log.info(userDTO.toString());
-        return userService.insertUser(userDTO);
+    public Map<String, Object> createUser(@RequestBody UserDTO userDTO) {
+        Map<String, Object> response = new HashMap<>();
+        log.info(userDTO.toString());
+
+        if (userService.insertUser(userDTO)) {
+            response.put("success", true);
+            response.put("redirectUrl", "/STTP/main");
+        } else {
+            response.put("success", false);
+            response.put("redirectUrl", "/STTP/user/join");
+        }
+
+        return response;
     }
 }
+
+
+
+
+

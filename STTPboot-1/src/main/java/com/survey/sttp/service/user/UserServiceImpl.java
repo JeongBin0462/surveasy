@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 		this.userMapper = userMapper;
 	}
 
-	public String insertUser(UserDTO userDTO) {
+	public boolean insertUser(UserDTO userDTO) {
 		User user = new User();
 		Student student = new Student();
 		Employees employees = new Employees();
@@ -37,6 +37,6 @@ public class UserServiceImpl implements UserService {
 	    	employees.setUserno(user.getUserno());
 	        userMapper.insertEmployees(employees);
 	    }
-	    return "redirect:/STTP/main";
+	    return result > 0;
 	}
 }
