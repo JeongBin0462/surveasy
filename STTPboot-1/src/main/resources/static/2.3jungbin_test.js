@@ -39,11 +39,11 @@ function surveyTypeChange(event) {
 
   // 새로운 유형에 따라 답변 개수 확인
   let selectedText = selectElem.options[selectElem.selectedIndex].text;
-  
+
   // currentAnswerCounts의 해당 타입의 개수를 0으로 초기화
-  let currentAnswerCounts = JSON.parse(topDiv.dataset.answerCounts); 
+  let currentAnswerCounts = JSON.parse(topDiv.dataset.answerCounts);
   currentAnswerCounts[selectedText] = 0;
-  
+
   // 변경된 currentAnswerCounts를 topDiv의 data-answerCounts 속성에 저장
   topDiv.dataset.answerCounts = JSON.stringify(currentAnswerCounts);
 
@@ -102,24 +102,24 @@ function surveyTypeChange(event) {
 // 답변추가리스너
 function addAnswer(event) {
   let topDiv = event.currentTarget.parentElement;
-  let currentAnswerCounts = JSON.parse(topDiv.dataset.answerCounts);  // 가져오기
+  let currentAnswerCounts = JSON.parse(topDiv.dataset.answerCounts); // 가져오기
   let selectElem = topDiv.querySelector(".answerTypeCombo");
 
   // 현재의 답변 유형 텍스트 추출
   let selectedIndex = selectElem.selectedIndex;
   let selectedText = selectElem.options[selectedIndex].text;
 
-  currentAnswerCounts[selectedText]++;  // 수정하기
+  currentAnswerCounts[selectedText]++; // 수정하기
   console.log("answerCounts 상태: " + currentAnswerCounts[selectedText]);
 
-  topDiv.dataset.answerCounts = JSON.stringify(currentAnswerCounts);  // 저장하기
+  topDiv.dataset.answerCounts = JSON.stringify(currentAnswerCounts); // 저장하기
   checkAnswerCount(selectedText, event.currentTarget);
 
   // 답변 생성 함수 호출
   createAnswer(
     topDiv,
     formCount1,
-    selectedText,  // 수정된 부분
+    selectedText, // 수정된 부분
     selectElem,
     event.currentTarget
   );
@@ -132,7 +132,8 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     formCount1++;
 
     // 리모컨 요소
-    let answerTypeSelectValue = document.getElementById("answerTypeSelect").value;
+    let answerTypeSelectValue =
+      document.getElementById("answerTypeSelect").value;
 
     // 설문 질문 컨테이너 생성
     var topDiv = document.createElement("div");
@@ -143,7 +144,7 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
       라디오버튼: 0,
       서술형: 0,
     };
-    
+
     topDiv.dataset.answerCounts = JSON.stringify(topDivAnswerCounts);
 
     // 질문 레이블 생성
@@ -287,7 +288,6 @@ function createAnswer(
   currentAnswerCounts[selectedText]++;
 }
 
-
 // 답변 요소 공통 생성 메소드
 function defaultAnswerContent(selectElem, topDiv, answerDiv, newAnswerBtn) {
   // input type="text" 요소 생성
@@ -309,9 +309,16 @@ function defaultAnswerContent(selectElem, topDiv, answerDiv, newAnswerBtn) {
 
     let selectedIndex = selectElem.selectedIndex;
     let selectedText = selectElem.options[selectedIndex].text;
+
+    // topDiv의 data-answerCounts 속성에서 현재 답변 개수 정보를 가져옵니다.
+    let currentAnswerCounts = JSON.parse(topDiv.dataset.answerCounts);
+
     currentAnswerCounts[selectedText]--;
+
+    // 변경된 currentAnswerCounts를 topDiv의 data-answerCounts 속성에 저장합니다.
+    topDiv.dataset.answerCounts = JSON.stringify(currentAnswerCounts);
+
     checkAnswerCount(selectedText, newAnswerBtn);
-    console.log("answerCounts 상태: " + answerCounts[selectedText]);
     topDiv.removeChild(answerDiv);
   });
 
