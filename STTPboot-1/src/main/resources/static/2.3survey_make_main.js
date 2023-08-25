@@ -247,9 +247,17 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     topDiv.appendChild(selectElem);
     topDiv.appendChild(newAnswerBtn);
 
-    // topDiv와 bottomDiv를 감싸는 totalDiv 생성
-    // let totalDiv = document.createElement("div");
-    // totalDiv.className = "questionContainer";
+    if (selectElem.value == "desc") {
+      let isdiscriptionExampleExists = topDiv.querySelector(".answerDesc");
+
+      if (!isdiscriptionExampleExists) {
+        var discriptionExample = document.createElement("label");
+        discriptionExample.className = "answerDesc";
+        discriptionExample.textContent = "서술형 답변 예시";
+        topDiv.appendChild(discriptionExample);
+        newAnswerBtn.style.display = "none";
+      }
+    }
 
     // bottomDiv 생성
     let inputRequirement = document.getElementById("inputRequireSelect").value;
