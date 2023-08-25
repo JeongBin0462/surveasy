@@ -1,9 +1,11 @@
-// 답변 개수 확인 함수
-function checkAnswerCount(type, newAnswerBtn) {
-  if (currentAnswerCounts[type] > maxAnswerCounts[type]) {
-    newAnswerBtn.style.display = "none";
+function checkAnswerCount(selectedText, button) {
+  if (currentAnswerCounts[selectedText] >= maxAnswerCounts[selectedText]) {
+    //0825
+    console.log("최대 답변 개수에 도달했습니다.");
+    button.style.display = "none";
+    return;
   } else {
-    newAnswerBtn.style.display = "block";
+    button.style.display = "block";
   }
 }
 
@@ -119,20 +121,37 @@ function addAnswer(event) {
   let selectedIndex = selectElem.selectedIndex;
   let selectedText = selectElem.options[selectedIndex].text;
 
-  currentAnswerCounts[selectedText]++; // 수정하기
-  console.log("answerCounts 상태: " + currentAnswerCounts[selectedText]);
-
-  topDiv.dataset.answerCounts = JSON.stringify(currentAnswerCounts); // 저장하기
-  checkAnswerCount(selectedText, event.currentTarget);
+  if (currentAnswerCounts[selectedText] >= maxAnswerCounts[selectedText]) {
+    //0825
+    console.log("최대 답변 개수에 도달했습니다.");
+    event.currentTarget.style.display = "none";
+    return;
+  } else {
+    event.currentTarget.style.display = "block";
+  }
 
   // 답변 생성 함수 호출
   createAnswer(
     topDiv,
     formCount1,
-    selectedText, // 수정된 부분
+    selectedText,
     selectElem,
     event.currentTarget
   );
+  currentAnswerCounts[selectedText]++; // 수정하기
+
+  console.log("answerCounts 상태: " + currentAnswerCounts[selectedText]);
+
+  topDiv.dataset.answerCounts = JSON.stringify(currentAnswerCounts); // 저장하기
+
+  if (currentAnswerCounts[selectedText] >= maxAnswerCounts[selectedText]) {
+    //0825
+    console.log("최대 답변 개수에 도달했습니다.");
+    event.currentTarget.style.display = "none";
+    return;
+  } else {
+    event.currentTarget.style.display = "block";
+  }
 }
 
 // newSurveyBtns는 여러개 있음(본문 1개, 리모컨 1개)
@@ -261,12 +280,7 @@ function createAnswer(
   selectElem,
   newAnswerBtn
 ) {
-  let currentAnswerCounts = JSON.parse(topDiv.dataset.answerCounts);
-
-  if (currentAnswerCounts[selectedText] > maxAnswerCounts[selectedText]) {
-    console.log("최대 답변 개수에 도달했습니다.");
-    return;
-  }
+  checkAnswerCount(selectedText, newAnswerBtn);
 
   let answerDiv = document.createElement("div");
   answerDiv.className = "answerContainer";
@@ -294,8 +308,6 @@ function createAnswer(
     case "서술형":
       break;
   }
-
-  currentAnswerCounts[selectedText]++;
 }
 
 // 답변 요소 공통 생성 메소드
@@ -323,13 +335,13 @@ function defaultAnswerContent(selectElem, topDiv, answerDiv, newAnswerBtn) {
     // topDiv의 data-answerCounts 속성에서 현재 답변 개수 정보를 가져옵니다.
     let currentAnswerCounts = JSON.parse(topDiv.dataset.answerCounts);
 
+    topDiv.removeChild(answerDiv);
     currentAnswerCounts[selectedText]--;
 
     // 변경된 currentAnswerCounts를 topDiv의 data-answerCounts 속성에 저장합니다.
     topDiv.dataset.answerCounts = JSON.stringify(currentAnswerCounts);
 
     checkAnswerCount(selectedText, newAnswerBtn);
-    topDiv.removeChild(answerDiv);
   });
 
   // 요소들을 div에 추가
