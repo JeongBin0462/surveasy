@@ -63,7 +63,9 @@ function surveyTypeChange(event) {
   if (selectedText == "서술형") {
     var discriptionExample = document.createElement("label");
     discriptionExample.className = "answerDesc";
+    discriptionExample.textContent = "서술형 답변 예시";
     topDiv.appendChild(discriptionExample);
+    newAnswerBtn.style.display = "none";
   } else {
     if (isdiscriptionExampleExists)
       topDiv.removeChild(isdiscriptionExampleExists);
@@ -245,9 +247,17 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     topDiv.appendChild(selectElem);
     topDiv.appendChild(newAnswerBtn);
 
-    // topDiv와 bottomDiv를 감싸는 totalDiv 생성
-    // let totalDiv = document.createElement("div");
-    // totalDiv.className = "questionContainer";
+    if (selectElem.value == "desc") {
+      let isdiscriptionExampleExists = topDiv.querySelector(".answerDesc");
+
+      if (!isdiscriptionExampleExists) {
+        var discriptionExample = document.createElement("label");
+        discriptionExample.className = "answerDesc";
+        discriptionExample.textContent = "서술형 답변 예시";
+        topDiv.appendChild(discriptionExample);
+        newAnswerBtn.style.display = "none";
+      }
+    }
 
     // bottomDiv 생성
     let inputRequirement = document.getElementById("inputRequireSelect").value;
@@ -303,9 +313,6 @@ function createAnswer(
       radioElement.className = "answerRadio";
       answerDiv.appendChild(radioElement);
       defaultAnswerContent(selectElem, topDiv, answerDiv, newAnswerBtn);
-      break;
-
-    case "서술형":
       break;
   }
 }
