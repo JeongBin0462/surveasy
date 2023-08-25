@@ -18,7 +18,7 @@ public interface UserMapper {
 	@Insert({
         "<script>",
         "INSERT INTO user (username, password, email, phonenumber",
-        "<if test='age != null'>, age</if>",
+        "<if test='birth != null'>, birth</if>",
         "<if test='gender != null'>, gender</if>",
         "<if test='job != null'>, job</if>",
         "<if test='region != null'>, region</if>",
@@ -26,7 +26,7 @@ public interface UserMapper {
         "<if test='incomlevel != null'>, incomlevel</if>",
         ") VALUES (",
         "#{username}, #{password}, #{email}, #{phonenumber}",
-        "<if test='age != null'>, #{age}</if>",
+        "<if test='birth != null'>, #{birth}</if>",
         "<if test='gender != null'>, #{gender}</if>",
         "<if test='job != null'>, #{job}</if>",
         "<if test='region != null'>, #{region}</if>",

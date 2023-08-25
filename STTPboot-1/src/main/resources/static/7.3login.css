@@ -1,0 +1,41 @@
+#formDiv {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 50px;
+}
+
+#loginErrorDiv {
+  color: red;
+  font-size: 18px;
+}
+
+#loginContainer {
+	margin-top: 40px;
+}
+
+#passwordDiv {
+	margin-top: 40px;
+}
+
+.form-control {
+	height: 20px;
+}
+
+#loginBtnDiv {
+	margin-top: 40px;
+	
+    display: flex;
+    justify-content: space-between;
+    
+    width: 200px;
+}
+
+.btn.btn-primary {
+	font-size: 18px;
+	
+	background-color: #7EB59D;
+	color: #FBFAFB;
+	z-index: 1000;
+}

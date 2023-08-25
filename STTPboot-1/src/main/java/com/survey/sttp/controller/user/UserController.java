@@ -165,10 +165,10 @@ public class UserController {
 
 		if (userService.insertUser(userDTO)) {
 			response.put("success", true);
-			response.put("redirectUrl", "/STTP/main");
+			response.put("redirectUrl", "/surveasy/main");
 		} else {
 			response.put("success", false);
-			response.put("redirectUrl", "/STTP/user/join");
+			response.put("redirectUrl", "/surveasy/user/join");
 		}
 
 		return response;

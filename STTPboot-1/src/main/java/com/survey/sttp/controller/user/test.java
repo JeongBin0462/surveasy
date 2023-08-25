@@ -12,6 +12,12 @@ public class test {
 		return "0.header_footer";
 	}
 	
+	@GetMapping("/")
+	public String home() {
+		
+		return "/1.main";
+	}
+	
 	@GetMapping(value = "/surveasy/main")
 	public String main() {
 		
