@@ -50,12 +50,12 @@
   bottom: 10%;
 }
 
-#headerLogin {
+.headerLogin {
   position: relative;
   background-color: transparent;
 
   left: 40%;
-  bottom: 50%;
+  bottom: 40%;
 
   font-size: 18px;
   color: #83b5a6;

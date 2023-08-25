@@ -24,7 +24,11 @@ public class SecurityConfig {
 						new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
 				.formLogin((formLogin) -> formLogin
                 .loginPage("/surveasy/user/login")
-                .defaultSuccessUrl("/surveasy/main"));
+                .defaultSuccessUrl("/surveasy/main"))
+				.logout((logout) -> logout
+                .logoutRequestMatcher(new AntPathRequestMatcher("/surveasy/user/logout"))
+                .logoutSuccessUrl("/surveasy/main")
+                .invalidateHttpSession(true));
 		return http.build();
 	}
 	
