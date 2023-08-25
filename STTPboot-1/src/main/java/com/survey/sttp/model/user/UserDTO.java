@@ -1,5 +1,7 @@
 package com.survey.sttp.model.user;
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +25,7 @@ public class UserDTO {
 	@Pattern(regexp = "^010[0-9]{8}$"
 			, message = "유효한 전화번호 형식이 아닙니다.")
 	private String phonenumber;
-	private Integer age;
+	private LocalDate age;
 	private Boolean gender;
 	private String job;
 	private String region;

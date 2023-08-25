@@ -1,5 +1,7 @@
 package com.survey.sttp.model.user;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ public class User {
 	private String password;
 	private String email;
 	private String phonenumber;
-	private Integer age;
+	private LocalDate birth;
 	private Boolean gender;
 	private String job;
 	private String region;

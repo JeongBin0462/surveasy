@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		sessionStorage.setItem("formData", jsonString);
 
 		// 원하는 주소로 리디렉션
-		window.location.href = "/STTP/makesurvey";
+		window.location.href = "/surveasy/makesurvey";
 	});
 });
 

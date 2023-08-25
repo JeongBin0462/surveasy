@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
   <head>
     <meta charset="utf-8" />
+    
     <title>STTP</title>
-    <link rel="stylesheet" href="/static/0.header_footer.css" type="text/css" />
-    <link rel="stylesheet" href="/static/1.main.css" type="text/css" />
+    <link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
+    <link rel="stylesheet" href="/1.main.css" type="text/css" />
   </head>
   <body>
     <header id="header">
-      <img src="/static/img/로고2차.png" id="headerTitle" />
-      <button id="headerLogin">로그인</button>
+      <img src="/img/로고2차.png" id="headerTitle" />
+      <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{./user/login}">로그인</a>
+      <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{./user/logout}">로그아웃</a>
       <div id="headerNavi">
         <div id="surveyMainDiv">
           <p class="naviLink">설문지 작성</p>
@@ -125,19 +128,19 @@
     <footer id="footer">
       <div id="gitDiv">
         <div class="gitDivOne">
-          <img src="/static/img/깃.png" class="footerGitImg" />
+          <img src="/img/깃.png" class="footerGitImg" />
           <p class="gitId">Jisu-Seong</p>
         </div>
         <div class="gitDivOne">
-          <img src="/static/img/깃.png" class="footerGitImg" />
+          <img src="/img/깃.png" class="footerGitImg" />
           <p class="gitId">JeongBin0462</p>
         </div>
       </div>
       <div id="gitAdress">
-        <img src="/static/img/깃.png" class="footerGitImg" />
+        <img src="/img/깃.png" class="footerGitImg" />
         <p class="gitId">https://github.com/Jisu-Seong/STTP</p>
       </div>
     </footer>
   </body>
-  <script src="/static/0.header_footer.js"></script>
+  <script src="/0.header_footer.js"></script>
 </html>

@@ -22,6 +22,7 @@ window.onload = function () {
     });
 };
 
+
 document.getElementById("checkUsernameButton").addEventListener("click", function(event) {
 	event.preventDefault();
     const username = document.getElementById("usernameInput").value;
@@ -111,16 +112,32 @@ function getValueOrDefault(selector, defaultValue = null) {
 
 function submitForm() {
 	let genderValue = document.querySelector('[name="gender"]').value;
-	let result;
+	let gradeValue = document.querySelector('[name="grade"]').value;
+	let genderParse;
+	let gradeParse;
 
 	if (genderValue == '선택') {
-   	 result = null;
+   	 genderParse = null;
 	} else if (genderValue === '남자') {
-    	result = true;
+    	genderParse = true;
 	} else if (genderValue === '여자') {
-	    result = false;
+	    genderParse = false;
 	} else {
-    	result = null;
+    	genderParse = null;
+	}
+	
+	if (genderValue == '선택') {
+		genderParse = null;
+	} else if (gradeValue == '1학년') {
+		gradeParse = 1;
+	} else if (gradeValue == '2학년') {
+		gradeParse = 2;
+	} else if (gradeValue == '3학년') {
+		gradeParse = 3;
+	} else if (gradeParse == '4학년') {
+		gradeParse = 4;
+	} else {
+		gradeParse = null;
 	}
 	
     const formData = {
@@ -129,13 +146,13 @@ function submitForm() {
         passwordCheck: document.querySelector('[name="passwordCheck"]').value,
         email: document.querySelector('[name="email"]').value,
         phonenumber: document.querySelector('[name="phonenumber"]').value,
-        age: document.querySelector('[name="age"]').value,
-        gender: result,
+        birth: document.querySelector('[name="birth"]').value,
+        gender: genderParse,
         finaledu: getValueOrDefault('[name="finaledu"]'),
         job: getValueOrDefault('[name="job"]'),
         department: getValueOrDefault('[name="department"]'),
         position: getValueOrDefault('[name="position"]'),
-        grade: getValueOrDefault('[name="grade"]'),
+        grade: gradeParse,
         college: getValueOrDefault('[name="college"]'),
         region: getValueOrDefault('[name="region"]'),
         incomelevel: getValueOrDefault('[name="incomelevel"]')
