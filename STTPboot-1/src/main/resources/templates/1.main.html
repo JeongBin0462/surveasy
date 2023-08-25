@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     
@@ -11,8 +10,8 @@
   <body>
     <header id="header">
       <img src="/img/로고2차.png" id="headerTitle" />
-      <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{./user/login}">로그인</a>
-      <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{./user/logout}">로그아웃</a>
+      <a class="nav-link" id="loginLink" href="./user/login">로그인</a>
+	  <a class="nav-link" id="logoutLink" href="./user/logout">로그아웃</a>
       <div id="headerNavi">
         <div id="surveyMainDiv">
           <p class="naviLink">설문지 작성</p>
@@ -143,4 +142,16 @@
     </footer>
   </body>
   <script src="/0.header_footer.js"></script>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener("DOMContentLoaded", function() {
+        let isAuthenticated = /*[[${isAuthenticated}]]*/ false;
+        if (isAuthenticated) {
+            document.getElementById("loginLink").style.display = "none";
+        } else {
+            document.getElementById("logoutLink").style.display = "none";
+        }
+    });
+    /*]]>*/
+</script>
 </html>

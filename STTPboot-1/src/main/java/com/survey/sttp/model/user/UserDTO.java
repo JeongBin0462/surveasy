@@ -25,7 +25,7 @@ public class UserDTO {
 	@Pattern(regexp = "^010[0-9]{8}$"
 			, message = "유효한 전화번호 형식이 아닙니다.")
 	private String phonenumber;
-	private LocalDate age;
+	private LocalDate birth;
 	private Boolean gender;
 	private String job;
 	private String region;
