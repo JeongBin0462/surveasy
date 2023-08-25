@@ -63,7 +63,7 @@ function surveyTypeChange(event) {
   if (selectedText == "서술형") {
     var discriptionExample = document.createElement("label");
     discriptionExample.className = "answerDesc";
-    discriptionExample.textContent = "서술형 답변 예시";
+    discriptionExample.textContent = "(서술형 답변 예시)";
     topDiv.appendChild(discriptionExample);
     newAnswerBtn.style.display = "none";
   } else {
@@ -184,8 +184,7 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     newQuestionLabel.className = "input_questionText";
 
     // 질문 입력 필드 생성
-    let inputQuestion = document.createElement("input");
-    inputQuestion.type = "text";
+    let inputQuestion = document.createElement("textarea");
     inputQuestion.className = "inputQuestion";
     inputQuestion.value = "질문 내용 입력";
 
@@ -244,6 +243,7 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     // topDiv에 요소들 추가
     topDiv.appendChild(newQuestionLabel);
     topDiv.appendChild(inputQuestion);
+
     topDiv.appendChild(selectElem);
     topDiv.appendChild(newAnswerBtn);
 
@@ -253,7 +253,7 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
       if (!isdiscriptionExampleExists) {
         var discriptionExample = document.createElement("label");
         discriptionExample.className = "answerDesc";
-        discriptionExample.textContent = "서술형 답변 예시";
+        discriptionExample.textContent = "(서술형 답변 예시)";
         topDiv.appendChild(discriptionExample);
         newAnswerBtn.style.display = "none";
       }

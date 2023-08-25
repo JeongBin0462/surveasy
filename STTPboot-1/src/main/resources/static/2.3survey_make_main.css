@@ -25,15 +25,19 @@
   margin-bottom: 50px;
 }
 
-#surveyTitle,
-#surveyContent {
-  padding: 20px;
-}
-
 .custom-input {
   width: 80%;
-  height: 40px;
+  resize: none;
+  margin: 20px;
+}
+
+#custom-input-T {
+  height: 60px;
   font-size: 20px;
+}
+
+#custom-input-C {
+  height: 100px;
 }
 
 #survey-question {
@@ -62,23 +66,36 @@
 }
 
 .inputQuestion {
-  margin-right: 20px;
+  margin-right: 100px;
   width: 80%;
   height: 40px;
+  resize: none;
 }
 
 .answerTypeCombo {
-  height: 40px;
+  /* width: 120px;
+  height: 40px; */
+  margin-right: 20px;
 }
 
 .answerDesc {
   margin-top: 20px;
   margin-bottom: 20px;
   display: block;
-  padding: 20px;
-  width: 77%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 80%;
   height: 40px;
   background-color: white;
+  color: black;
+  font-size: 14px;
+}
+
+.btn_addAnswer {
+  margin-top: 20px;
+  ;
+  /* width: 120px;
+  height: 40px; */
 }
 
 .btn_deleteQuestion {
@@ -110,6 +127,7 @@
 .inputQuestion {
   margin-top: 20px;
   margin-bottom: 20px;
+
 }
 
 /* 리모컨 css */
