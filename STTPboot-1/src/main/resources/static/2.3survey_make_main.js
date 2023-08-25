@@ -63,7 +63,9 @@ function surveyTypeChange(event) {
   if (selectedText == "서술형") {
     var discriptionExample = document.createElement("label");
     discriptionExample.className = "answerDesc";
+    discriptionExample.textContent = "서술형 답변 예시";
     topDiv.appendChild(discriptionExample);
+    newAnswerBtn.style.display = "none";
   } else {
     if (isdiscriptionExampleExists)
       topDiv.removeChild(isdiscriptionExampleExists);
@@ -303,9 +305,6 @@ function createAnswer(
       radioElement.className = "answerRadio";
       answerDiv.appendChild(radioElement);
       defaultAnswerContent(selectElem, topDiv, answerDiv, newAnswerBtn);
-      break;
-
-    case "서술형":
       break;
   }
 }
