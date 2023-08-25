@@ -24,10 +24,6 @@ window.onload = function () {
 
 document.getElementById("checkUsernameButton").addEventListener("click", function(event) {
 	event.preventDefault();
-	document.querySelector('#usernameError').textContent = "";
-		document.querySelector('#passwordError').textContent = "";
-		document.querySelector('#emailError').textContent = "";
-		document.querySelector('#phonenumberError').textContent = "";
     const username = document.getElementById("usernameInput").value;
 
     fetch(`././join?username=${username}`, {
@@ -47,10 +43,6 @@ document.getElementById("checkUsernameButton").addEventListener("click", functio
 
 document.getElementById("checkEmailButton").addEventListener("click", function(event) {
 	event.preventDefault();
-	document.querySelector('#usernameError').textContent = "";
-		document.querySelector('#passwordError').textContent = "";
-		document.querySelector('#emailError').textContent = "";
-		document.querySelector('#phonenumberError').textContent = "";
     const email = document.getElementById("emailInput").value;
 
     fetch(`././join?email=${email}`, {
@@ -71,10 +63,6 @@ document.getElementById("checkEmailButton").addEventListener("click", function(e
 
 document.getElementById("checkPhonenumberButton").addEventListener("click", function(event) {
 	event.preventDefault();
-	document.querySelector('#usernameError').textContent = "";
-		document.querySelector('#passwordError').textContent = "";
-		document.querySelector('#emailError').textContent = "";
-		document.querySelector('#phonenumberError').textContent = "";
     const phonenumber = document.getElementById("phonenumberInput").value;
 
     fetch(`././join?phonenumber=${phonenumber}`, {
@@ -94,15 +82,18 @@ document.getElementById("checkPhonenumberButton").addEventListener("click", func
 
 document.getElementById('checkPasswordSame').addEventListener('click', function(event) {
     event.preventDefault();
-    document.querySelector('#usernameError').textContent = "";
-		document.querySelector('#passwordError').textContent = "";
-		document.querySelector('#emailError').textContent = "";
-		document.querySelector('#phonenumberError').textContent = "";
 
     const password = document.querySelector('input[name="password"]').value;
     const passwordCheck = document.querySelector('input[name="passwordCheck"]').value;
 
     const passwordError = document.getElementById('passwordError');
+
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{5,15}$/;
+
+    if (!passwordPattern.test(password)) {
+        passwordError.textContent = "비밀번호는 5~15자의 길이를 가져야 하며, 특수문자, 숫자, 소문자, 대문자를 모두 포함해야 합니다.";
+        return;
+    }
 
     if (password === passwordCheck) {
         passwordError.textContent = "확인되었습니다";
@@ -110,6 +101,7 @@ document.getElementById('checkPasswordSame').addEventListener('click', function(
         passwordError.textContent = "서로 다른 비밀번호를 입력하였습니다";
     }
 });
+
 
 
 function getValueOrDefault(selector, defaultValue = null) {
@@ -149,7 +141,7 @@ function submitForm() {
         incomelevel: getValueOrDefault('[name="incomelevel"]')
     };
 
-    fetch('/STTP/user/join', {
+    fetch('/surveasy/user/join', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

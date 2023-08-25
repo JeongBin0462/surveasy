@@ -21,12 +21,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.survey.sttp.model.user.EmailDTO;
+import com.survey.sttp.model.user.PhoneNumberDTO;
 import com.survey.sttp.model.user.User;
 import com.survey.sttp.model.user.UserDTO;
+import com.survey.sttp.model.user.UsernameDTO;
 import com.survey.sttp.service.user.UserRepository;
 import com.survey.sttp.service.user.UserService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -54,30 +58,47 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/join", params = "username")
-    public ResponseEntity<Map<String, Object>> checkUsername(@RequestParam("username") String username) {
-        Map<String, Object> response = new HashMap<>();
-        try {
-            int userCount = userService.checkUsername(username);
-            if (userCount > 0) {
-                response.put("isDuplicateUsername", true);
-                response.put("message", "이미 사용중인 아이디입니다.");
-            } else {
-                response.put("isDuplicateUsername", false);
-                response.put("message", "사용 가능한 아이디입니다.");
-            }
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-        	e.printStackTrace();
-            response.put("message", "서버 오류 발생");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+	public ResponseEntity<Map<String, Object>> checkUsername(@Valid UsernameDTO usernameDTO, BindingResult result) {
+	    
+	    Map<String, Object> response = new HashMap<>();
+
+	    if (result.hasErrors()) {
+	        response.put("isDuplicateUsername", true);
+	        response.put("message", result.getFieldError().getDefaultMessage());
+	        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	    }
+
+	    try {
+	        int userCount = userService.checkUsername(usernameDTO.getUsername());
+	        if (userCount > 0) {
+	            response.put("isDuplicateUsername", true);
+	            response.put("message", "이미 사용중인 아이디입니다.");
+	        } else {
+	            response.put("isDuplicateUsername", false);
+	            response.put("message", "사용 가능한 아이디입니다.");
+	        }
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.put("message", "서버 오류 발생");
+	        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
+
 	
 	@GetMapping(value = "/join", params = "email")
-    public ResponseEntity<Map<String, Object>> checkEmail(@RequestParam("email") String email) {
+	public ResponseEntity<Map<String, Object>> checkEmail(@Valid EmailDTO emailDTO, BindingResult result) {
+		
         Map<String, Object> response = new HashMap<>();
+        
+        if (result.hasErrors()) {
+        	response.put("isDuplicateEmail", true);
+	        response.put("message", result.getFieldError().getDefaultMessage());
+	        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+        
         try {
-            int userCount = userService.checkEmail(email);
+            int userCount = userService.checkEmail(emailDTO.getEmail());
             if (userCount > 0) {
                 response.put("isDuplicateEmail", true);
                 response.put("message", "이미 사용중인 이메일입니다.");
@@ -93,10 +114,18 @@ public class UserController {
     }
 	
 	@GetMapping(value = "/join", params = "phonenumber")
-    public ResponseEntity<Map<String, Object>> checkPhonenumber(@RequestParam("phonenumber") String phonenumber) {
+	public ResponseEntity<Map<String, Object>> checkPhonenumber(@Valid PhoneNumberDTO phoneNumberDTO, BindingResult result) {
+		
         Map<String, Object> response = new HashMap<>();
+        
+        if (result.hasErrors()) {
+        	response.put("isDuplicatePhonenumber", true);
+	        response.put("message", result.getFieldError().getDefaultMessage());
+	        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+        
         try {
-            int userCount = userService.checkPhonenumber(phonenumber);
+            int userCount = userService.checkPhonenumber(phoneNumberDTO.getPhonenumber());
             if (userCount > 0) {
                 response.put("isDuplicatePhonenumber", true);
                 response.put("message", "이미 사용중인 전화번호입니다.");
