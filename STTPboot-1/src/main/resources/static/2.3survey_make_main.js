@@ -448,10 +448,9 @@ newSurveyArea.addEventListener("drop", function(event) {
 
 // 드래그 앤 드랍 이벤트 이후 하위 요소 id 변경
 function reorderQuestions() {
-    // newSurveyArea의 모든 topDiv 요소들을 가져옵니다.
     const topDivs = newSurveyArea.querySelectorAll('.topDiv');
 
-    // 각 topDiv에 대해 순서에 맞는 라벨을 업데이트합니다.
+    // 각 topDiv에 대해 순서에 맞는 라벨을 업데이트
     topDivs.forEach((div, index) => {
         const label = div.querySelector('.input_questionText');
         if (label) {
@@ -460,19 +459,23 @@ function reorderQuestions() {
     });
 }
 
-
-
-// 문항의 정보를 출력하는 함수
 function getQuestionInfo(questionDiv) {
     let questionText = questionDiv.querySelector(".inputQuestion").value;
     let questionTypeSelect = questionDiv.querySelector(".answerTypeCombo");
     let questionType = questionTypeSelect.options[questionTypeSelect.selectedIndex].text;
+
+    // 체크박스의 체크 상태를 확인
+    let isMandatory = questionDiv.querySelector(".ckeck_mandatoryQuestion").checked;
     
     let answerContent = [];
+    let answer_min, answer_max;
+
     switch(questionType) {
         case "체크박스":
             answerContent = Array.from(questionDiv.querySelectorAll(".answerInput"))
                                 .map(input => input.value);
+            answer_min = questionDiv.querySelector(".input_minRequired").value;
+            answer_max = questionDiv.querySelector(".input_maxRequired").value;
             break;
         case "라디오버튼":
             answerContent = Array.from(questionDiv.querySelectorAll(".answerInput"))
@@ -482,19 +485,35 @@ function getQuestionInfo(questionDiv) {
             break;
         default:
             break;
-                  
     }
+
     console.log("질문: " + questionText);
     console.log("타입: " + questionType);
     console.log("내용: " + answerContent);
+    console.log("필수 질문: " + isMandatory);
+    if(questionType === "체크박스") {
+        console.log("최소 선택 가능 수: " + answer_min);
+        console.log("최대 선택 가능 수: " + answer_max);
+    }
     console.log("-------------------------");
-    
-    return {
-        question: questionText,
-        type: questionType,
-        answers: answerContent
+
+    // 체크박스의 경우에만 answer_min 및 answer_max 값을 포함합니다.
+    let result = {
+        question_contents: questionText,
+        answer_types: questionType,
+        mandatory: isMandatory,
+        ...(questionType === "체크박스" ? { answer_min, answer_max } : {})
     };
+
+    // 'answers' 배열을 'answer1', 'answer2', ... 형식으로 변환
+    answerContent.forEach((answer, index) => {
+        result[`answer${index + 1}`] = answer;
+    });
+
+    return result;
 }
+
+
 
 document.querySelector("#submitBtn").addEventListener("click", function(event) {
     event.preventDefault();
@@ -502,10 +521,30 @@ document.querySelector("#submitBtn").addEventListener("click", function(event) {
     submitForm(event)
 });
 
-function submitForm(event) {
-    event.preventDefault(); // 폼 기본 제출을 방지합니다.
+// 설문 옵션 저장
+function getSurveySettings() {
+    const settingMapping = {
+        "publicSurvey": "is_public_survey",
+        "requireLogin": "require_login",
+        "publicResult": "is_public_result",
+        "showProgress": "show_progress"
+    };
 
-    // 설문지의 제목과 내용을 가져옵니다.
+    let settings = {};
+
+    for (let id in settingMapping) {
+        const checkbox = document.getElementById(id);
+        if (checkbox) {
+            settings[settingMapping[id]] = checkbox.checked;
+        }
+    }
+    return settings;
+}
+
+
+function submitForm(event) {
+    event.preventDefault(); 
+
     let surveyTitle = document.querySelector("#surveyTitle .custom-input").value;
     let surveyContent = document.querySelector("#surveyContent .custom-input").value;
 
@@ -517,19 +556,24 @@ function submitForm(event) {
         questionsData.push(questionInfo);
     });
 
-    // 설문지 제목, 내용 및 모든 질문 정보를 포함하는 객체를 생성합니다.
-    let surveyData = {
-        title: surveyTitle,
-        content: surveyContent,
-        questions: questionsData
+    let formData = JSON.parse(sessionStorage.getItem('formData'));
+
+    let surveySettings = getSurveySettings(); // 설문지 설정 가져오기
+
+    let finalDataToSend = {
+        survey: {
+            surveytitle: surveyTitle,
+            surveycontent: surveyContent,
+            questions: questionsData,
+            ...surveySettings  // 설문지 설정 추가
+        },
+        form: formData
     };
 
-    // 데이터를 JSON 문자열로 변환합니다.
-    let jsonData = JSON.stringify(surveyData);
+    let jsonData = JSON.stringify(finalDataToSend);
     console.log(jsonData);
 
-    /*// fetch API를 사용하여 JSON 데이터를 서버에 POST 요청으로 전송합니다.
-    fetch('/your-endpoint-url', {
+    fetch('/surveasy/makesurvey', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -539,40 +583,14 @@ function submitForm(event) {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        // 서버 응답 처리 ...
     })
     .catch(error => {
         console.error('Error:', error);
-    });*/
+    });
 
-    return false; // 폼 기본 제출을 방지합니다.
+    return false;
 }
 
-
-
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// : 버튼 시작점
-
-// // 리모컨 로직
-// document.addEventListener("DOMContentLoaded", initializeValues);
-
-// function initializeValues() {
-//   let answerType = sessionStorage.getItem("answerTypeSelect") || "선택안함";
-//   let inputRequirement =
-//     sessionStorage.getItem("inputRequirementSelect") || "필수입력";
-
-//   document.getElementById("answerTypeSelect").value = answerType;
-//   document.getElementById("inputRequirementSelect").value = inputRequirement;
-// }
-
-// function updateSessionStorage(selectElement) {
-//   let key = selectElement.id;
-//   let value = selectElement.value;
-
-//   sessionStorage.setItem(key, value);
-//   console.log("SessionStorage updated with key:", key, "and value:", value);
-// }
 
 // 설정화면 로직
 function showScreen(screenId) {

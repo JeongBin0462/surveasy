@@ -47,9 +47,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		// 폼 데이터 수집
 		const formData = new FormData(form);
 		let dataObject = {};
+		
 		formData.forEach((value, key) => {
-			dataObject[key] = value;
-		});
+      if (form.elements[key].type === 'checkbox') {
+        dataObject[key] = form.elements[key].checked;
+      } else {
+        dataObject[key] = value;
+      }
+    });
 
 		// JSON 문자열 변환 후 세션에 저장
 		const jsonString = JSON.stringify(dataObject);
