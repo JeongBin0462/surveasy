@@ -573,20 +573,20 @@ function submitForm(event) {
     let jsonData = JSON.stringify(finalDataToSend);
     console.log(jsonData);
 
-//    fetch('/your-endpoint-url', {
-//        method: 'POST',
-//        headers: {
-//            'Content-Type': 'application/json'
-//        },
-//        body: jsonData
-//    })
-//    .then(response => response.json())
-//    .then(data => {
-//        console.log(data);
-//    })
-//    .catch(error => {
-//        console.error('Error:', error);
-//    });
+    fetch('/surveasy/makesurvey', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: jsonData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 
     return false;
 }
