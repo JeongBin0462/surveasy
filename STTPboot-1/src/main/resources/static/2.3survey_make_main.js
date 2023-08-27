@@ -169,6 +169,8 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     // 설문 질문 컨테이너 생성
     var topDiv = document.createElement("div");
     topDiv.className = "topDiv";
+    topDiv.id = "topDiv" + formCount1;
+    topDiv.draggable = true;
 
     var topDivAnswerCounts = {
       체크박스: 0,
@@ -186,7 +188,7 @@ for (let i = 0; i < newSurveyBtns.length; i++) {
     // 질문 입력 필드 생성
     let inputQuestion = document.createElement("textarea");
     inputQuestion.className = "inputQuestion";
-    inputQuestion.value = "질문 내용 입력";
+    inputQuestion.placeholder = "질문 내용 입력";
 
     // 답변 추가 버튼 생성
     let newAnswerBtn = document.createElement("button");
@@ -419,67 +421,129 @@ function rearrangeQuestionNumbers() {
   formCount1 = questionLabels.length;
 }
 
+// 드래그 앤 드랍 이벤트
+newSurveyArea.addEventListener("dragstart", function(event) {
+    let topDiv = event.target.closest(".topDiv");
+    
+    if (topDiv) {
+        event.dataTransfer.setData("text/plain", topDiv.id);
+    }
+});
+
+newSurveyArea.addEventListener("dragover", function(event) {
+    event.preventDefault();
+});
+
+newSurveyArea.addEventListener("drop", function(event) {
+    event.preventDefault();
+    const sourceId = event.dataTransfer.getData("text/plain");
+    const sourceElement = document.getElementById(sourceId);
+    const dropTarget = event.target.closest(".topDiv"); // 드랍 대상 가져오기
+
+    if (sourceElement && dropTarget) {
+        newSurveyArea.insertBefore(sourceElement, dropTarget);
+    	reorderQuestions();
+    }    
+});
+
+// 드래그 앤 드랍 이벤트 이후 하위 요소 id 변경
+function reorderQuestions() {
+    // newSurveyArea의 모든 topDiv 요소들을 가져옵니다.
+    const topDivs = newSurveyArea.querySelectorAll('.topDiv');
+
+    // 각 topDiv에 대해 순서에 맞는 라벨을 업데이트합니다.
+    topDivs.forEach((div, index) => {
+        const label = div.querySelector('.input_questionText');
+        if (label) {
+            label.innerText = "Q" + (index + 1) + ".";
+        }
+    });
+}
+
+
+
 // 문항의 정보를 출력하는 함수
-function printQuestionInfo(questionDiv) {
+function getQuestionInfo(questionDiv) {
     let questionText = questionDiv.querySelector(".inputQuestion").value;
     let questionTypeSelect = questionDiv.querySelector(".answerTypeCombo");
     let questionType = questionTypeSelect.options[questionTypeSelect.selectedIndex].text;
     
-    let answerContent = '';
+    let answerContent = [];
     switch(questionType) {
         case "체크박스":
             answerContent = Array.from(questionDiv.querySelectorAll(".answerInput"))
-                                .map(input => input.value)
-                                .join(', ');
+                                .map(input => input.value);
             break;
         case "라디오버튼":
             answerContent = Array.from(questionDiv.querySelectorAll(".answerInput"))
-                                .map(input => input.value)
-                                .join(', ');
+                                .map(input => input.value);
             break;
         case "서술형":
             break;
         default:
             break;
+                  
     }
-    
     console.log("질문: " + questionText);
     console.log("타입: " + questionType);
     console.log("내용: " + answerContent);
     console.log("-------------------------");
+    
+    return {
+        question: questionText,
+        type: questionType,
+        answers: answerContent
+    };
 }
 
 document.querySelector("#submitBtn").addEventListener("click", function(event) {
     event.preventDefault();
     
     submitForm(event)
-
-    let allQuestionDivs = document.querySelectorAll(".topDiv");
-    for (let i = 0; i < formCount1; i++) {
-        if(allQuestionDivs[i]) {
-            printQuestionInfo(allQuestionDivs[i]);
-        }
-    }
 });
 
 function submitForm(event) {
     event.preventDefault(); // 폼 기본 제출을 방지합니다.
 
-    let form = document.getElementById('surveyForm');
-    let formData = new FormData(form);
+    // 설문지의 제목과 내용을 가져옵니다.
+    let surveyTitle = document.querySelector("#surveyTitle .custom-input").value;
+    let surveyContent = document.querySelector("#surveyContent .custom-input").value;
 
-    let jsonObject = {};
+    let questions = document.querySelectorAll(".topDiv");
+    let questionsData = [];
 
-    // 폼의 데이터를 JSON 객체로 변환합니다.
-    formData.forEach(function(value, key){
-        jsonObject[key] = value;
+    questions.forEach(questionDiv => {
+        let questionInfo = getQuestionInfo(questionDiv);
+        questionsData.push(questionInfo);
     });
 
-    // JSON 객체를 문자열로 변환하여 출력합니다.
-    let jsonData = JSON.stringify(jsonObject);
+    // 설문지 제목, 내용 및 모든 질문 정보를 포함하는 객체를 생성합니다.
+    let surveyData = {
+        title: surveyTitle,
+        content: surveyContent,
+        questions: questionsData
+    };
 
-    // fetch API를 사용하여 JSON 데이터를 서버에 POST 요청으로 전송합니다.
+    // 데이터를 JSON 문자열로 변환합니다.
+    let jsonData = JSON.stringify(surveyData);
     console.log(jsonData);
+
+    /*// fetch API를 사용하여 JSON 데이터를 서버에 POST 요청으로 전송합니다.
+    fetch('/your-endpoint-url', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: jsonData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // 서버 응답 처리 ...
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });*/
 
     return false; // 폼 기본 제출을 방지합니다.
 }
