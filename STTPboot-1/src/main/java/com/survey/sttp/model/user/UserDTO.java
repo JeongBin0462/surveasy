@@ -31,8 +31,13 @@ public class UserDTO {
 	private String region;
 	private String finaledu;
 	private String incomlevel;
+	
+	
 	private Integer grade;
 	private String college;
+	
+	
 	private String department;
 	private String position;
+	
 }

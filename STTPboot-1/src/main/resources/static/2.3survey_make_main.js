@@ -419,6 +419,74 @@ function rearrangeQuestionNumbers() {
   formCount1 = questionLabels.length;
 }
 
+// 문항의 정보를 출력하는 함수
+function printQuestionInfo(questionDiv) {
+    let questionText = questionDiv.querySelector(".inputQuestion").value;
+    let questionTypeSelect = questionDiv.querySelector(".answerTypeCombo");
+    let questionType = questionTypeSelect.options[questionTypeSelect.selectedIndex].text;
+    
+    let answerContent = '';
+    switch(questionType) {
+        case "체크박스":
+            answerContent = Array.from(questionDiv.querySelectorAll(".answerInput"))
+                                .map(input => input.value)
+                                .join(', ');
+            break;
+        case "라디오버튼":
+            answerContent = Array.from(questionDiv.querySelectorAll(".answerInput"))
+                                .map(input => input.value)
+                                .join(', ');
+            break;
+        case "서술형":
+            break;
+        default:
+            break;
+    }
+    
+    console.log("질문: " + questionText);
+    console.log("타입: " + questionType);
+    console.log("내용: " + answerContent);
+    console.log("-------------------------");
+}
+
+document.querySelector("#submitBtn").addEventListener("click", function(event) {
+    event.preventDefault();
+    
+    submitForm(event)
+
+    let allQuestionDivs = document.querySelectorAll(".topDiv");
+    for (let i = 0; i < formCount1; i++) {
+        if(allQuestionDivs[i]) {
+            printQuestionInfo(allQuestionDivs[i]);
+        }
+    }
+});
+
+function submitForm(event) {
+    event.preventDefault(); // 폼 기본 제출을 방지합니다.
+
+    let form = document.getElementById('surveyForm');
+    let formData = new FormData(form);
+
+    let jsonObject = {};
+
+    // 폼의 데이터를 JSON 객체로 변환합니다.
+    formData.forEach(function(value, key){
+        jsonObject[key] = value;
+    });
+
+    // JSON 객체를 문자열로 변환하여 출력합니다.
+    let jsonData = JSON.stringify(jsonObject);
+
+    // fetch API를 사용하여 JSON 데이터를 서버에 POST 요청으로 전송합니다.
+    console.log(jsonData);
+
+    return false; // 폼 기본 제출을 방지합니다.
+}
+
+
+
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // : 버튼 시작점
 
