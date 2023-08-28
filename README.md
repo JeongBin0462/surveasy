@@ -30,7 +30,8 @@
 
 <h4>데이터베이스</h4>
 <div align="left">
-   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
+   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
+   <img src="https://img.shields.io/badge/MyBatis-3152A0?style=for-the-badge&logo=&logoColor=white"/>
 </div> 
 <h4>백엔드</h4>
 <div align="left">
@@ -38,7 +39,6 @@
     <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"/>
     <img src="https://img.shields.io/badge/Spring Security-FCEF40?style=for-the-badge&logo=&logoColor=white"/>
     <img src="https://img.shields.io/badge/Lombok-DDB320?style=for-the-badge&logo=&logoColor=white"/>
-    <img src="https://img.shields.io/badge/MyBatis-3152A0?style=for-the-badge&logo=&logoColor=white"/>
     <img src="https://img.shields.io/badge/Tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white"/>
     <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white"/>
 </div>
