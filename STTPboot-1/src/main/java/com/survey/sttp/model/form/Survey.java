@@ -2,9 +2,23 @@ package com.survey.sttp.model.form;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Survey {
-	private String surveyTitle;
-	private String surveyContent;
-	private List<Question> questions;
+	
+	private String surveytitle;
+    private String surveycontent;
+    private List<Question> questions;
+    private boolean is_public_survey;
+    private boolean require_login;
+    private boolean is_public_result;
+    private boolean show_progress;
 	
 }
