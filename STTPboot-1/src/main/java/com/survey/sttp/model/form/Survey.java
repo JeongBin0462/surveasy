@@ -15,10 +15,10 @@ public class Survey {
 	
 	private String surveytitle;
     private String surveycontent;
-    private List<Question> questions;
     private boolean is_public_survey;
     private boolean require_login;
     private boolean is_public_result;
     private boolean show_progress;
+    private List<Question> questions;
 	
 }

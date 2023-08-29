@@ -501,15 +501,10 @@ function getQuestionInfo(questionDiv) {
     let result = {
         question_contents: questionText,
         answer_types: questionType,
+        answers: answerContent,
         mandatory: isMandatory,
         ...(questionType === "체크박스" ? { answer_min, answer_max } : {})
     };
-
-    // 'answers' 배열을 'answer1', 'answer2', ... 형식으로 변환
-    answerContent.forEach((answer, index) => {
-        result[`answer${index + 1}`] = answer;
-    });
-
     return result;
 }
 
@@ -604,3 +599,5 @@ function showScreen(screenId) {
   const selectedScreen = document.getElementById(screenId);
   selectedScreen.classList.add("active");
 }
+
+
