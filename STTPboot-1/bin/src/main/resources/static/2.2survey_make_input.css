@@ -1,0 +1,169 @@
+#centerLayoutDiv {
+  margin-left: 250px;
+  margin-top: 50px;
+}
+
+#subjectTitle {
+  margin-bottom: 20px;
+  font-weight: 800;
+
+  width: 154px;
+}
+
+select {
+  font-size: 18px;
+  font-weight: 600;
+
+  width: 200px;
+  height: 30px;
+  line-height: 30px;
+
+  border: 1px solid #000000;
+  background-color: #fbfafb;
+
+  display: flex;
+  text-align: center;
+}
+
+#firstFormDiv {
+  display: flex;
+}
+
+#periodDiv {
+  position: relative;
+  left: 23%;
+}
+
+#dayDiv {
+  display: flex;
+  height: 30px;
+}
+
+#dateTitle {
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+#periodInputDiv {
+  font-size: 18px;
+  font-weight: 600;
+
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+
+  border: 1px solid #000000;
+  background-color: #fbfafb;
+
+  display: flex;
+  text-align: center;
+
+  margin-top: 0px;
+  padding: 0px;
+}
+
+#dyaTextDiv {
+  display: flex;
+  align-items: center;
+
+  margin-left: 10px;
+}
+
+#normalInfoDiv {
+  margin-top: 50px;
+}
+
+#normalInfoInputDiv {
+  margin-top: 30px;
+  display: flex;
+}
+
+#normarInput {
+  font-weight: 800;
+}
+
+.inputInfo {
+  flex: 1;
+}
+
+.checkBox {
+  margin-right: 20px;
+}
+
+#targetContainer {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+}
+
+#targetText {
+  margin-right: 40px;
+  font-weight: 800;
+}
+
+#targetSelectDiv {
+  margin-top: 30px;
+  flex: 1;
+}
+
+#targetSelection {
+  width: 154px;
+}
+ 
+#employeesInputDiv {
+  display: flex;
+}
+
+.employeesInputInfoDiv {
+  flex: 1;
+}
+
+#employeesHiddenInput {
+  flex: 3;
+}
+
+#studentInputDiv {
+  position: relative;
+  top: -20px;
+  display: flex;
+}
+
+.studentInputInfoDiv {
+  flex: 1;
+}
+
+#studentInputHiddenDiv {
+  flex: 3;
+}
+
+#subInfoText {
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  font-weight: 800;
+}
+
+#subInfoDiv {
+  display: flex;
+}
+
+.subInfoInputDiv {
+  flex: 1;
+}
+
+#subInputHiddenDiv {
+  flex: 2;
+}
+
+#submitContainerDiv{
+  width: 68%;
+  display: flex;
+  justify-content: center;
+}
+
+#submitDiv {
+  margin-top: 80px;
+  font-size: 24px;
+  background-color: #1d7659;
+  color: #fbfafb;
+}

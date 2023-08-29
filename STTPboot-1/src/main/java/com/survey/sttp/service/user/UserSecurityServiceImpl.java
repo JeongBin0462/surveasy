@@ -37,4 +37,12 @@ public class UserSecurityServiceImpl implements UserDetailsService {
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
+    
+    public Integer getUserno(String username) {
+        Optional<User> _siteUser = userRepository.findByusername(username);
+        if (_siteUser.isEmpty()) {
+            return null;
+        }
+        return _siteUser.get().getUserno();
+    }
 }

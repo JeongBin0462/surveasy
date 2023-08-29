@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    
+    <title>STTP</title>
+    <link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
+    <link rel="stylesheet" href="/1.main.css" type="text/css" />
+  </head>
+  <body>
+    <header id="header">
+      <img src="/img/로고2차.png" id="headerTitle" />
+      <a class="headerLogin" id="loginLink" href="./user/login">로그인</a>
+	  <a class="headerLogin" id="logoutLink" href="./user/logout">로그아웃</a>
+      <div id="headerNavi">
+        <div id="surveyMainDiv">
+          <p class="naviLink">설문지 작성</p>
+          <div id="hiddenDiv">
+            <a href="#" class="hiddenText">새로만들기</a>
+            <a href="#" class="hiddenText">불러오기</a>
+            <a href="#" class="hiddenText">가져오기</a>
+          </div>
+        </div>
+        <a href="#" class="naviLink">설문참여</a>
+        <a href="#" class="naviLink">설문결과</a>
+        <a href="#" class="naviLink">MY PAGE</a>
+        <a href="#" class="naviLink">고객센터</a>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="side-div"></div>
+        <div class="center-div">
+          <div id="survey-view-container">
+            <div class="survey" id="survey-view-top">
+              <select class="surveyOption">
+                <option>남은기간</option>
+                <option>최신순</option>
+                <option>참여순</option>
+                <option>즐겨찾기순</option>
+              </select>
+              <button class="survey-view-btn">
+                <p>◀</p>
+              </button>
+              <div class="survey-view-container">
+                <div class="survey-view">
+                  <p class="survey-view-text-title">1번설문지의제목</p>
+                  <p class="survey-view-text-person">참여인원: 200명</p>
+                  <p class="survey-view-text-date">마감일: 09/16 23:05:51</p>
+                </div>
+                <div class="survey-view">
+                  <p class="survey-view-text-title">2번설문지의제목</p>
+                  <p class="survey-view-text-person">참여인원: 50명</p>
+                  <p class="survey-view-text-date">마감일: 09/16 23:05:51</p>
+                </div>
+                <div class="survey-view">
+                  <p class="survey-view-text-title">3번설문지의제목</p>
+                  <p class="survey-view-text-person">참여인원: 2명</p>
+                  <p class="survey-view-text-date">마감일: 09/16 23:05:51</p>
+                </div>
+                <div class="survey-view">
+                  <p class="survey-view-text-title">
+                    123456789012345678901234567890
+                  </p>
+                  <p class="survey-view-text-person">참여인원: 1200명</p>
+                  <p class="survey-view-text-date">마감일: 09/16 23:05:51</p>
+                </div>
+                <div class="survey-view">
+                  <p class="survey-view-text-title">3번설문지의제목</p>
+                  <p class="survey-view-text-person">참여인원: 2명</p>
+                  <p class="survey-view-text-date">마감일: 09/16 23:05:51</p>
+                </div>
+              </div>
+              <button class="survey-view-btn">
+                <p>▶</p>
+              </button>
+            </div>
+            <div class="survey" id="survey-view-bottom">
+              <select class="surveyOption">
+                <option>정치</option>
+                <option>경제</option>
+                <option>사회</option>
+                <option>문화</option>
+                <option>과학</option>
+                <option>철학</option>
+              </select>
+              <button class="survey-view-btn">
+                <p>◀</p>
+              </button>
+              <div class="survey-view-container">
+                <div class="survey-view">
+                  <p class="survey-view-text-title">1번설문지의제목</p>
+                  <p class="survey-view-text-person">참여인원: 200명</p>
+                  <p class="survey-view-text-date">마감일: 09/16 23:05:51</p>
+                </div>
+                <div class="survey-view">
+                  <p class="survey-view-text-title">2번설문지의제목</p>
+                  <p class="survey-view-text-person">참여인원: 50명</p>
+                  <p class="survey-view-text-date">마감일: 09/16 23:05:51</p>
+                </div>
+                <div class="survey-view">
+                  <p class="survey-view-text-title">3번설문지의제목</p>
+                  <p class="survey-view-text-person">참여인원: 2명</p>
+                  <p class="survey-view-text-date">마감일: 09/16 23:05:51</p>
+                </div>
+                <div class="survey-view">
+                  <p class="survey-view-text-title">
+                    123456789012345678901234567890
+                  </p>
+                  <p class="survey-view-text-person">참여인원: 1200명</p>
+                  <p class="survey-view-text-date">마감일: 09/16 23:05:51</p>
+                </div>
+                <div class="survey-view">
+                  <p class="survey-view-text-title">3번설문지의제목</p>
+                  <p class="survey-view-text-person">참여인원: 2명</p>
+                  <p class="survey-view-text-date">마감일: 09/16 23:05:51</p>
+                </div>
+              </div>
+              <button class="survey-view-btn">
+                <p>▶</p>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="side-div"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div id="gitDiv">
+        <div class="gitDivOne">
+          <img src="/img/깃.png" class="footerGitImg" />
+          <p class="gitId">Jisu-Seong</p>
+        </div>
+        <div class="gitDivOne">
+          <img src="/img/깃.png" class="footerGitImg" />
+          <p class="gitId">JeongBin0462</p>
+        </div>
+      </div>
+      <div id="gitAdress">
+        <img src="/img/깃.png" class="footerGitImg" />
+        <p class="gitId">https://github.com/Jisu-Seong/STTP</p>
+      </div>
+    </footer>
+  </body>
+  <script src="/0.header_footer.js"></script>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener("DOMContentLoaded", function() {
+        let isAuthenticated = /*[[${isAuthenticated}]]*/ false;
+        if (isAuthenticated) {
+            document.getElementById("loginLink").style.display = "none";
+        } else {
+            document.getElementById("logoutLink").style.display = "none";
+        }
+    });
+    /*]]>*/
+</script>
+</html>

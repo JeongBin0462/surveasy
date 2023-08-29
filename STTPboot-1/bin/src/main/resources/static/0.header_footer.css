@@ -1,0 +1,195 @@
+* {
+  margin: 0;
+  border: 0;
+}
+
+.body {
+  background-color: #fbfafb;
+  margin: 0;
+  border: 0;
+}
+
+@font-face {
+  font-family: "establishRetrosansOTF";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*
+헤더
+*/
+
+#header {
+  height: 240px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: NanumSquareNeo-Variable;
+
+  width: 100%;
+  background: #fbfafb;
+}
+
+#headerTitle {
+  width: 200px;
+
+  position: relative;
+  bottom: 10%;
+}
+
+.headerLogin {
+  position: relative;
+  background-color: transparent;
+
+  left: 40%;
+  bottom: 40%;
+
+  font-size: 18px;
+  color: #83b5a6;
+}
+
+#headerNavi {
+  background-color: #1d7659;
+  width: 55%;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#surveyMainDiv {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#hiddenDiv {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  z-index: 1000;
+}
+
+.hiddenText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+  width: 100px;
+  color: #fbfafb;
+
+  outline-style: solid;
+  outline-width: 0.5px;
+  outline-color: #fbfafb;
+  background-color: #1d7659;
+}
+
+.naviLink {
+  margin-left: 60px;
+  margin-right: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+
+  font-size: 18px;
+  color: #fbfafb;
+
+  text-decoration-line: none;
+}
+
+.container {
+  width: 100%;
+  padding-bottom: 30px;
+  background-color: #fbfafb;
+  
+  display: flex;
+  justify-content: center;
+
+  font-family: NanumSquareNeo-Variable;
+  font-size: 18px;
+}
+
+.center-div {
+  width: 55%;
+  min-height: 640px;
+  
+  background-color: #bdd6d0;
+}
+
+.side-div {
+  flex: 1;
+  background-color: #fbfafb;
+}
+
+/*
+  푸터~~
+*/
+
+#footer {
+  height: 120px;
+  background-color: #1d7659;
+
+  color: #fbfafb;
+}
+
+.gitDivOne {
+  display: flex;
+  align-items: center;
+  
+  position: relative;
+  top: 30px;
+  left: 25%;
+  
+  width: 200px;
+}
+
+.footerGitImg {
+  width: 20px;
+  height: 20px;
+  margin-right: 20px;
+}
+
+.gitId {
+  font-size: 18px;
+}
+
+#gitAdress {
+  position: relative;
+  left: 60%;
+  width: 500px;
+
+
+  display: flex;
+}
+
+/*
+  ~~푸터
+*/

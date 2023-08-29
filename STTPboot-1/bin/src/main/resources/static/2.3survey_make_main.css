@@ -1,0 +1,262 @@
+.center-div {
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.tempSaveBtn,
+.submitBtn {
+  width: 100px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.survey-box {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* background-color: grey; */
+  display: block;
+}
+
+.survey-title-content {
+  background-color: #1d7659;
+  color: white;
+  text-align: left;
+  margin-bottom: 50px;
+}
+
+.custom-input {
+  width: 80%;
+  resize: none;
+  margin: 20px;
+}
+
+#custom-input-T {
+  height: 60px;
+  font-size: 20px;
+}
+
+#custom-input-C {
+  height: 100px;
+}
+
+#survey-question {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* background-color: blue; */
+  color: white;
+  text-align: left;
+}
+
+.newSurveyBtn {
+  margin-bottom: 20px;
+  color: black;
+}
+
+.topDiv {
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #3a9677;
+}
+
+.bottomDiv {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.inputQuestion {
+  margin-right: 100px;
+  width: 80%;
+  height: 40px;
+  resize: none;
+}
+
+.answerTypeCombo {
+  /* width: 120px;
+  height: 40px; */
+  margin-right: 20px;
+}
+
+.answerDesc {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 80%;
+  height: 40px;
+  background-color: white;
+  color: black;
+  font-size: 14px;
+}
+
+.btn_addAnswer {
+  margin-top: 20px;
+  ;
+  /* width: 120px;
+  height: 40px; */
+}
+
+.btn_deleteQuestion {
+  margin-left: 25px;
+}
+
+.maxLabel {
+  margin-left: 50px;
+}
+
+.answerContainer {
+  margin-top: 20px;
+}
+
+.answerInput {
+  width: 60%;
+  height: 20px;
+}
+
+.btn_answerDelete,
+.answerInput {
+  margin-left: 20px;
+}
+
+.input_questionText {
+  font-size: 30px;
+}
+
+.inputQuestion {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+
+/* 리모컨 css */
+#controller {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: #bdd6d0;
+
+  position: fixed;
+  right: 50%;
+  top: 40%;
+  margin-right: -720px;
+  text-align: center;
+  width: 120px;
+  height: 250px;
+
+  font-size: 15px;
+}
+
+#controllerCheckHiddenDiv {
+  margin-top: 10px;
+}
+
+.controllerSelectBox {
+  width: 95px;
+}
+
+.controllerInputDiv {
+  margin-top: 40px;
+
+  text-align-last: center;
+  text-align: center;
+}
+
+/* 화면 로직 */
+.screen {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+#screenDiv {
+  background-color: #fbfafb;
+
+  display: flex;
+  justify-content: center;
+}
+
+.screenBtn {
+  font-size: 18px;
+  border: 1px;
+  border-style: solid;
+  border-color: black;
+}
+
+#screenBtnLeft {
+  margin-right: 20px;
+}
+
+#screenBtnRight {
+  margin-left: 20px;
+}
+
+#settingContainerDiv {
+  height: 640px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin-left: 50px;
+}
+
+.settingDiv {
+  flex: 1;
+  width: 400px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.settingBtn {
+  margin-left: 30%;
+}
+
+.toggleSwitch {
+  width: 100px;
+  height: 50px;
+  display: block;
+  position: relative;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 16px 3px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  margin: 30px;
+}
+
+.toggleSwitch .toggleButton {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #1d7659;
+}
+
+#publicSurvey:checked~.toggleSwitch,
+#requireLogin:checked~.toggleSwitch,
+#publicResult:checked~.toggleSwitch,
+#showProgress:checked~.toggleSwitch {
+  background: #1d7659;
+}
+
+#publicSurvey:checked~.toggleSwitch .toggleButton,
+#requireLogin:checked~.toggleSwitch .toggleButton,
+#publicResult:checked~.toggleSwitch .toggleButton,
+#showProgress:checked~.toggleSwitch .toggleButton {
+  left: calc(100% - 44px);
+  background: #fff;
+}
+
+.toggleSwitch,
+.toggleButton {
+  transition: all 0.2s ease-in;
+}

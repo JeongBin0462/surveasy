@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>설문지 작성</title>
+	<link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
+	<link rel="stylesheet" href="/2.3survey_make_main.css" type="text/css" />
+</head>
+
+<body>
+	<header id="header">
+		<img src="/img/로고2차.png" id="headerTitle" />
+		<button id="headerLogin">로그인</button>
+		<div id="headerNavi">
+			<div id="surveyMainDiv">
+				<p class="naviLink">설문지 작성</p>
+				<div id="hiddenDiv">
+					<a href="#" class="hiddenText">새로만들기</a>
+					<a href="#" class="hiddenText">불러오기</a>
+					<a href="#" class="hiddenText">가져오기</a>
+				</div>
+			</div>
+			<a href="#" class="naviLink">설문참여</a>
+			<a href="#" class="naviLink">설문결과</a>
+			<a href="#" class="naviLink">MY PAGE</a>
+			<a href="#" class="naviLink">고객센터</a>
+		</div>
+	</header>
+	<div id="screenDiv">
+		<button onclick="showScreen('screen1')" class="screenBtn" id="screenBtnLeft">
+			설문작성
+		</button>
+		<button onclick="showScreen('screen2')" class="screenBtn" id="screenBtnRight">
+			설정하기
+		</button>
+	</div>
+	<div id="screen1" class="screen active">
+		<main>
+			<div class="container">
+				<div class="side-div">
+					<p>side</p>
+				</div>
+				<div class="center-div">
+					<form method="post" id="surveyForm" onsubmit="return submitForm(event)">
+						<div class="survey-box">
+							<div class="survey-title-content">
+								<div id="surveyTitle">
+									<textarea class="custom-input" id="custom-input-T" placeholder="설문지 제목 입력"></textarea>
+								</div>
+
+								<div id="surveyContent">
+									<textarea class="custom-input" id="custom-input-C" placeholder="설문지 내용 입력"></textarea>
+								</div>
+							</div>
+							<div id="survey-question">
+								<!-- 설문지 문항 영역 -->
+								<!-- <div>
+                    <button class="newAnswerBtn" type="button">
+                      + 새 답변 추가
+                    </button>
+                  </div> -->
+							</div>
+							<button type="button" class="newSurveyBtn">
+								+ 새 질문 추가
+							</button>
+						</div>
+
+						<button class="tempSaveBtn" type="button">임시저장</button>
+						<input type="submit" class="submitBtn" value="제출" />
+					</form>
+				</div>
+
+				<!-- 리모컨자리야 -->
+				<div class="side-div">
+					<div id="controller">
+						<div class="controllerInputDiv">
+							<p>답변설정</p>
+							<div id="controllerCheckHiddenDiv"></div>
+							<select id="answerTypeSelect" class="controllerSelectBox"
+								onchange="updateSessionStorage(this)">
+								<option>선택안함</option>
+								<option>체크박스</option>
+								<option>라디오버튼</option>
+								<option>서술형</option>
+							</select>
+						</div>
+						<div class="controllerInputDiv">
+							<select id="inputRequireSelect" class="controllerSelectBox"
+								onchange="updateSessionStorage(this)">
+								<option>필수입력</option>
+								<option>선택입력</option>
+							</select>
+							<div class="controllerInputDiv">
+								<button class="newSurveyBtn">+ 새 질문 추가</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<div id="screen2" class="screen">
+		<main>
+			<div class="container">
+				<div class="side-div"></div>
+				<div class="center-div">
+					<div id="settingContainerDiv">
+						<div class="settingDiv">
+							<p>1. 설문지 공개 여부</p>
+							<input type="checkbox" id="publicSurvey" hidden />
+							<label for="publicSurvey" class="toggleSwitch">
+								<span class="toggleButton"></span>
+							</label>
+						</div>
+						<div class="settingDiv">
+							<p>2. 로그인 필요 여부</p>
+							<input type="checkbox" id="requireLogin" hidden />
+							<label for="requireLogin" class="toggleSwitch">
+								<span class="toggleButton"></span>
+							</label>
+						</div>
+						<div class="settingDiv">
+							<p>3. 설문지 통계 공개 여부</p>
+							<input type="checkbox" id="publicResult" hidden />
+							<label for="publicResult" class="toggleSwitch">
+								<span class="toggleButton"></span>
+							</label>
+						</div>
+						<div class="settingDiv">
+							<p>4. 진행률 표시하기</p>
+							<input type="checkbox" id="showProgress" hidden />
+							<label for="showProgress" class="toggleSwitch">
+								<span class="toggleButton"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="side-div"></div>
+			</div>
+		</main>
+	</div>
+	<footer id="footer">
+		<div id="gitDiv">
+			<div class="gitDivOne">
+				<img src="/img/깃.png" class="footerGitImg" />
+				<p class="gitId">Jisu-Seong</p>
+			</div>
+			<div class="gitDivOne">
+				<img src="/img/깃.png" class="footerGitImg" />
+				<p class="gitId">JeongBin0462</p>
+			</div>
+		</div>
+		<div id="gitAdress">
+			<img src="/img/깃.png" class="footerGitImg" />
+			<p class="gitId">https:/github.com/Jisu-Seong/STTP</p>
+		</div>
+	</footer>
+</body>
+<script src="/0.header_footer.js"></script>
+<script src="/2.3survey_make_main.js"></script>
+
+</html>

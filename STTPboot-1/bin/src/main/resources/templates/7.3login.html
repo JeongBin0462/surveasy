@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>STTP</title>
+    <link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
+    <link rel="stylesheet" href="/7.3login.css" type="text/css" />
+  </head>
+  <body>
+    <header id="header">
+      <img src="/img/로고2차.png" id="headerTitle" />
+      <button id="headerLogin">로그인</button>
+      <div id="headerNavi">
+        <div id="surveyMainDiv">
+          <p class="naviLink">설문지 작성</p>
+          <div id="hiddenDiv">
+            <a href="#" class="hiddenText">새로만들기</a>
+            <a href="#" class="hiddenText">불러오기</a>
+            <a href="#" class="hiddenText">가져오기</a>
+          </div>
+        </div>
+        <a href="#" class="naviLink">설문참여</a>
+        <a href="#" class="naviLink">설문결과</a>
+        <a href="#" class="naviLink">MY PAGE</a>
+        <a href="#" class="naviLink">고객센터</a>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="side-div"></div>
+        <div class="center-div">
+          <form method="post" id="formDiv">
+            <div th:if="${param.error}">
+              <div id="loginErrorDiv">
+                사용자ID 또는 비밀번호를 확인해 주세요.
+              </div>
+            </div>
+            <div id="loginContainer">
+            <div class="mb-3" id="idDiv">
+              <label for="username" class="form-label">사용자ID</label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                class="form-control"
+              />
+            </div>
+            <div class="mb-3" id="passwordDiv">
+              <label for="password" class="form-label">비밀번호</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+              />
+            </div>
+            </div>
+            <div id="loginBtnDiv">
+            <button type="button" class="btn btn-primary" id="registerButton">회원가입</button>
+            <button type="submit" class="btn btn-primary">로그인</button>
+            </div>
+          </form>
+        </div>
+        <div class="side-div"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div id="gitDiv">
+        <div class="gitDivOne">
+          <img src="/img/깃.png" class="footerGitImg" />
+          <p class="gitId">Jisu-Seong</p>
+        </div>
+        <div class="gitDivOne">
+          <img src="/img/깃.png" class="footerGitImg" />
+          <p class="gitId">JeongBin0462</p>
+        </div>
+      </div>
+      <div id="gitAdress">
+        <img src="/img/깃.png" class="footerGitImg" />
+        <p class="gitId">https://github.com/Jisu-Seong/STTP</p>
+      </div>
+    </footer>
+  </body>
+  <script src="/0.header_footer.js"></script>
+  <script src="/7.3login.js"></script>
+</html>

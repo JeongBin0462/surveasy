@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SurveyPaperTable {
+	private Integer userno;
 	private String surveytitle;
 	private String surveycontent;
 	private String surveysubject;
@@ -17,7 +18,7 @@ public class SurveyPaperTable {
 	private LocalDateTime writetime;
 	private LocalDateTime regidate;
 	private LocalDateTime deadline;
-	private int participants;
+	private Integer participants;
 	private String link;
-	private int bookmark;
+	private Integer bookmark;
 }

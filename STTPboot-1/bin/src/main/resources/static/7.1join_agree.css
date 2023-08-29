@@ -1,0 +1,35 @@
+/* 회원가입 약관 */
+.contract {
+  width: 700px; margin: 50px auto 80px; padding: 30px 40px 50px;
+  border-radius: 30px; background-color: rgb(167, 193, 204); 
+}
+.contract h1 {text-align: center;}
+.contract .text {
+  height: 230px; border: 1px solid black; background-color: white;
+  white-space: pre-line; overflow-y: scroll; margin: 0 auto 20px;
+}
+.contract p {text-align: right;}
+.contract .box {width: 100px; height: 40px;  padding: 8px; margin: 0 3px;}
+
+#agree_title {
+  margin-bottom: 30px;
+}
+
+#agree_text {
+  text-align: left;
+  position: relative;
+  bottom: 30px;
+  left: 15px;
+  max-width: 650px;
+  font-family: Calibri, sans-serif;
+}
+
+#text {
+  height: 350px;
+}
+
+#submitBtn {
+  margin-top: 20px;
+  background-color: #1D7659;
+  color: #FAFBFA;
+}
