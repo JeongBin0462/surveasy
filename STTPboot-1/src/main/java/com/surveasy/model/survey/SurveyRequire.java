@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SurveyRequire {
 	private int surveyno;
-	private String surveysubject;
+	private String subject;
 	private Integer period;
 	private boolean email_option;
 	private boolean phone_option;
 	private boolean age_option;
 	private boolean gender_option;
-	private String surveytarget;
+	private String target;
 	private boolean department_option;
 	private boolean position_option;
 	private boolean grade_option;

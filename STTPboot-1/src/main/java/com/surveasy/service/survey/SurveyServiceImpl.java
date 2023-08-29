@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.surveasy.mapper.survey.SurveyMapper;
 import com.surveasy.model.survey.AnswerCheck;
-import com.surveasy.model.survey.AnswerRadio;
 import com.surveasy.model.survey.SurveyAnswers;
 import com.surveasy.model.survey.SurveyOption;
 import com.surveasy.model.survey.SurveyPaper;
@@ -45,19 +44,13 @@ public class SurveyServiceImpl implements SurveyService {
 		System.out.println("--------------------");
 		
 		AnswerCheck answerCheck;
-		AnswerRadio answerRadio;
 		ArrayList<Object> list = new ArrayList<>();
 		for (int i = 0; i < surveyQuestion.size(); i++) {
 			String type = surveyQuestion.get(i).getAnswer_types();
 			int questionno = surveyQuestion.get(i).getQuestionno();
 			System.out.println(type);
 			
-			if (type.equals("라디오")) {
-				answerRadio = surveyMapper.getRadio(questionno);
-				list.add(answerRadio);
-			}
-			
-			if (type.equals("체크")) {
+			if (!type.equals("서술형")) {
 				answerCheck = surveyMapper.getCheckbox(questionno);
 				list.add(answerCheck);
 			}
