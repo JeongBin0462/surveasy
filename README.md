@@ -72,6 +72,6 @@
 | 역할 | 대단한역할 | 대단한역할 |
 
 # :scroll: <a name="function">기능</a>
-[상세보기](https://github.com/JeongBin0462/ScreenSceneP/blob/master/Presentation.md)
+[상세보기]()
 
 # :mag_right: <a name="#fullfill">보완할점</a>
