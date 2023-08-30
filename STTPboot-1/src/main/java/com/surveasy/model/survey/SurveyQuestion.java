@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SurveyQuestion {
-	private int questionno;
+	private Integer questionno;
+	private Integer surveyno;
 	private String question_contents;
     private String answer_types;
     private boolean mandatory;
