@@ -3,12 +3,12 @@ package com.surveasy.service.survey;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.surveasy.mapper.survey.SurveyMapper;
-import com.surveasy.model.survey.AnswerCheck;
-import com.surveasy.model.survey.SurveyAnswers;
+import com.surveasy.model.survey.Answers;
 import com.surveasy.model.survey.SurveyOption;
 import com.surveasy.model.survey.SurveyPaper;
 import com.surveasy.model.survey.SurveyQuestion;
@@ -18,47 +18,56 @@ import com.surveasy.model.survey.SurveyRequire;
 public class SurveyServiceImpl implements SurveyService {
 	@Autowired 
 	SurveyMapper surveyMapper;
-	
-	private SurveyAnswers answers;
-	
-	public SurveyServiceImpl() {
-	    this.answers = new SurveyAnswers();
-	}
-	
+
 	@Override
-	public boolean getSurveyInfo(int surveyno) {
+	public SurveyPaper getSurveyPaper(int surveyno) {
 		SurveyPaper surveyPaper = surveyMapper.getSurvey(surveyno);
 		System.out.println(surveyPaper.toString());
 		System.out.println("--------------------");
-		
+		return surveyPaper;
+	}
+
+	@Override
+	public SurveyOption getSurveyOption(int surveyno) {
 		SurveyOption surveyOption = surveyMapper.getSurveyOption(surveyno);
 		System.out.println(surveyOption.toString());
 		System.out.println("--------------------");
-		
+		return surveyOption;
+	}
+
+	@Override
+	public SurveyRequire getSurveyRequire(int surveyno) {
 		SurveyRequire surveyRequire = surveyMapper.getSurveyRequire(surveyno);
 		System.out.println(surveyRequire.toString());
 		System.out.println("--------------------");
-		
+		return surveyRequire;
+	}
+
+	@Override
+	public List<SurveyQuestion> getSurveyQuestion(int surveyno) {
 		List<SurveyQuestion> surveyQuestion = surveyMapper.getQuestion(surveyno);
 		System.out.println(surveyQuestion.toString());
 		System.out.println("--------------------");
-		
-		AnswerCheck answerCheck;
-		ArrayList<Object> list = new ArrayList<>();
-		for (int i = 0; i < surveyQuestion.size(); i++) {
-			String type = surveyQuestion.get(i).getAnswer_types();
-			int questionno = surveyQuestion.get(i).getQuestionno();
+		return surveyQuestion;
+	}
+
+	@Override
+	public List<Answers> getAnswers(List<SurveyQuestion> list) {
+		Answers answers;
+		List<Answers> answersList = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			String type = list.get(i).getAnswer_types();
+			int questionno = list.get(i).getQuestionno();
 			System.out.println(type);
 			
 			if (!type.equals("서술형")) {
-				answerCheck = surveyMapper.getCheckbox(questionno);
-				list.add(answerCheck);
+				answers = surveyMapper.getAnswer(questionno);
+				
+				System.out.println(answers);
+				answersList.add(answers);
 			}
 		}
-		answers.setAnswers(list);
-		System.out.println(answers.toString());
-		
-		return false;
+		System.out.println(answersList.toString());
+		return answersList;
 	}
-
 }

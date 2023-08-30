@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <title>STTP</title>
-    <link rel="stylesheet" href="/static/0.header_footer.css" type="text/css" />
+    <link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
+    <link rel="stylesheet" href="/3.3survey_board_participate.css" type="text/css" />
   </head>
   <body>
     <header id="header">
-      <img src="/static/img/로고2차.png" id="headerTitle" />
+      <img src="/img/로고2차.png" id="headerTitle" />
       <a class="headerLogin" id="loginLink" href="./user/login">로그인</a>
       <a class="headerLogin" id="logoutLink" href="./user/logout">로그아웃</a>
       <div id="headerNavi">
@@ -29,7 +30,52 @@
       <div class="container">
         <div class="side-div"></div>
         <div class="center-div">
-          <button>재출하기</button>
+			<div class="survey-top-container" id="survey-title-div">
+			<p th:text="${surveyPaper.surveytitle}"></p>
+			</div>
+			<div class="survey-top-container" id="survey-content-div">
+			<p th:text="${surveyPaper.surveycontent}"></p>
+			</div>
+			<div id="question-container">
+			<form>
+    			<div th:each="question, stat : ${surveyQuestion}" id="question-div">
+				<div class="survey-center-container">
+				<div th:if="${question.mandatory}" th:text="'필수'"></div>
+				<div th:unless="${question.mandatory}" th:text="'선택'"></div>
+        		<div th:if="${question.answer_types.equals('체크박스')}" class="check-min-max-div">
+					<p>최소 선택 갯수</p>
+					<div th:text="${question.answer_min}"></div>
+					<p>최대 선택 갯수</p>
+					<div th:text="${question.answer_max}"></div>
+				</div>
+				</div>
+				<p><span th:text="${stat.index + 1}"></span>. <span th:text="${question.question_contents}"></span></p>
+        		<div th:if="${question.answer_types.equals('서술형')}" class="answers-div">
+            		<textarea class="textarea-div"></textarea>
+        		</div>
+        			<div th:if="${!question.answer_types.equals('서술형')}" class="answers-div">
+            			<div>
+                			<div th:each="answer : ${answers}">
+    							<div th:if="${question.questionno.equals(answer.questionno)}">
+        							<div th:each="i: ${#numbers.sequence(1, 20)}">
+            							<div th:with="currentAnswer=${answer['answer' + i]}">
+                							<div th:if="${currentAnswer != null}">
+												<input th:if="${question.answer_types.equals('체크박스')}" type="checkbox" th:name="${'question' + question.questionno}" th:value="${currentAnswer}" />
+                    							<input th:if="${question.answer_types.equals('라디오')}" type="radio" th:name="${'question' + question.questionno}" th:value="${currentAnswer}" />
+                    							<label th:for="'answer' + i" th:text="${currentAnswer}"></label>
+											</div>
+            							</div>
+        							</div>
+   								 </div>
+							</div>
+            			</div>
+        			</div>
+    			</div>
+			<div id="btn-div">
+          <button id="btn">제출하기</button>
+          </div>
+          	</form>
+			</div>
         </div>
         <div class="side-div"></div>
       </div>
@@ -37,21 +83,21 @@
     <footer id="footer">
       <div id="gitDiv">
         <div class="gitDivOne">
-          <img src="/static/img/깃.png" class="footerGitImg" />
+          <img src="/img/깃.png" class="footerGitImg" />
           <p class="gitId">Jisu-Seong</p>
         </div>
         <div class="gitDivOne">
-          <img src="/static/img/깃.png" class="footerGitImg" />
+          <img src="/img/깃.png" class="footerGitImg" />
           <p class="gitId">JeongBin0462</p>
         </div>
       </div>
       <div id="gitAdress">
-        <img src="/static/img/깃.png" class="footerGitImg" />
+        <img src="/img/깃.png" class="footerGitImg" />
         <p class="gitId">https://github.com/Jisu-Seong/STTP</p>
       </div>
     </footer>
   </body>
-  <script src="/static/0.header_footer.js"></script>
+  <script src="/0.header_footer.js"></script>
   <script th:inline="javascript">
     /*<![CDATA[*/
     document.addEventListener("DOMContentLoaded", function () {

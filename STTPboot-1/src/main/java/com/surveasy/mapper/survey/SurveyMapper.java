@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import com.surveasy.model.survey.AnswerCheck;
+import com.surveasy.model.survey.Answers;
 import com.surveasy.model.survey.SurveyOption;
 import com.surveasy.model.survey.SurveyPaper;
 import com.surveasy.model.survey.SurveyQuestion;
@@ -27,6 +27,6 @@ public interface SurveyMapper {
 	@Select("SELECT * FROM question WHERE surveyno=#{surveyno}")
 	List<SurveyQuestion> getQuestion(@Param("surveyno") int surveyno);
 	
-	@Select("SELECT * FROM answer_checkbox WHERE questionno=#{questionno}")
-	AnswerCheck getCheckbox(@Param("questionno") int questionno);
+	@Select("SELECT * FROM answers WHERE questionno=#{questionno}")
+	Answers getAnswer(@Param("questionno") int questionno);
 }

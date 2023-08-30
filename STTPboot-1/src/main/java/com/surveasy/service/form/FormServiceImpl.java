@@ -5,16 +5,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.surveasy.model.form.SurveyDTO;
-import com.surveasy.model.form.SurveyPaperTable;
 import com.surveasy.service.user.UserSecurityServiceImpl;
 
 public class FormServiceImpl implements FormService{
 	
 	@Autowired
 	UserSecurityServiceImpl userSecurityServiceImpl;
-	
-	@Autowired
-	SurveyPaperTable surveyPaperTable;
 
 	@Override
 	public boolean insertSurvey(SurveyDTO surveyDTO) {
@@ -33,7 +29,6 @@ public class FormServiceImpl implements FormService{
 	    // UserDetails은 사용자의 정보를 나타내기 위한 인터페이스
 
 	    Integer userNo = userSecurityServiceImpl.getUserno(username);
-	    surveyPaperTable.setUserno(userNo);
 		
 		return false;
 	}
