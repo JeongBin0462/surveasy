@@ -26,7 +26,7 @@
 	padding-top: 20px;
 }
 
-#question-div > div.survey-center-container > div {
+.question-div > div.survey-center-container > div {
 	font-size: 14px;
 }
 
@@ -48,7 +48,7 @@
     width: 350px;
 }
 
-#question-div{
+.question-div{
 	background-color: #1D7659;
 	color: white;
 	
@@ -56,7 +56,7 @@
 	margin-top: 20px;
 }
 
-#question-div > p {
+.question-div > p {
 	padding: 10px;
 }
 
@@ -84,4 +84,21 @@
 	font-size: 18px;
 	background-color: #1D7659;
 	color: white;
+}
+
+.input-div {
+	display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    
+}
+
+.input-div input[type="checkbox"],
+.input-div input[type="radio"] {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.error-highlight {
+    color: #f5d114;
 }
