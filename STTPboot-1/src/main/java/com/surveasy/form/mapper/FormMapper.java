@@ -1,4 +1,4 @@
-package com.surveasy.form;
+package com.surveasy.form.mapper;
 
 import java.time.LocalDateTime;
 

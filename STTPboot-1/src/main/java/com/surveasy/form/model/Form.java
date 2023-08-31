@@ -1,4 +1,4 @@
-package com.surveasy.form;
+package com.surveasy.form.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
