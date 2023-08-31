@@ -22,3 +22,4 @@ public class Question {
     private String answer_max;
     private List<String> answers;
 }
+

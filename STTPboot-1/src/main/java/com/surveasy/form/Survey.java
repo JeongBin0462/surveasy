@@ -20,5 +20,5 @@ public class Survey {
     private boolean is_public_result;
     private boolean show_progress;
     private List<Question> questions;
-	
+    
 }
