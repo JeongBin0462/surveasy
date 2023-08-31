@@ -1,3 +1,27 @@
+function trimTextarea(textareaElement) {
+	textareaElement.value = textareaElement.value.trim();
+}
+
+// 체크박스 제한
+function enforceCheckboxLimit(questionDiv) {
+	const checkboxes = questionDiv.querySelectorAll('input[type="checkbox"]');
+	const max = parseInt(questionDiv.querySelector('.check-min-max-div div:nth-child(4)').textContent, 10);
+
+	const checkedCount = [...checkboxes].filter(cb => cb.checked).length;
+
+	if (checkedCount >= max) {
+		checkboxes.forEach(checkbox => {
+			if (!checkbox.checked) {
+				checkbox.disabled = true;
+			}
+		});
+	} else {
+		checkboxes.forEach(checkbox => {
+			checkbox.disabled = false;
+		});
+	}
+}
+
 document.addEventListener('DOMContentLoaded', (event) => {
 	// 입력 항목의 변화를 감지
 	const inputs = document.querySelectorAll('.question-div input, .question-div textarea');
@@ -5,6 +29,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	inputs.forEach(input => {
 		input.addEventListener('change', function() {
 			validateField(this);
+			enforceCheckboxLimit(this.closest('.question-div'));
 		});
 
 		if (input.tagName.toLowerCase() === 'textarea') {
@@ -58,60 +83,89 @@ function validateField(inputElement) {
 	}
 }
 
-function trimTextarea(textareaElement) {
-	textareaElement.value = textareaElement.value.trim();
+function showError(questionNo) {
+	alert(`${questionNo}번 질문에 답변을 하여야 합니다.`);
 }
 
 function formToJSON(form) {
-	const formData = new FormData(form);
-	const obj = {};
+    const formData = new FormData(form);
+    const surveyData = [];
+    const obj = {
+        surveyno: formData.get('surveyno'),
+        questions: {}
+    };
 
-	formData.forEach((value, key) => {
-		if (key.startsWith('question') && value.trim() === "") {
-			return;
-		}
+    formData.forEach((value, key) => {
+        if (key === 'surveyno') return;
 
-		if (obj[key] !== undefined) {
-			if (!Array.isArray(obj[key])) {
-				obj[key] = [obj[key]];
-			}
-			obj[key].push(value);
-		} else {
-			obj[key] = value;
-		}
-	});
+        if (key.startsWith('question')) {
+            if (!obj.questions[key]) {
+                obj.questions[key] = {
+                    type: null,
+                    answerMap: {}
+                };
+            }
 
-	return JSON.stringify(obj);
+            const questionElement = form.querySelector(`[name="${key}"]`);
+            if (questionElement) {
+                const questionDiv = questionElement.closest('.question-div');
+                obj.questions[key].type = questionDiv.getAttribute('data-type');
+            }
+
+            const answerKey = 'answer' + (Object.keys(obj.questions[key].answerMap).length + 1);
+            obj.questions[key].answerMap[answerKey] = value;
+        }
+    });
+
+    for (let [questionNo, data] of Object.entries(obj.questions)) {
+        surveyData.push({
+            surveyno: obj.surveyno,
+            questionno: parseInt(questionNo.replace('question', '')),
+            type: data.type,
+            answerMap: data.answerMap
+        });
+    }
+
+    return JSON.stringify(surveyData);
 }
 
 function submitData(event) {
-	event.preventDefault();
+    event.preventDefault();
 
-	// 필수 항목 검증
-	const mandatoryFieldsValid = [...document.querySelectorAll('.question-div')]
-		.every(questionDiv => !questionDiv.querySelector('p span:first-child').classList.contains('error-highlight'));
+    // 필수 항목 검증
+    const mandatoryFieldsValid = [...document.querySelectorAll('.question-div')]
+        .every(questionDiv => !questionDiv.querySelector('p span:first-child').classList.contains('error-highlight'));
 
-	if (!mandatoryFieldsValid) {
-		return;
-	}
+    if (!mandatoryFieldsValid) {
+        return;
+    }
 
-	const formElement = document.querySelector('form');
-	const json = formToJSON(formElement);
+    const errorElements = document.querySelectorAll('.error-highlight');
 
-	console.log(json);
+    if (errorElements.length > 0) {
+        const firstErrorElement = errorElements[0];
+        const questionNo = firstErrorElement.closest('.question-div').dataset.questionNo;
+        showError(questionNo);
+        return;
+    }
 
-	//    fetch('/surveasy/survey/submit', {
-	//        method: 'POST',
-	//        headers: {
-	//            'Content-Type': 'application/json'
-	//        },
-	//        body: json
-	//    })
-	//    .then(response => response.json())
-	//    .then(data => {
-	//        console.log('Success:', data);
-	//    })
-	//    .catch((error) => {
-	//        console.error('Error:', error);
-	//    });
+    const formElement = document.querySelector('form');
+    const json = formToJSON(formElement);
+
+    console.log(json);
+
+    fetch('/surveasy/survey/show', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: json
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }

@@ -44,15 +44,17 @@ public class SurveyController {
 		return "/3.3survey_board_participate";
 	}
 
-//	@PostMapping(value = "submit")
-//	public ResponseEntity<?> submitSurvey(@RequestBody SurveySubmitDTO surveySubmitDTO) {
-//		String surveyno = surveySubmitDTO.getSurveyno();
-//		Map<String, Object> answers = surveySubmitDTO.getQuestions();
-//		
-//		System.out.println("요청도착!");
-//		System.out.println(surveyno);
-//		System.out.println(answers.toString());
-//		
-//		return ResponseEntity.ok().build();
-//	}
+	@PostMapping(value = "/show")
+	public ResponseEntity<?> submitSurvey(@RequestBody List<SurveySubmitDTO> surveyData) {
+		System.out.println("요청도착!");
+		for (int i = 0; i < surveyData.size(); i++) {
+		System.out.println(surveyData.get(i).getSurveyno());
+		System.out.println(surveyData.get(i).getQuestionno());
+		System.out.println(surveyData.get(i).getType());
+		System.out.println(surveyData.get(i).getAnswerMap().toString());
+		
+		System.out.println("------------");
+		}
+		return ResponseEntity.ok().build();
+	}
 }

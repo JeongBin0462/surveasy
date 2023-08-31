@@ -70,4 +70,28 @@ public class SurveyServiceImpl implements SurveyService {
 		System.out.println(answersList.toString());
 		return answersList;
 	}
+
+	@Override
+	public int insertUserSurvey(int userno, int surveyno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertEssay(int user_survey_no, int questionno, Answers answers) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertRadio(int user_survey_no, int questionno, Answers answers) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertCheck(int user_survey_no, int questionno, Answers answers) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

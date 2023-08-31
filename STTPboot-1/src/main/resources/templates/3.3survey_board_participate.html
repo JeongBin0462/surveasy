@@ -39,7 +39,7 @@
 			<div id="question-container">
 				<form onsubmit="submitData(event)">
 					<input type="hidden" name="surveyno" th:value="${surveyOption.surveyno}" />
-	    			<div th:each="question, stat : ${surveyQuestion}" class="question-div">
+	    			<div th:each="question, stat : ${surveyQuestion}" class="question-div" th:data-question-no="${stat.index + 1}" th:attr="data-type=${question.answer_types}">
 					<div class="survey-center-container">
 					<div th:if="${question.mandatory}" th:text="'필수'"></div>
 					<div th:unless="${question.mandatory}" th:text="'선택'"></div>
