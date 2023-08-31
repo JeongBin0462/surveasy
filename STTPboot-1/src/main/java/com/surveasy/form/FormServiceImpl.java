@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.surveasy.survey.SurveyMapper;
-import com.surveasy.survey.SurveyOption;
-import com.surveasy.survey.SurveyRequire;
-import com.surveasy.user.UserSecurityServiceImpl;
+import com.surveasy.security.UserSecurityServiceImpl;
+import com.surveasy.survey.mapper.SurveyMapper;
+import com.surveasy.survey.model.SurveyOption;
+import com.surveasy.survey.model.SurveyRequire;
 
 @Service
 public class FormServiceImpl implements FormService{

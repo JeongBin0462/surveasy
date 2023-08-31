@@ -7,10 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import com.surveasy.survey.Answers;
-import com.surveasy.survey.SurveyOption;
-import com.surveasy.survey.SurveyQuestion;
-import com.surveasy.survey.SurveyRequire;
+import com.surveasy.survey.model.Answers;
+import com.surveasy.survey.model.SurveyOption;
+import com.surveasy.survey.model.SurveyQuestion;
+import com.surveasy.survey.model.SurveyRequire;
 
 @Mapper
 public interface FormMapper {

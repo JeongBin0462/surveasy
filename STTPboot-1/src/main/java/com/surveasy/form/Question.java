@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.surveasy.user.UserDTO;
+import com.surveasy.user.model.UserDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
