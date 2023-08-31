@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SurveyRequire {
-	private int surveyno;
+	private Integer surveyno;
 	private String subject;
 	private Integer period;
 	private boolean email_option;

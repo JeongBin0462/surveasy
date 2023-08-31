@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SurveyOption {
 
-	private int surveyno;
+	private Integer surveyno;
 	private boolean is_public_survey;
 	private boolean require_login;
 	private boolean is_public_result;
