@@ -29,14 +29,13 @@ public class FormController {
 		Map<String, Object> response = new HashMap<>();
 		System.out.println(surveyDTO);
 		
-		try {
+//		try {
 		    formService.insertSurvey(surveyDTO);
 		    
 		    response.put("success", true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			response.put("success", false);
-		}
+//		} catch (Exception e) {
+//			response.put("success", false);
+//		}
 
 		return response;
     }
