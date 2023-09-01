@@ -39,7 +39,7 @@ public class FormController {
 		
 		if (formService.insertSurvey(surveyDTO)) {
 			response.put("success", true);
-			response.put("redirectUrl", "/surveasy/makesurvey/success");
+//			response.put("redirectUrl", "/surveasy/makesurvey/success");
 		} else {
 			response.put("success", false);
 		}

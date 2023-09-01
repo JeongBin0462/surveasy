@@ -579,7 +579,9 @@ function submitForm(event) {
     .then(success => {
         console.log(success);
         if (success == "false") {
-			window.alert("저장 실패 : 관리자에게 문의하세요.");
+			alert("저장 실패 : 관리자에게 문의하세요.");
+		} else if (success == "true") {
+			window.location.href = "https://localhost:8080/surveasy/makesurvey/success";
 		}
     })
     .catch(error => {
