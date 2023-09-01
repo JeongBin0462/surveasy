@@ -578,9 +578,9 @@ function submitForm(event) {
     .then(response => response.json())
     .then(success => {
         console.log(success);
-        if (success == false) {
+        if (success === false) {
 			alert("저장 실패 : 관리자에게 문의하세요.");
-		} else if (success == true) {
+		} else if (success === true) {
 			window.location.href = "https://localhost:8080/surveasy/makesurvey/success";
 		}
     })
