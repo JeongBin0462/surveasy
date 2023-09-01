@@ -568,7 +568,7 @@ function submitForm(event) {
     let jsonData = JSON.stringify(finalDataToSend);
     console.log(jsonData);
 
-    fetch('/surveasy/makesurvey', {
+    fetch('/surveasy/makesurvey/submit', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -576,8 +576,11 @@ function submitForm(event) {
         body: jsonData
     })
     .then(response => response.json())
-    .then(data => {
-        console.log(data);
+    .then(success => {
+        console.log(success);
+        if (success == "false") {
+			window.alert("저장 실패 : 관리자에게 문의하세요.");
+		}
     })
     .catch(error => {
         console.error('Error:', error);

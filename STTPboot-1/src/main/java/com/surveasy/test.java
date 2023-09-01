@@ -33,4 +33,9 @@ public class test {
 	public String makesurvey() {
 		return "2.3survey_make_main";
 	}
+	
+	@GetMapping("/surveasy/makesurvey/success")
+	public String successMakeSurvey() {
+		return "2.4survey_make_success";
+	}
 }
