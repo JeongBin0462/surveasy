@@ -39,6 +39,178 @@
 			<div id="question-container">
 				<form onsubmit="submitData(event)">
 					<input type="hidden" name="surveyno" th:value="${surveyOption.surveyno}" />
+					
+					<div class="question-div" id="question-require-div">
+						<div class="survey-center-container">
+							<div>필수</div>
+						</div>
+						<div th:if="${surveyRequire.email_option}">
+							<p class="question-content-text">
+								<span>이메일</span>
+							</p>
+							<div class="answers-div">
+								<input type="text" name="email">
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.phone_option}">
+							<p class="question-content-text">
+								<span>전화번호</span>
+							</p>
+							<div class="answers-div">
+								<input type="text" name="phonenumber">
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.age_option}">
+							<p class="question-content-text">
+								<span>생년월일</span>
+							</p>
+							<div class="answers-div">
+								<input type="date" name="birth">
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.gender_option}">
+							<p class="question-content-text">
+							<span>성별</span>
+							</p>
+							<div class="answers-div">
+								<select name="gender" class="input-box-input">
+	                    			<option>선택</option>
+	                   				<option>남자</option>
+	                  			  	<option>여자</option>
+	                  			</select>
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.department_option}">
+							<p class="question-content-text">
+							<span>부서</span>
+							</p>
+							<div class="answers-div">
+								<select name="department" class="input-box-input">
+	                    			<option>선택</option>
+	                    			<option>개발</option>
+	                    			<option>생산</option>
+				                    <option>지원</option>
+				                    <option>영업</option>
+				                </select>
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.position_option}">
+							<p class="question-content-text">
+							<span>직책</span>
+							</p>
+							<div class="answers-div">
+								<select name="position" class="input-box-input">
+				                    <option>선택</option>
+				                    <option>사원</option>
+				                    <option>주임</option>
+				                    <option>대리</option>
+				                    <option>과장</option>
+				                    <option>차장</option>
+				                    <option>부장</option>
+				                    <option>부장이상</option>
+				            	</select>
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.grade_option}">
+							<p class="question-content-text">
+							<span>학년</span>
+							</p>
+							<div class="answers-div">
+								<select name="grade" class="input-box-input" id="input-grade">
+				                    <option>선택</option>
+				                    <option>1학년</option>
+				                    <option>2학년</option>
+				                    <option>3학년</option>
+				                    <option>4학년</option>
+				               	</select>
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.college_option}">
+							<p class="question-content-text">
+							<span>학과</span>
+							</p>
+							<div class="answers-div">
+								<select name="college" class="input-box-input">
+				                    <option>선택</option>
+				                    <option>공학</option>
+				                    <option>교육</option>
+				                    <option>사회</option>
+				                    <option>예체능</option>
+				                    <option>의약</option>
+				                    <option>인문</option>
+				                    <option>자연</option>
+				                </select>
+			                </div>
+						</div>
+						
+						<div th:if="${surveyRequire.region_option}">
+							<p class="question-content-text">
+							<span>지역</span>
+							</p>
+							<div class="answers-div">
+								<select name="region" class="input-box-input">
+				                    <option>선택</option>
+				                    <option>강원</option>
+				                    <option>경기</option>
+				                    <option>경남</option>
+				                    <option>경북</option>
+				                    <option>광주</option>
+				                    <option>대구</option>
+				                    <option>대전</option>
+				                    <option>부산</option>
+				                    <option>서울</option>
+				                    <option>울산</option>
+				                    <option>인천</option>
+				                    <option>전남</option>
+				                    <option>전북</option>
+				                    <option>제주</option>
+				                    <option>충남</option>
+				                    <option>충북</option>
+				            	</select>
+			            	</div>
+						</div>
+						
+						<div th:if="${surveyRequire.finaledu_option}">
+							<p class="question-content-text">
+							<span>최종학력</span>
+							</p>
+							<div class="answers-div">
+								<select name="finaledu" class="input-box-input">
+				                    <option>선택</option>
+				                    <option>대학원졸업이상</option>
+				                    <option>대학원재학</option>
+				                    <option>대학교졸업</option>
+				                    <option>대학교재학</option>
+				                    <option>고등학교졸업</option>
+				                    <option>고등학교재학</option>
+				                    <option>중학교졸업</option>
+				                    <option>중학교재학</option>
+				              	</select>
+			              	</div>
+						</div>
+						
+						<div th:if="${surveyRequire.incomelevel_option}">
+							<p class="question-content-text">
+							<span>소득수준</span>
+							</p>
+							<div class="answers-div">
+								<select name="incomelevel" class="input-box-input">
+				                    <option>선택</option>
+				                    <option>상</option>
+				                    <option>중</option>
+				                    <option>하</option>
+				                </select>
+			                </div>
+						</div>
+					</div>
+					
 	    			<div th:each="question, stat : ${surveyQuestion}" class="question-div" th:data-question-no="${stat.index + 1}" th:attr="data-type=${question.answer_types}">
 					<div class="survey-center-container">
 					<div th:if="${question.mandatory}" th:text="'필수'"></div>

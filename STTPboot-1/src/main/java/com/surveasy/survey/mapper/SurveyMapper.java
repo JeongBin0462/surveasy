@@ -32,10 +32,4 @@ public interface SurveyMapper {
 	
 	@Select("SELECT * FROM answers WHERE questionno=#{questionno}")
 	Answers getAnswer(@Param("questionno") int questionno);
-	
-	@Insert({"<script>",
-		    "INSERT INTO user_survey (userno, surveyno) VALUES (#{userno}, #{surveyno})",
-		    "</script>"})
-	@Options(useGeneratedKeys = true, keyProperty = "user_survey_no")
-	int insertUserSurvey(UserSurvey userSurvey);
 }
