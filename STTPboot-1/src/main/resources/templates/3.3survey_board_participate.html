@@ -41,10 +41,10 @@
 					<input type="hidden" name="surveyno" th:value="${surveyOption.surveyno}" />
 					
 					<div class="question-div" id="question-require-div">
-						<div class="survey-center-container">
+						<div class="survey-center-container" id="require-text-div">
 							<div>필수</div>
 						</div>
-						<div th:if="${surveyRequire.email_option}">
+						<div th:if="${surveyRequire.email_option}" class="require-div">
 							<p class="question-content-text">
 								<span>이메일</span>
 							</p>
@@ -53,7 +53,7 @@
 							</div>
 						</div>
 						
-						<div th:if="${surveyRequire.phone_option}">
+						<div th:if="${surveyRequire.phone_option}" class="require-div">
 							<p class="question-content-text">
 								<span>전화번호</span>
 							</p>
@@ -62,7 +62,7 @@
 							</div>
 						</div>
 						
-						<div th:if="${surveyRequire.age_option}">
+						<div th:if="${surveyRequire.age_option}" class="require-div">
 							<p class="question-content-text">
 								<span>생년월일</span>
 							</p>
@@ -71,7 +71,7 @@
 							</div>
 						</div>
 						
-						<div th:if="${surveyRequire.gender_option}">
+						<div th:if="${surveyRequire.gender_option}" class="require-div">
 							<p class="question-content-text">
 							<span>성별</span>
 							</p>
@@ -84,7 +84,7 @@
 							</div>
 						</div>
 						
-						<div th:if="${surveyRequire.department_option}">
+						<div th:if="${surveyRequire.department_option}" class="require-div">
 							<p class="question-content-text">
 							<span>부서</span>
 							</p>
@@ -99,7 +99,7 @@
 							</div>
 						</div>
 						
-						<div th:if="${surveyRequire.position_option}">
+						<div th:if="${surveyRequire.position_option}" class="require-div">
 							<p class="question-content-text">
 							<span>직책</span>
 							</p>
@@ -117,7 +117,7 @@
 							</div>
 						</div>
 						
-						<div th:if="${surveyRequire.grade_option}">
+						<div th:if="${surveyRequire.grade_option}" class="require-div">
 							<p class="question-content-text">
 							<span>학년</span>
 							</p>
@@ -132,7 +132,7 @@
 							</div>
 						</div>
 						
-						<div th:if="${surveyRequire.college_option}">
+						<div th:if="${surveyRequire.college_option}" class="require-div">
 							<p class="question-content-text">
 							<span>학과</span>
 							</p>
@@ -150,7 +150,7 @@
 			                </div>
 						</div>
 						
-						<div th:if="${surveyRequire.region_option}">
+						<div th:if="${surveyRequire.region_option}" class="require-div">
 							<p class="question-content-text">
 							<span>지역</span>
 							</p>
@@ -177,7 +177,7 @@
 			            	</div>
 						</div>
 						
-						<div th:if="${surveyRequire.finaledu_option}">
+						<div th:if="${surveyRequire.finaledu_option}" class="require-div">
 							<p class="question-content-text">
 							<span>최종학력</span>
 							</p>
@@ -196,7 +196,7 @@
 			              	</div>
 						</div>
 						
-						<div th:if="${surveyRequire.incomelevel_option}">
+						<div th:if="${surveyRequire.incomelevel_option}" class="require-div">
 							<p class="question-content-text">
 							<span>소득수준</span>
 							</p>

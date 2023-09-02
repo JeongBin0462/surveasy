@@ -1,3 +1,46 @@
+// 필수데이터 검사
+function validateBasicData(section) {
+    const basicDataFields = [
+        'surveyno',
+        'email',
+        'phonenumber',
+        'birth',
+        'gender',
+        'department',
+        'position',
+        'grade',
+        'college',
+        'region',
+        'finaledu',
+        'incomelevel'
+    ];
+
+    basicDataFields.forEach(fieldName => {
+        const inputElement = section.querySelector(`[name="${fieldName}"]`);
+        const parentDiv = inputElement ? inputElement.closest('div') : null;
+
+        if (inputElement && (inputElement.value === '선택' || !inputElement.value.trim())) {
+            parentDiv.classList.add('error-highlight');
+        } else if (parentDiv) {
+            parentDiv.classList.remove('error-highlight');
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const basicDataSection = document.querySelector('#question-require-div'); 
+    if (basicDataSection) {
+        validateBasicData(basicDataSection);
+
+        const basicDataInputs = basicDataSection.querySelectorAll('input, select');
+        basicDataInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                validateBasicData(basicDataSection);
+            });
+        });
+    }
+});
+
 function trimTextarea(textareaElement) {
 	textareaElement.value = textareaElement.value.trim();
 }
@@ -5,6 +48,11 @@ function trimTextarea(textareaElement) {
 // 체크박스 제한
 function enforceCheckboxLimit(questionDiv) {
 	const checkboxes = questionDiv.querySelectorAll('input[type="checkbox"]');
+	const maxElement = questionDiv.querySelector('.check-min-max-div div:nth-child(4)');
+
+    if (!maxElement) {
+        return;
+    }
 	const max = parseInt(questionDiv.querySelector('.check-min-max-div div:nth-child(4)').textContent, 10);
 
 	const checkedCount = [...checkboxes].filter(cb => cb.checked).length;
@@ -50,11 +98,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function validateField(inputElement) {
-	const questionDiv = inputElement.closest('.question-div');
-	const isMandatory = questionDiv.querySelector('.survey-center-container div').textContent.trim() === '필수';
+    if (!inputElement) {
+        return;
+    }
 
-	const checkboxes = questionDiv.querySelectorAll('input[type="checkbox"]');
-	const targetHighlightElement = questionDiv.querySelector('.question-content-text');
+    const questionDiv = inputElement.closest('.question-div');
+    if (!questionDiv) {
+        return;
+    }
+
+    const isMandatory = questionDiv.querySelector('.survey-center-container div').textContent.trim() === '필수';
+
+    const checkboxes = questionDiv.querySelectorAll('input[type="checkbox"]');
+    const targetHighlightElement = questionDiv.querySelector('.question-content-text');
+    if (!targetHighlightElement) {
+        return;
+    }
+
+    targetHighlightElement.classList.remove('error-highlight');
+	
 	targetHighlightElement.classList.remove('error-highlight');
 
 	if (checkboxes.length) {
@@ -84,14 +146,64 @@ function validateField(inputElement) {
 }
 
 function showError(questionNo) {
-	alert(`${questionNo}번 질문에 답변을 하여야 합니다.`);
+    if (typeof questionNo === 'undefined' || questionNo === null) {
+        alert('기본데이터를 입력하셔야 합니다.');
+    } else {
+        alert(`${questionNo}번 질문에 답변을 하여야 합니다.`);
+    }
 }
 
 function formToJSON(form) {
     const formData = new FormData(form);
-    const surveyData = [];
-    const obj = {
+    
+    let genderElement = document.querySelector('[name="gender"]');
+    let gradeElement = document.querySelector('[name="grade"]');
+    let genderValue = genderElement ? genderElement.value : null;
+    let gradeValue = gradeElement ? gradeElement.value : null;
+	
+    let genderParse = null;
+    let gradeParse = null;
+	
+    if (genderValue) {
+        if (genderValue === '선택') {
+            genderParse = null;
+        } else if (genderValue === '남자') {
+            genderParse = 0;
+        } else if (genderValue === '여자') {
+            genderParse = 1;
+        }
+    }
+	
+    if (gradeValue) {
+        if (gradeValue === '1학년') {
+            gradeParse = 1;
+        } else if (gradeValue === '2학년') {
+            gradeParse = 2;
+        } else if (gradeValue === '3학년') {
+            gradeParse = 3;
+        } else if (gradeValue === '4학년') {
+            gradeParse = 4;
+        } else {
+            gradeParse = null;
+        }
+    }
+    
+    const basicData = {
         surveyno: formData.get('surveyno'),
+        email: formData.get('email'),
+        phonenumber: formData.get('phonenumber'),
+        birth: formData.get('birth'),
+        gender: genderParse,
+        department: formData.get('department') === '선택' ? null : formData.get('department'),
+        position: formData.get('position') === '선택' ? null : formData.get('position'),
+        grade: gradeParse,
+        college: formData.get('college') === '선택' ? null : formData.get('college'),
+        region: formData.get('region') === '선택' ? null : formData.get('region'),
+        finaledu: formData.get('finaledu') === '선택' ? null : formData.get('finaledu'),
+        incomelevel: formData.get('incomelevel') === '선택' ? null : formData.get('incomelevel')
+    };
+
+    const questionsData = {
         questions: {}
     };
 
@@ -99,8 +211,8 @@ function formToJSON(form) {
         if (key === 'surveyno') return;
 
         if (key.startsWith('question')) {
-            if (!obj.questions[key]) {
-                obj.questions[key] = {
+            if (!questionsData.questions[key]) {
+                questionsData.questions[key] = {
                     type: null,
                     answerMap: {}
                 };
@@ -109,25 +221,32 @@ function formToJSON(form) {
             const questionElement = form.querySelector(`[name="${key}"]`);
             if (questionElement) {
                 const questionDiv = questionElement.closest('.question-div');
-                obj.questions[key].type = questionDiv.getAttribute('data-type');
+                questionsData.questions[key].type = questionDiv.getAttribute('data-type');
             }
 
-            const answerKey = 'answer' + (Object.keys(obj.questions[key].answerMap).length + 1);
-            obj.questions[key].answerMap[answerKey] = value;
+            const answerKey = 'answer' + (Object.keys(questionsData.questions[key].answerMap).length + 1);
+            questionsData.questions[key].answerMap[answerKey] = value;
         }
     });
 
-    for (let [questionNo, data] of Object.entries(obj.questions)) {
+    const surveyData = [];
+
+    for (let [questionNo, data] of Object.entries(questionsData.questions)) {
         surveyData.push({
-            surveyno: obj.surveyno,
             questionno: parseInt(questionNo.replace('question', '')),
             type: data.type,
             answerMap: data.answerMap
         });
     }
 
-    return JSON.stringify(surveyData);
+    return JSON.stringify({
+        require: basicData,
+        surveySubmits: surveyData
+    });
 }
+
+
+
 
 function submitData(event) {
     event.preventDefault();
@@ -164,6 +283,7 @@ function submitData(event) {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
+        window.location.href = '/surveasy/main';
     })
     .catch((error) => {
         console.error('Error:', error);

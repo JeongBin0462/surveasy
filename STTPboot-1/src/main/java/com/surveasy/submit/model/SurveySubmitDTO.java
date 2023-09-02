@@ -1,7 +1,6 @@
 package com.surveasy.submit.model;
 
-
-import java.util.Map;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,8 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SurveySubmitDTO {
-	private int surveyno;
-    private int questionno;
-    private String type;
-    private Map<String, String> answerMap;
+	private Require require;
+	private List<SurveyAnswers> surveySubmits;
 }
