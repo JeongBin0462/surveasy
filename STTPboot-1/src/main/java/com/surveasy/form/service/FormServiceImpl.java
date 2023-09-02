@@ -1,9 +1,12 @@
 package com.surveasy.form.service;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,12 +71,18 @@ public class FormServiceImpl implements FormService{
 	    LocalDateTime regidate = LocalDateTime.now();
 	    
 	    // surveyPaper을 db에 입력
-	    int result1 = formMapper.insertSurveyPaperTemp(userNo, surveyDTO.getSurvey().getSurveytitle(), surveyDTO.getSurvey().getSurveycontent(), ranLink);
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("userno", userNo);
+	    params.put("surveytitle", survey.getSurveytitle());
+	    params.put("surveycontent", survey.getSurveycontent());
+	    params.put("link", ranLink);
+	    params.put("surveyno", null);  // 이 값이 업데이트됨
+
+	    int result1 = formMapper.insertSurveyPaperTemp(params);
 	    System.out.println("surveyPaper : " + result1);
-	    
-	    // 만든 surveypaper 행의 surveyno를 가져옴
-	    Integer surveyno = formMapper.getSurveyPaper(userNo);
-	    System.out.println("surveyno : " + surveyno);
+
+	    BigInteger surveynoBigInteger = (BigInteger) params.get("surveyno");
+	    Integer surveyno = surveynoBigInteger.intValue();
 	    
 	    // surveyrequire 객체 생성
 	    SurveyRequire surveyrequire = SurveyRequire.builder()
