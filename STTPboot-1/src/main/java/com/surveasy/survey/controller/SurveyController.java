@@ -26,6 +26,11 @@ public class SurveyController {
 
 	@Autowired
 	SurveyService surveyService;
+	
+	@GetMapping(value = "/board")
+	public String boardSurvey() {
+		return "/3.1survey_board";
+	}
 
 	@GetMapping(value = "/show")
 	public String showSurvey(Model model) {

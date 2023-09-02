@@ -9,19 +9,21 @@
   </head>
   <body>
     <header id="header">
-      <img src="/img/로고2차.png" id="headerTitle" />
+	  <a href="http://localhost:8080/surveasy/main">
+      	<img src="/img/로고2차.png" id="headerTitle" />
+      </a>
       <a class="headerLogin" id="loginLink" href="./user/login">로그인</a>
 	  <a class="headerLogin" id="logoutLink" href="./user/logout">로그아웃</a>
       <div id="headerNavi">
         <div id="surveyMainDiv">
           <p class="naviLink">설문지 작성</p>
           <div id="hiddenDiv">
-            <a href="#" class="hiddenText">새로만들기</a>
+            <a href="http://localhost:8080/surveasy/inputsurvey" class="hiddenText">새로만들기</a>
             <a href="#" class="hiddenText">불러오기</a>
             <a href="#" class="hiddenText">가져오기</a>
           </div>
         </div>
-        <a href="#" class="naviLink">설문참여</a>
+        <a href="http://localhost:8080/surveasy/survey/board" class="naviLink">설문참여</a>
         <a href="#" class="naviLink">설문결과</a>
         <a href="#" class="naviLink">MY PAGE</a>
         <a href="#" class="naviLink">고객센터</a>
@@ -129,16 +131,22 @@
       <div id="gitDiv">
         <div class="gitDivOne">
           <img src="/img/깃.png" class="footerGitImg" />
+          <a href="https://github.com/Jisu-Seong" class="gitId">
           <p class="gitId">Jisu-Seong</p>
+          </a>
         </div>
         <div class="gitDivOne">
           <img src="/img/깃.png" class="footerGitImg" />
+          <a href="https://github.com/JeongBin0462" class="gitId">
           <p class="gitId">JeongBin0462</p>
+          </a>
         </div>
       </div>
       <div id="gitAdress">
         <img src="/img/깃.png" class="footerGitImg" />
-        <p class="gitId">https://github.com/Jisu-Seong/STTP</p>
+        <a href="https://github.com/Jisu-Seong/surveasy" class="gitId">
+        <p>https://github.com/Jisu-Seong/surveasy</p>
+        </a>
       </div>
     </footer>
   </body>
@@ -154,5 +162,5 @@
         }
     });
     /*]]>*/
-</script>
+	</script>
 </html>

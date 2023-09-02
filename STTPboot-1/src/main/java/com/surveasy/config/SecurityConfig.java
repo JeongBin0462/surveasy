@@ -18,6 +18,7 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+				.requestMatchers(new AntPathRequestMatcher("/surveasy/inputsurvey")).authenticated()
 				.requestMatchers(new AntPathRequestMatcher("/surveasy/makesurvey")).authenticated()
 				.requestMatchers(new AntPathRequestMatcher("/surveasy/survey")).authenticated()
 				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
