@@ -283,7 +283,7 @@ function submitData(event) {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        window.location.href = '/surveasy/main';
+        window.location.href = '/surveasy/survey/success';
     })
     .catch((error) => {
         console.error('Error:', error);

@@ -10,6 +10,7 @@ import com.surveasy.survey.model.SurveyRequire;
 
 public interface SurveyService {
 	SurveyPaper getSurveyPaper(int surveyno);
+	SurveyPaper getSurveyPaperByLink(String link);
 	SurveyOption getSurveyOption(int surveyno);
 	SurveyRequire getSurveyRequire(int surveyno);
 	List<SurveyQuestion> getSurveyQuestion(int surveyno);

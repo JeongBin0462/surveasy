@@ -236,7 +236,7 @@
 							                <div th:if="${currentAnswer != null}">
 							                    <label>
 							                        <input th:if="${question.answer_types.equals('체크박스')}" type="checkbox" th:name="${'question' + question.questionno}" th:value="${currentAnswer}" />
-							                        <input th:if="${question.answer_types.equals('라디오')}" type="radio" th:name="${'question' + question.questionno}" th:value="${currentAnswer}" />
+							                        <input th:if="${question.answer_types.equals('라디오버튼')}" type="radio" th:name="${'question' + question.questionno}" th:value="${currentAnswer}" />
 							                        <span th:text="${currentAnswer}"></span>
 							                    </label>
 							                </div>

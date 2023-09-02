@@ -32,4 +32,7 @@ public interface SurveyMapper {
 	
 	@Select("SELECT * FROM answers WHERE questionno=#{questionno}")
 	Answers getAnswer(@Param("questionno") int questionno);
+	
+	@Select("SELECT * FROM surveypaper WHERE link=#{link}")
+	SurveyPaper getSurveyByLink(@Param("link") String link);
 }

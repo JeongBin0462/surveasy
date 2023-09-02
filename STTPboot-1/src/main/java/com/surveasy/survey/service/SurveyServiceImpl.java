@@ -70,4 +70,9 @@ public class SurveyServiceImpl implements SurveyService {
 		System.out.println(answersList.toString());
 		return answersList;
 	}
+
+	@Override
+	public SurveyPaper getSurveyPaperByLink(String link) {
+		return surveyMapper.getSurveyByLink(link);
+	}
 }

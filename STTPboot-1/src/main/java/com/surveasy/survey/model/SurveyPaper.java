@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class SurveyPaper {
+	private Integer surveyno;
 	private Integer userno;
 	private String surveytitle;
 	private String surveycontent;

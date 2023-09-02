@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,5 +51,10 @@ public class SubmitController {
 		submitService.insertAnswers(userSurveyNo, list);
 		
 		return ResponseEntity.ok().body("{\"message\":\"success\"}");
+	}
+	
+	@GetMapping(value = "/success")
+	public String surveySuccess() {
+		return "/3.4survey_board_result";
 	}
 }	
