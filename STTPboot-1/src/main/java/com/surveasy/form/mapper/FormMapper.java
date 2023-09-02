@@ -2,9 +2,11 @@ package com.surveasy.form.mapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -17,55 +19,12 @@ import com.surveasy.survey.model.SurveyRequire;
 public interface FormMapper {
 
 //	 임시저장(regidate, deadline 제외) surveypaper 테이블
-//	@Insert({
-//	    "<script>",
-//	    "INSERT INTO surveypaper (userno, surveytitle, surveycontent, link)",
-//	    " VALUES (#{userno}, #{surveytitle}, #{surveycontent}, #{link})",
-//	    " ON DUPLICATE KEY UPDATE",
-//	    " surveytitle = VALUES(surveytitle),",
-//	    " surveycontent = VALUES(surveycontent),",
-//	    " link = VALUES(link)",
-//	    "</script>"
-//	})
-//	int insertSurveyPaperTemp(@Param("userno") Integer userno, @Param("surveytitle") String surveytitle,
-//	                          @Param("surveycontent") String surveycontent, @Param("link") String link);
-
-//	 임시저장(regidate, deadline 제외) surveypaper 테이블
 	@Insert({
-	    "<script>",
 	    "INSERT INTO surveypaper (userno, surveytitle, surveycontent, link)",
-	    " VALUES (#{userno}, #{surveytitle}, #{surveycontent}, #{link})",
-	    "</script>"
+	    "VALUES (#{map.userno}, #{map.surveytitle}, #{map.surveycontent}, #{map.link})"
 	})
-	int insertSurveyPaperTemp(@Param("userno") Integer userno, @Param("surveytitle") String surveytitle,
-	                          @Param("surveycontent") String surveycontent, @Param("link") String link);
-
-	// 제출(regidate, deadline 포함) surveypaper 테이블
-	@Insert({
-	    "<script>",
-	    "INSERT INTO surveypaper (userno, surveytitle, surveycontent, regidate, deadline, link)",
-	    " VALUES (#{userno}",
-	    ", #{surveytitle}",
-	    ", #{surveycontent}",
-	    ", #{regidate, jdbcType=TIMESTAMP}",
-	    ", #{deadline}",
-	    ", #{link}",
-	    ")",
-	    "ON DUPLICATE KEY UPDATE",
-	    " surveytitle = VALUES(surveytitle),",
-	    " surveycontent = VALUES(surveycontent),",
-	    " regidate = VALUES(regidate),",
-	    " deadline = VALUES(deadline),",
-	    " link = VALUES(link)",
-	    "</script>"
-	})
-	int insertSurveyPaperSubmit(@Param("userno") Integer userno, @Param("surveytitle") String surveytitle,
-	                            @Param("surveycontent") String surveycontent, @Param("regidate") LocalDateTime regidate,
-	                            @Param("deadline") LocalDateTime deadline, @Param("link") String link);
-	
-	// 저장한 surveypaper의 surveyno를 가져옴
-	@Select("SELECT surveyno FROM surveypaper WHERE userno = #{userno}")
-	Integer getSurveyPaper(@Param("userno") Integer userno);
+	@Options(useGeneratedKeys = true, keyProperty = "map.surveyno", keyColumn = "surveyno")
+	int insertSurveyPaperTemp(@Param("map") Map<String, Object> params);
 	
 	// surveyrequire 테이블에 넣음
 	@Insert({
