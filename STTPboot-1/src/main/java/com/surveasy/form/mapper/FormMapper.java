@@ -18,7 +18,6 @@ import com.surveasy.survey.model.SurveyRequire;
 @Mapper
 public interface FormMapper {
 
-//	 임시저장(regidate, deadline 제외) surveypaper 테이블
 	@Insert({
 		"<script>",
         "INSERT INTO surveypaper (userno",
@@ -152,4 +151,12 @@ public interface FormMapper {
 	})
 	int insertAnswers(Answers answers);
 
+	
+	@Select({
+		"<script>",
+		"SELECT COUNT(*) AS cnt FROM surveypaper WHERE userno = #{userno}",
+		" AND regidate IS NULL",
+		"</script>"
+	})
+	int countTempSaveNum(@Param("userno") Integer userno);
 }

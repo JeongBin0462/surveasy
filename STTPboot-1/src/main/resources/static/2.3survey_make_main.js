@@ -485,7 +485,8 @@ function reorderQuestions() {
   });
 }
 
-function getQuestionInfo(questionDiv) {
+function getQuestionInfo(questionDiv, isFinalSubmit) {
+  // 0903
   let questionText = questionDiv.querySelector(".inputQuestion").value;
   let questionTypeSelect = questionDiv.querySelector(".answerTypeCombo");
   let questionType =
@@ -506,16 +507,47 @@ function getQuestionInfo(questionDiv) {
       ).map((input) => input.value);
       answer_min = questionDiv.querySelector(".input_minRequired").value;
       answer_max = questionDiv.querySelector(".input_maxRequired").value;
+      if (isFinalSubmit) {
+        if (answerContent.length == 0) {
+          alert("답변은 최소 1개 이상이어야 합니다.");
+          return null;
+        }
+        for (let i = 0; i < answerContent.length; i++) {
+          if (answerContent[i] == "") {
+            alert("올바른 형식의 답변을 입력해주세요.");
+            return null;
+          }
+        }
+      }
       break;
     case "라디오버튼":
       answerContent = Array.from(
         questionDiv.querySelectorAll(".answerInput")
       ).map((input) => input.value);
+      if (isFinalSubmit) {
+        if (answerContent.length == 0) {
+          alert("답변은 최소 1개 이상이어야 합니다.");
+          return null;
+        }
+        for (let i = 0; i < answerContent.length; i++) {
+          if (answerContent[i] == "") {
+            alert("올바른 형식의 답변을 입력해주세요.");
+            return null;
+          }
+        }
+      }
       break;
     case "서술형":
       break;
     default:
       break;
+  }
+
+  if (isFinalSubmit) {
+    if (!questionText || questionType == "답변유형 선택") {
+      alert("올바른 형식의 질문을 입력해주세요.");
+      return null;
+    }
   }
 
   console.log("질문: " + questionText);
@@ -525,7 +557,18 @@ function getQuestionInfo(questionDiv) {
   if (questionType === "체크박스") {
     console.log("최소 선택 가능 수: " + answer_min);
     console.log("최대 선택 가능 수: " + answer_max);
+
+    //0903
+    if (isFinalSubmit) {
+      if (!answer_min || !answer_max) {
+        alert(
+          "답변유형이 체크박스일 경우, 최대/최소 선택 개수가 존재햐여야 합니다."
+        );
+        return null;
+      }
+    }
   }
+
   console.log("-------------------------");
 
   // 체크박스의 경우에만 answer_min 및 answer_max 값을 포함합니다.
@@ -538,14 +581,6 @@ function getQuestionInfo(questionDiv) {
   };
   return result;
 }
-
-document
-  .querySelector("#submitBtn")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-
-    submitForm(event);
-  });
 
 // 설문 옵션 저장
 function getSurveySettings() {
@@ -569,19 +604,21 @@ function getSurveySettings() {
 
 // 현재 시간 LocalDateTime
 function getCurrentLocalDateTime() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    
-    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
 
 function submitForm(event, isFinalSubmit) {
   event.preventDefault();
+
+  var goVal = true;
 
   let surveyTitle = document.querySelector("#surveyTitle .custom-input").value;
   let surveyContent = document.querySelector(
@@ -591,8 +628,23 @@ function submitForm(event, isFinalSubmit) {
   let questions = document.querySelectorAll(".topDiv");
   let questionsData = [];
 
+  //0903
+  if (isFinalSubmit) {
+    if (surveyTitle == "" || surveyContent == "" || !questions.length) {
+      goVal = false;
+      alert("설문지는 최소 한 질문 이상 존재해야 합니다.");
+      return;
+    }
+    console.log(surveyTitle);
+    console.log(surveyContent);
+    console.log(questions);
+  }
+
   questions.forEach((questionDiv) => {
-    let questionInfo = getQuestionInfo(questionDiv);
+    let questionInfo = getQuestionInfo(questionDiv, isFinalSubmit);
+    if (questionInfo == null) {
+      goVal = false;
+    }
     questionsData.push(questionInfo);
   });
 
@@ -609,37 +661,44 @@ function submitForm(event, isFinalSubmit) {
     },
     form: formData,
   };
-  
+
   if (isFinalSubmit) {
     finalDataToSend.survey.currentTime = getCurrentLocalDateTime();
   }
 
-  let jsonData = JSON.stringify(finalDataToSend);
-  console.log(jsonData);
+  console.log("goVal : " + goVal);
+  if (goVal) {
+    let jsonData = JSON.stringify(finalDataToSend);
+    console.log(jsonData);
 
-  fetch("/surveasy/makesurvey/submit", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: jsonData,
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data); // 전체 응답 객체를 출력
-      if (data.success === true) {
-        console.log("true");
-        window.location.href =
-          "http://localhost:8080/surveasy/makesurvey/success";
-      } else if (data.success === false) {
-        console.log("false");
-        alert("저장 실패 : 관리자에게 문의하세요.");
-      }
+    fetch("/surveasy/makesurvey/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonData,
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // 전체 응답 객체를 출력
+        if (data.success === true) {
+          if (data.message == "임시저장") {
+            console.log("임시저장 완료");
+            alert("임시저장되었습니다.");
+            return;
+          } else {
+            console.log("true");
+            window.location.href = data.mapping;
+          }
+        } else if (data.success === false) {
+          console.log("false");
+          alert(data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
   return false;
 }
 
