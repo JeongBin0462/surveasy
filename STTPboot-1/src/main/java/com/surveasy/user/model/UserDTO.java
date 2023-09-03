@@ -30,7 +30,7 @@ public class UserDTO {
 	private String job;
 	private String region;
 	private String finaledu;
-	private String incomlevel;
+	private String incomelevel;
 	
 	
 	private Integer grade;

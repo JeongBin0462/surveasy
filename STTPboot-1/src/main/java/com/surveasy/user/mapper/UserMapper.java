@@ -22,7 +22,7 @@ public interface UserMapper {
         "<if test='job != null'>, job</if>",
         "<if test='region != null'>, region</if>",
         "<if test='finaledu != null'>, finaledu</if>",
-        "<if test='incomlevel != null'>, incomlevel</if>",
+        "<if test='incomelevel != null'>, incomelevel</if>",
         ") VALUES (",
         "#{username}, #{password}, #{email}, #{phonenumber}",
         "<if test='birth != null'>, #{birth}</if>",
@@ -30,7 +30,7 @@ public interface UserMapper {
         "<if test='job != null'>, #{job}</if>",
         "<if test='region != null'>, #{region}</if>",
         "<if test='finaledu != null'>, #{finaledu}</if>",
-        "<if test='incomlevel != null'>, #{incomlevel}</if>",
+        "<if test='incomelevel != null'>, #{incomelevel}</if>",
         ")",
         "</script>"
     })

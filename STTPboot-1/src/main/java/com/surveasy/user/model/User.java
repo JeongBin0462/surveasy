@@ -20,6 +20,6 @@ public class User {
 	private String job;
 	private String region;
 	private String finaledu;
-	private String incomlevel;
+	private String incomelevel;
 
 }

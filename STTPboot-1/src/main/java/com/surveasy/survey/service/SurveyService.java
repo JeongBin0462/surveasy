@@ -7,6 +7,8 @@ import com.surveasy.survey.model.SurveyOption;
 import com.surveasy.survey.model.SurveyPaper;
 import com.surveasy.survey.model.SurveyQuestion;
 import com.surveasy.survey.model.SurveyRequire;
+import com.surveasy.user.model.User;
+import com.surveasy.user.model.UserDTO;
 
 public interface SurveyService {
 	SurveyPaper getSurveyPaper(int surveyno);
@@ -15,4 +17,6 @@ public interface SurveyService {
 	SurveyRequire getSurveyRequire(int surveyno);
 	List<SurveyQuestion> getSurveyQuestion(int surveyno);
 	List<Answers> getAnswers(List<SurveyQuestion> list);
+	boolean getUserSurvey(int surveyno, int userno);
+	UserDTO getUserInfo();
 }

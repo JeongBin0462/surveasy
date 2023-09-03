@@ -35,9 +35,6 @@
       <div class="container">
         <div class="side-div"></div> 
         <div class="center-div">
-          <p>설문완료!!</p>
-            <p th:text="${url}">url</p>
-            <p th:text="${subject}">subject</p>
         </div>
         <div class="side-div"></div>
       </div>
@@ -77,5 +74,9 @@
         }
     });
     /*]]>*/
+	</script>
+	<script>
+	    alert("이미 참여한 설문입니다.");
+	    window.location.href = '/surveasy/survey/board';
 	</script>
 </html>

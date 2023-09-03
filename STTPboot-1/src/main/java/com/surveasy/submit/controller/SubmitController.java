@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.surveasy.submit.model.Require;
 import com.surveasy.submit.model.SurveyAnswers;
@@ -53,8 +54,12 @@ public class SubmitController {
 		return ResponseEntity.ok().body("{\"message\":\"success\"}");
 	}
 	
-	@GetMapping(value = "/success")
-	public String surveySuccess() {
-		return "/3.4survey_board_result";
+	@PostMapping(value = "/success")
+	public String surveySuccess(@RequestParam String subject, @RequestParam String url, Model model) {
+
+	    model.addAttribute("url", url);
+	    model.addAttribute("subject", subject);
+
+	    return "/3.4survey_board_result";
 	}
 }	

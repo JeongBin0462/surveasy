@@ -282,9 +282,35 @@ function submitData(event) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
-        window.location.href = '/surveasy/survey/success';
-    })
+    console.log('Success:', data);
+
+    // hidden input에서 값 가져오기
+    const subjectValue = document.querySelector('input[name="subject"]').value;
+    const urlValue = 'http://localhost:8080/surveasy/survey/' + document.querySelector('input[name="url"]').value;
+
+    // 임시 폼을 생성
+    const form = document.createElement('form');
+    document.body.appendChild(form);
+    form.method = 'post';
+    form.action = '/surveasy/survey/success';
+
+    // subject 데이터를 폼에 추가
+    const subjectInput = document.createElement('input');
+    subjectInput.type = 'hidden';
+    subjectInput.name = 'subject';
+    subjectInput.value = subjectValue; 
+    form.appendChild(subjectInput);
+
+    // 변경된 URL 데이터를 폼에 추가
+    const urlInput = document.createElement('input');
+    urlInput.type = 'hidden';
+    urlInput.name = 'url';
+    urlInput.value = urlValue;
+    form.appendChild(urlInput);
+
+    // 폼을 제출하여 데이터 전송
+    form.submit();
+})
     .catch((error) => {
         console.error('Error:', error);
     });

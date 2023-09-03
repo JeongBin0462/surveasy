@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.surveasy.survey.mapper.SurveyMapper;
@@ -13,10 +15,14 @@ import com.surveasy.survey.model.SurveyOption;
 import com.surveasy.survey.model.SurveyPaper;
 import com.surveasy.survey.model.SurveyQuestion;
 import com.surveasy.survey.model.SurveyRequire;
+import com.surveasy.user.model.Employees;
+import com.surveasy.user.model.Student;
+import com.surveasy.user.model.User;
+import com.surveasy.user.model.UserDTO;
 
 @Service
 public class SurveyServiceImpl implements SurveyService {
-	@Autowired 
+	@Autowired
 	SurveyMapper surveyMapper;
 
 	@Override
@@ -59,10 +65,10 @@ public class SurveyServiceImpl implements SurveyService {
 			String type = list.get(i).getAnswer_types();
 			int questionno = list.get(i).getQuestionno();
 			System.out.println(type);
-			
+
 			if (!type.equals("서술형")) {
 				answers = surveyMapper.getAnswer(questionno);
-				
+
 				System.out.println(answers);
 				answersList.add(answers);
 			}
@@ -74,5 +80,45 @@ public class SurveyServiceImpl implements SurveyService {
 	@Override
 	public SurveyPaper getSurveyPaperByLink(String link) {
 		return surveyMapper.getSurveyByLink(link);
+	}
+
+	@Override
+	public boolean getUserSurvey(int surveyno, int userno) {
+		Integer userSurveyNo = surveyMapper.getUserSurvey(surveyno, userno);
+		System.out.println("userSurveyNo : " + userSurveyNo);
+		if (userSurveyNo != null) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public UserDTO getUserInfo() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+
+		UserDTO userInfo = new UserDTO();
+		User user = surveyMapper.getUser(username);
+		BeanUtils.copyProperties(user, userInfo);
+		int userno = user.getUserno();
+
+		if (user.getJob() != null) {
+			if (user.getJob().equals("학생")) {
+				Student student = surveyMapper.getStudent(userno);
+				BeanUtils.copyProperties(student, userInfo);
+			}
+			if (user.getJob().equals("직장인")) {
+				Employees employees = surveyMapper.getEmployees(userno);
+				BeanUtils.copyProperties(employees, userInfo);
+			}
+		}
+
+		return userInfo;
 	}
 }
