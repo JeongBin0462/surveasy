@@ -567,7 +567,20 @@ function getSurveySettings() {
   return settings;
 }
 
-function submitForm(event) {
+// 현재 시간 LocalDateTime
+function getCurrentLocalDateTime() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+}
+
+function submitForm(event, isFinalSubmit) {
   event.preventDefault();
 
   let surveyTitle = document.querySelector("#surveyTitle .custom-input").value;
@@ -596,6 +609,10 @@ function submitForm(event) {
     },
     form: formData,
   };
+  
+  if (isFinalSubmit) {
+    finalDataToSend.survey.currentTime = getCurrentLocalDateTime();
+  }
 
   let jsonData = JSON.stringify(finalDataToSend);
   console.log(jsonData);

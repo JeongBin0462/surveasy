@@ -68,7 +68,14 @@ public class FormServiceImpl implements FormService{
 	    String ranLink = RandomStringGenerator.generateRandomString();
 	    
 	    // regidate 현재시간 설정(임시)
-	    LocalDateTime regidate = LocalDateTime.now();
+	    LocalDateTime regidate = survey.getCurrentTime();
+	    System.out.println("regidate" + regidate);
+	    
+	    // 공개/비공개 설정
+	    boolean isPublic = survey.is_public_result();
+	    if (!isPublic) {
+	        ranLink = "0" + ranLink.substring(1);
+	    }
 	    
 	    // surveyPaper을 db에 입력
 	    Map<String, Object> params = new HashMap<>();
@@ -77,6 +84,13 @@ public class FormServiceImpl implements FormService{
 	    params.put("surveycontent", survey.getSurveycontent());
 	    params.put("link", ranLink);
 	    params.put("surveyno", null);  // 이 값이 업데이트됨
+	    if (regidate != null) {
+	    	params.put("regidate", regidate);
+	    	int period = Integer.parseInt(form.getPeriod());
+	    	LocalDateTime deadline = regidate.plusDays(period);
+	    	params.put("deadline", deadline);
+	    }
+	    
 
 	    int result1 = formMapper.insertSurveyPaperTemp(params);
 	    System.out.println("surveyPaper : " + result1);
@@ -164,7 +178,6 @@ public class FormServiceImpl implements FormService{
 	    	System.out.println("Answers : " + i + "번째 - " + result5);
 	    	
 	    }
-	    
 		return true;
 	}
 	

@@ -51,5 +51,4 @@ public class SurveyController {
 
 	    return "/3.3survey_board_participate";
 	}
-
 }

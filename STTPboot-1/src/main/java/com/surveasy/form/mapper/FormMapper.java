@@ -20,9 +20,22 @@ public interface FormMapper {
 
 //	 임시저장(regidate, deadline 제외) surveypaper 테이블
 	@Insert({
-	    "INSERT INTO surveypaper (userno, surveytitle, surveycontent, link)",
-	    "VALUES (#{map.userno}, #{map.surveytitle}, #{map.surveycontent}, #{map.link})"
-	})
+		"<script>",
+        "INSERT INTO surveypaper (userno",
+        "<if test='map.surveytitle != null'>, surveytitle</if>",
+        "<if test='map.surveycontent != null'>, surveycontent</if>",
+        "<if test='map.regidate != null'>, regidate</if>",
+        "<if test='map.deadline != null'>, deadline</if>",
+        "<if test='map.link != null'>, link</if>",
+        ") VALUES (#{map.userno}",
+        "<if test='map.surveytitle != null'>, #{map.surveytitle}</if>",
+        "<if test='map.surveycontent != null'>, #{map.surveycontent}</if>",
+        "<if test='map.regidate != null'>, #{map.regidate}</if>",
+        "<if test='map.deadline != null'>, #{map.deadline}</if>",
+        "<if test='map.link != null'>, #{map.link}</if>",
+        ")",
+        "</script>"
+    })
 	@Options(useGeneratedKeys = true, keyProperty = "map.surveyno", keyColumn = "surveyno")
 	int insertSurveyPaperTemp(@Param("map") Map<String, Object> params);
 	
