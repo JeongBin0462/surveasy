@@ -61,7 +61,7 @@
 
 ## ERD
 
-<img src="https://github.com/Jisu-Seong/surveasy/assets/134483516/713a72f5-6dc0-4303-ad03-44e29ec6fcec" width="100%"/>
+<img src="https://github.com/Jisu-Seong/surveasy/assets/134483516/d4d2b8ff-e3d7-4de2-addc-f9e5979e8fe1" width="100%"/>
 
 
 # :family: <a name="team">팀원 역할 소개</a>
