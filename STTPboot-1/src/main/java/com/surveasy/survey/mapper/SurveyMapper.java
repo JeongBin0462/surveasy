@@ -18,6 +18,14 @@ import com.surveasy.user.model.User;
 
 @Mapper
 public interface SurveyMapper {
+	// 3-1 설문지 목록
+	@Select("SELECT * FROM surveypaper")
+	List<SurveyPaper> getSurveyList();
+	
+	// 3-1 설문지no로 설문지 옵션
+	@Select("SELECT surveyno FROM survey_option WHERE surveyno=#{surveyno} AND is_public_survey = 0")
+	Integer getSurveyOptionIsPublic(int surveyno);
+	
 	@Select("SELECT * FROM surveypaper WHERE surveyno=#{surveyno}")
 	SurveyPaper getSurvey(@Param("surveyno") int surveyno);
 	

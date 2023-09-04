@@ -31,7 +31,14 @@ public class SecurityConfig {
 				.logout((logout) -> logout
                 .logoutRequestMatcher(new AntPathRequestMatcher("/surveasy/user/logout"))
                 .logoutSuccessUrl("/surveasy/main")
-                .invalidateHttpSession(true));
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true))
+                .sessionManagement(sessionManagement -> 
+                sessionManagement
+                    .maximumSessions(1)
+                    .maxSessionsPreventsLogin(false)
+                    .expiredUrl("/surveasy/main")
+            );
 		return http.build();
 	}
 	

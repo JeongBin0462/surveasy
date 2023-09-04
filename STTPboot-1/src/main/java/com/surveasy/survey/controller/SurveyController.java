@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.surveasy.survey.model.Answers;
 import com.surveasy.survey.model.SurveyOption;
@@ -25,11 +26,22 @@ public class SurveyController {
 	SurveyService surveyService;
 	
 	@GetMapping(value = "/board")
-	public String boardSurvey() {
+	public String boardSurvey(Model model) {
+		List<SurveyPaper> list = surveyService.getSurveyPaperList();
+		model.addAttribute("surveyPapers", list);
 		return "/3.1survey_board";
 	}
+	
+	@GetMapping(value = "{link}")
+	public String getSurveyPage(@PathVariable("link") String link, @RequestParam("no") int surveyno, Model model) {
+        SurveyPaper surveyPaper = surveyService.getSurveyPaper(surveyno);
 
-	@GetMapping(value = "/{link}")
+        model.addAttribute("surveyPaper", surveyPaper);
+
+        return "/3.2survey_board_start";
+    }
+
+	@GetMapping(value = "/start/{link}")
 	public String showSurveyByLink(@PathVariable("link") String link, Model model) {
 	    SurveyPaper surveyPaper = surveyService.getSurveyPaperByLink(link);
 	    

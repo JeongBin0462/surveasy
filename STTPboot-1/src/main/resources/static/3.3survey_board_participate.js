@@ -286,8 +286,8 @@ function submitData(event) {
 
     // hidden input에서 값 가져오기
     const subjectValue = document.querySelector('input[name="subject"]').value;
-    const urlValue = 'http://localhost:8080/surveasy/survey/' + document.querySelector('input[name="url"]').value;
     const surveynoValue = document.querySelector('input[name="surveyno"]').value;
+    const urlValue = 'http://localhost:8080/surveasy/survey/' + document.querySelector('input[name="url"]').value + '?no=' + surveynoValue;
 
     // 임시 폼을 생성
     const form = document.createElement('form');

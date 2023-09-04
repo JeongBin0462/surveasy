@@ -1,5 +1,6 @@
 package com.surveasy.survey.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,47 @@ import com.surveasy.user.model.UserDTO;
 public class SurveyServiceImpl implements SurveyService {
 	@Autowired
 	SurveyMapper surveyMapper;
+
+	// 3-1에 사용되는 전체 설문 목록
+	@Override
+	public List<SurveyPaper> getSurveyPaperList() {
+		List<SurveyPaper> list = surveyMapper.getSurveyList();
+		LocalDateTime now = LocalDateTime.now();
+
+		List<SurveyPaper> removeList = new ArrayList<>();
+
+		for (SurveyPaper surveyPaper : list) {
+			LocalDateTime deadline = surveyPaper.getDeadline();
+
+			if (deadline == null || now.isAfter(deadline)) {
+				removeList.add(surveyPaper);
+			}
+		}
+		list.removeAll(removeList);
+		System.out.println(list.toString());
+
+		removeList = new ArrayList<>();
+		List<Integer> removeListPrivate = new ArrayList<>();
+		for (SurveyPaper surveyPaper : list) {
+			int surveyno = surveyPaper.getSurveyno();
+			removeListPrivate.add(surveyMapper.getSurveyOptionIsPublic(surveyno));
+		}
+
+		for (SurveyPaper surveyPaper : list) {
+			if (removeListPrivate == null) {
+				break;
+			}
+			for (Integer numbers : removeListPrivate) {
+				if (surveyPaper.getSurveyno() == numbers) {
+					removeList.add(surveyPaper);
+				}
+			}
+		}
+		list.removeAll(removeList);
+
+		System.out.println(list.toString());
+		return list;
+	}
 
 	@Override
 	public SurveyPaper getSurveyPaper(int surveyno) {
