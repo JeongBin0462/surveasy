@@ -17,6 +17,7 @@ import com.surveasy.submit.model.SurveyAnswers;
 import com.surveasy.submit.model.SurveySubmitDTO;
 import com.surveasy.submit.model.UserSurvey;
 import com.surveasy.submit.service.SubmitService;
+import com.surveasy.survey.model.SurveyPaper;
 
 @Controller
 @RequestMapping("/surveasy/survey")
@@ -55,10 +56,11 @@ public class SubmitController {
 	}
 	
 	@PostMapping(value = "/success")
-	public String surveySuccess(@RequestParam String subject, @RequestParam String url, Model model) {
+	public String surveySuccess(@RequestParam String subject, @RequestParam int surveyno, @RequestParam String url, Model model) {
+		List<SurveyPaper> surveyPaperList = submitService.getSurveyPaperList(subject, surveyno);
 
 	    model.addAttribute("url", url);
-	    model.addAttribute("subject", subject);
+	    model.addAttribute("surveyPaperList", surveyPaperList);
 
 	    return "/3.4survey_board_result";
 	}

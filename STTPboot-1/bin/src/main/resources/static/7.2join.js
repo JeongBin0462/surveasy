@@ -134,7 +134,7 @@ function submitForm() {
 		gradeParse = 2;
 	} else if (gradeValue == '3학년') {
 		gradeParse = 3;
-	} else if (gradeParse == '4학년') {
+	} else if (gradeValue == '4학년') {
 		gradeParse = 4;
 	} else {
 		gradeParse = null;

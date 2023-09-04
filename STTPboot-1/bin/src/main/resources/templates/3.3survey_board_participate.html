@@ -8,19 +8,21 @@
   </head>
   <body>
     <header id="header">
-      <img src="/img/로고2차.png" id="headerTitle" />
-      <a class="headerLogin" id="loginLink" href="./user/login">로그인</a>
-      <a class="headerLogin" id="logoutLink" href="./user/logout">로그아웃</a>
+	  <a href="http://localhost:8080/surveasy/main">
+      	<img src="/img/로고2차.png" id="headerTitle" />
+      </a>
+      <a class="headerLogin" id="loginLink" href="http://localhost:8080/surveasy/user/login">로그인</a>
+	  <a class="headerLogin" id="logoutLink" href="http://localhost:8080/surveasy/user/logout">로그아웃</a>
       <div id="headerNavi">
         <div id="surveyMainDiv">
           <p class="naviLink">설문지 작성</p>
           <div id="hiddenDiv">
-            <a href="#" class="hiddenText">새로만들기</a>
+            <a href="http://localhost:8080/surveasy/inputsurvey" class="hiddenText">새로만들기</a>
             <a href="#" class="hiddenText">불러오기</a>
             <a href="#" class="hiddenText">가져오기</a>
           </div>
         </div>
-        <a href="#" class="naviLink">설문참여</a>
+        <a href="http://localhost:8080/surveasy/survey/board" class="naviLink">설문참여</a>
         <a href="#" class="naviLink">설문결과</a>
         <a href="#" class="naviLink">MY PAGE</a>
         <a href="#" class="naviLink">고객센터</a>
@@ -39,6 +41,180 @@
 			<div id="question-container">
 				<form onsubmit="submitData(event)">
 					<input type="hidden" name="surveyno" th:value="${surveyOption.surveyno}" />
+					<input type="hidden" name="subject" th:value="${surveyRequire.subject}" />
+					<input type="hidden" name="url" th:value="${surveyPaper.link}" />
+					
+					<div class="question-div" id="question-require-div">
+						<div class="survey-center-container" id="require-text-div">
+							<div>필수</div>
+						</div>
+						<div th:if="${surveyRequire.email_option}" class="require-div">
+							<p class="question-content-text">
+								<span>이메일</span>
+							</p>
+							<div class="answers-div">
+								<input type="text" name="email" th:value="${userInfo.email}" th:readonly="${userInfo.email != null}">
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.phone_option}" class="require-div">
+							<p class="question-content-text">
+								<span>전화번호</span>
+							</p>
+							<div class="answers-div">
+								<input type="number" name="phonenumber" th:value="${userInfo.phonenumber}" th:readonly="${userInfo.phonenumber != null}">
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.age_option}" class="require-div">
+							<p class="question-content-text">
+								<span>생년월일</span>
+							</p>
+							<div class="answers-div">
+								<input type="date" name="birth" th:value="${userInfo.birth}" th:readonly="${userInfo.birth != null}">
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.gender_option}" class="require-div">
+							<p class="question-content-text">
+							<span>성별</span>
+							</p>
+							<div class="answers-div">
+								<select name="gender" class="input-box-input" th:readonly="${userInfo.gender != null}">
+	                    			<option>선택</option>
+	                   				<option th:selected="${userInfo.gender == true}">남자</option>
+									<option th:selected="${userInfo.gender == false}">여자</option>
+	                  			</select>
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.department_option}" class="require-div">
+							<p class="question-content-text">
+							<span>부서</span>
+							</p>
+							<div class="answers-div">
+								<select name="department" class="input-box-input" th:readonly="${userInfo.department != null}">
+	                    			<option>선택</option>
+	                    			<option th:selected="${userInfo.department == '개발'}">개발</option>
+	                    			<option th:selected="${userInfo.department == '생산'}">생산</option>
+				                    <option th:selected="${userInfo.department == '지원'}">지원</option>
+				                    <option th:selected="${userInfo.department == '영업'}">영업</option>
+				                </select>
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.position_option}" class="require-div">
+							<p class="question-content-text">
+							<span>직책</span>
+							</p>
+							<div class="answers-div">
+								<select name="position" class="input-box-input" th:readonly="${userInfo.position != null}">
+				                    <option>선택</option>
+				                    <option th:selected="${userInfo.position == '사원'}">사원</option>
+				                    <option th:selected="${userInfo.position == '주임'}">주임</option>
+				                    <option th:selected="${userInfo.position == '대리'}">대리</option>
+				                    <option th:selected="${userInfo.position == '과장'}">과장</option>
+				                    <option th:selected="${userInfo.position == '차장'}">차장</option>
+				                    <option th:selected="${userInfo.position == '부장'}">부장</option>
+				                    <option th:selected="${userInfo.position == '부장이상'}">부장이상</option>
+				            	</select>
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.grade_option}" class="require-div">
+							<p class="question-content-text">
+							<span>학년</span>
+							</p>
+							<div class="answers-div">
+								<select name="grade" class="input-box-input" id="input-grade" th:readonly="${userInfo.grade != null}">
+				                    <option>선택</option>
+				                    <option th:selected="${userInfo.grade == 1}">1학년</option>
+				                    <option th:selected="${userInfo.grade == 2}">2학년</option>
+				                    <option th:selected="${userInfo.grade == 3}">3학년</option>
+				                    <option th:selected="${userInfo.grade == 4}">4학년</option>
+				               	</select>
+							</div>
+						</div>
+						
+						<div th:if="${surveyRequire.college_option}" class="require-div">
+							<p class="question-content-text">
+							<span>학과</span>
+							</p>
+							<div class="answers-div">
+								<select name="college" class="input-box-input" th:readonly="${userInfo.college != null}">
+				                    <option>선택</option>
+				                    <option th:selected="${userInfo.college == '공학'}">공학</option>
+				                    <option th:selected="${userInfo.college == '교육'}">교육</option>
+				                    <option th:selected="${userInfo.college == '사회'}">사회</option>
+				                    <option th:selected="${userInfo.college == '예체능'}">예체능</option>
+				                    <option th:selected="${userInfo.college == '의약'}">의약</option>
+				                    <option th:selected="${userInfo.college == '인문'}">인문</option>
+				                    <option th:selected="${userInfo.college == '자연'}">자연</option>
+				                </select>
+			                </div>
+						</div>
+						
+						<div th:if="${surveyRequire.region_option}" class="require-div">
+							<p class="question-content-text">
+							<span>지역</span>
+							</p>
+							<div class="answers-div">
+								<select name="region" class="input-box-input" th:readonly="${userInfo.region != null}">
+				                    <option>선택</option>
+				                    <option th:selected="${userInfo.region == '강원'}">강원</option>
+				                    <option th:selected="${userInfo.region == '경기'}">경기</option>
+				                    <option th:selected="${userInfo.region == '경남'}">경남</option>
+				                    <option th:selected="${userInfo.region == '경북'}">경북</option>
+				                    <option th:selected="${userInfo.region == '광주'}">광주</option>
+				                    <option th:selected="${userInfo.region == '대구'}">대구</option>
+				                    <option th:selected="${userInfo.region == '대전'}">대전</option>
+				                    <option th:selected="${userInfo.region == '부산'}">부산</option>
+				                    <option th:selected="${userInfo.region == '서울'}">서울</option>
+				                    <option th:selected="${userInfo.region == '울산'}">울산</option>
+				                    <option th:selected="${userInfo.region == '인천'}">인천</option>
+				                    <option th:selected="${userInfo.region == '전남'}">전남</option>
+				                    <option th:selected="${userInfo.region == '전북'}">전북</option>
+				                    <option th:selected="${userInfo.region == '제주'}">제주</option>
+				                    <option th:selected="${userInfo.region == '충남'}">충남</option>
+				                    <option th:selected="${userInfo.region == '충북'}">충북</option>
+				            	</select>
+			            	</div>
+						</div>
+						
+						<div th:if="${surveyRequire.finaledu_option}" class="require-div">
+							<p class="question-content-text">
+							<span>최종학력</span>
+							</p>
+							<div class="answers-div">
+								<select name="finaledu" class="input-box-input" th:readonly="${userInfo.finaledu != null}">
+				                    <option>선택</option>
+				                    <option th:selected="${userInfo.finaledu == '대학원졸업이상'}">대학원졸업이상</option>
+				                    <option th:selected="${userInfo.finaledu == '대학원재학'}">대학원재학</option>
+				                    <option th:selected="${userInfo.finaledu == '대학교졸업'}">대학교졸업</option>
+				                    <option th:selected="${userInfo.finaledu == '대학교재학'}">대학교재학</option>
+				                    <option th:selected="${userInfo.finaledu == '고등학교졸업'}">고등학교졸업</option>
+				                    <option th:selected="${userInfo.finaledu == '고등학교재학'}">고등학교재학</option>
+				                    <option th:selected="${userInfo.finaledu == '중학교졸업'}">중학교졸업</option>
+				                    <option th:selected="${userInfo.finaledu == '중학교재학'}">중학교재학</option>
+				              	</select>
+			              	</div>
+						</div>
+						
+						<div th:if="${surveyRequire.incomelevel_option}" class="require-div">
+							<p class="question-content-text">
+							<span>소득수준</span>
+							</p>
+							<div class="answers-div">
+								<select name="incomelevel" class="input-box-input" th:readonly="${userInfo.incomelevel != null}">
+				                    <option>선택</option>
+				                    <option th:selected="${userInfo.incomelevel == '상'}">상</option>
+				                    <option th:selected="${userInfo.incomelevel == '중'}">중</option>
+				                    <option th:selected="${userInfo.incomelevel == '하'}">하</option>
+				                </select>
+			                </div>
+						</div>
+					</div>
+					
 	    			<div th:each="question, stat : ${surveyQuestion}" class="question-div" th:data-question-no="${stat.index + 1}" th:attr="data-type=${question.answer_types}">
 					<div class="survey-center-container">
 					<div th:if="${question.mandatory}" th:text="'필수'"></div>
@@ -62,7 +238,7 @@
 							                <div th:if="${currentAnswer != null}">
 							                    <label>
 							                        <input th:if="${question.answer_types.equals('체크박스')}" type="checkbox" th:name="${'question' + question.questionno}" th:value="${currentAnswer}" />
-							                        <input th:if="${question.answer_types.equals('라디오')}" type="radio" th:name="${'question' + question.questionno}" th:value="${currentAnswer}" />
+							                        <input th:if="${question.answer_types.equals('라디오버튼')}" type="radio" th:name="${'question' + question.questionno}" th:value="${currentAnswer}" />
 							                        <span th:text="${currentAnswer}"></span>
 							                    </label>
 							                </div>
@@ -85,16 +261,22 @@
       <div id="gitDiv">
         <div class="gitDivOne">
           <img src="/img/깃.png" class="footerGitImg" />
+          <a href="https://github.com/Jisu-Seong" class="gitId">
           <p class="gitId">Jisu-Seong</p>
+          </a>
         </div>
         <div class="gitDivOne">
           <img src="/img/깃.png" class="footerGitImg" />
+          <a href="https://github.com/JeongBin0462" class="gitId">
           <p class="gitId">JeongBin0462</p>
+          </a>
         </div>
       </div>
       <div id="gitAdress">
         <img src="/img/깃.png" class="footerGitImg" />
-        <p class="gitId">https://github.com/Jisu-Seong/STTP</p>
+        <a href="https://github.com/Jisu-Seong/surveasy" class="gitId">
+        <p>https://github.com/Jisu-Seong/surveasy</p>
+        </a>
       </div>
     </footer>
   </body>

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<meta charset="EUC-KR">
-	<title>설문지 작성 완료</title>
-	<link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
-</head>
-
-<body>
-	<header id="header">
+  <head>
+    <meta charset="utf-8" />
+    <title>STTP</title>
+    <link
+      rel="stylesheet"
+      href="/0.header_footer.css"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <header id="header">
 	  <a href="http://localhost:8080/surveasy/main">
       	<img src="/img/로고2차.png" id="headerTitle" />
       </a>
@@ -29,19 +31,18 @@
         <a href="#" class="naviLink">고객센터</a>
       </div>
     </header>
-	<main>
-		<div class="container">
-			<div class="side-div">
-				<p>side</p>
-			</div>
-			<div class="center-div">
-				<h1>설문지 제작 완료!</h1>
-			</div>
-			<div class="side-div">
-			</div>
-		</div>
-	</main>
-	<footer id="footer">
+    <main>
+      <div class="container">
+        <div class="side-div"></div> 
+        <div class="center-div">
+          <p>설문완료!!</p>
+            <p th:text="${url}">url</p>
+            <p th:text="${subject}">subject</p>
+        </div>
+        <div class="side-div"></div>
+      </div>
+    </main>
+    <footer id="footer">
       <div id="gitDiv">
         <div class="gitDivOne">
           <img src="/img/깃.png" class="footerGitImg" />

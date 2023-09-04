@@ -1,12 +1,18 @@
 package com.surveasy.submit.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.surveasy.submit.model.InputInfoTable;
 import com.surveasy.submit.model.UserAnswers;
 import com.surveasy.submit.model.UserSurvey;
+import com.surveasy.survey.model.SurveyPaper;
+import com.surveasy.survey.model.SurveyQuestion;
 
 @Mapper
 public interface SubmitMapper {
@@ -105,4 +111,12 @@ public interface SubmitMapper {
 	    "</script>"
 	})
 	int insertUserAnswer(UserAnswers userAnswers);
+	
+	// question의 surveyno 리스트
+	@Select("SELECT surveyno FROM surveyrequire WHERE subject=#{subject}")
+	List<Integer> getSurveynoList(@Param("subject") String subject);
+	
+	// question의 surveyno 리스트
+	@Select("SELECT * FROM surveypaper WHERE surveyno=#{surveyno}")
+	SurveyPaper getSurveyPaperBySurveyno(@Param("surveyno") int surveyno);
 }
