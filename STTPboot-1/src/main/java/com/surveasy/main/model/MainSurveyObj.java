@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class MainSurveyObj {
 	private Integer surveyno;
 	private String surveytitle;
-	private LocalDateTime regidate;
-	private LocalDateTime deadline;
+	private String regidate;
+	private String deadline;
 	private int participants;
 	private String link;
 	private int bookmark;

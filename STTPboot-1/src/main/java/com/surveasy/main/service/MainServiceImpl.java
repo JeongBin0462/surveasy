@@ -1,5 +1,7 @@
 package com.surveasy.main.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -54,7 +56,7 @@ public class MainServiceImpl implements MainService {
 			SurveyOption surveyOption = surveyMapper.getSurveyOption(surveyPaper.getSurveyno());
 			
 			MainSurveyObj mainSurvey = MainSurveyObj.builder().surveyno(surveyPaper.getSurveyno()).surveytitle(surveyPaper.getSurveytitle())
-					.regidate(surveyPaper.getRegidate()).deadline(surveyPaper.getDeadline())
+					.regidate(formatDateTime(surveyPaper.getRegidate())).deadline(formatDateTime(surveyPaper.getDeadline()))
 					.participants(surveyPaper.getParticipants()).link(surveyPaper.getLink())
 					.bookmark(surveyPaper.getBookmark()).subject(surveyRequire.getSubject())
 					.target(surveyRequire.getTarget()).is_public_survey(surveyOption.is_public_survey()).build();
@@ -62,7 +64,6 @@ public class MainServiceImpl implements MainService {
 			
 			mainSurveyList.add(mainSurvey);
 		}
-		System.out.println("mainSurveyList" + mainSurveyList);
 		return mainSurveyList;
 	}
 
@@ -70,7 +71,7 @@ public class MainServiceImpl implements MainService {
 	public List<MainSurveyObj> sortByRemainTime(List<MainSurveyObj> mainSurveyList) {
 		RemainTimeComparator comp = new RemainTimeComparator();
 		Collections.sort(mainSurveyList, comp);
-		System.out.println("mainSurveyList 정렬" + mainSurveyList);
+		System.out.println("남은 시간순 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 	
@@ -78,7 +79,7 @@ public class MainServiceImpl implements MainService {
 	public List<MainSurveyObj> sortByLatest(List<MainSurveyObj> mainSurveyList) {
 		RegidateComparator comp = new RegidateComparator();
 		Collections.sort(mainSurveyList, comp);
-		System.out.println("mainSurveyList 정렬" + mainSurveyList);
+		System.out.println("최신순 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 	
@@ -86,7 +87,7 @@ public class MainServiceImpl implements MainService {
 	public List<MainSurveyObj> sortByParticipants(List<MainSurveyObj> mainSurveyList) {
 		ParticipantsComparator comp = new ParticipantsComparator();
 		Collections.sort(mainSurveyList, comp);
-		System.out.println("mainSurveyList 정렬" + mainSurveyList);
+		System.out.println("참여자순별 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 	
@@ -94,7 +95,7 @@ public class MainServiceImpl implements MainService {
 	public List<MainSurveyObj> sortByBookmark(List<MainSurveyObj> mainSurveyList) {
 		BookmarkComparator comp = new BookmarkComparator();
 		Collections.sort(mainSurveyList, comp);
-		System.out.println("mainSurveyList 정렬" + mainSurveyList);
+		System.out.println("즐겨찾기순 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 	
@@ -107,13 +108,22 @@ public class MainServiceImpl implements MainService {
 		Iterator<MainSurveyObj> iter = mainSurveyList.iterator();
 		while(iter.hasNext()) {
 			MainSurveyObj elem = iter.next();
-			if (elem.getSubject().equals(sortSubject)) {
+			if (subject.equals("주제")) {
+				sortedList.add(elem);
+			}
+			else if (elem.getSubject().equals(sortSubject)) {
 				sortedList.add(elem);
 			}
 		}
-		System.out.println("subject 정렬" + sortedList);
+		System.out.println(subject + "별 정렬" + sortedList);
 		return sortedList;
 	}
+	
+	private String formatDateTime(LocalDateTime dateTime) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+		return dateTime.format(formatter);
+	}
+	
 }
 
 class RemainTimeComparator implements Comparator<MainSurveyObj> {
