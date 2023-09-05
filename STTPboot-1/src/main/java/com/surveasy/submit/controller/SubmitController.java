@@ -26,37 +26,28 @@ public class SubmitController {
 	@Autowired
 	private SubmitService submitService;
 	
+	// 설문지 작성 완료 버튼 클릭 시 이동 페이지
 	@Transactional
 	@PostMapping(value = "/show")
 	public ResponseEntity<?> submitSurvey(@RequestBody SurveySubmitDTO surveyData) {
-		System.out.println("요청도착!");
-		System.out.println(surveyData.getRequire().toString());
+		// 필수입력 input
 		Require require = surveyData.getRequire();
-		
+		// 답변입력 정보 input
 		List<SurveyAnswers> list = surveyData.getSurveySubmits();
-		
-		for (int i = 0; i < list.size(); i++) {
-		System.out.println(list.get(i).getQuestionno());
-		System.out.println(list.get(i).getType());
-		System.out.println(list.get(i).getAnswerMap().toString());
-		
-		System.out.println("------------");
-		}
-		
-		UserSurvey userSurvey = submitService.insertUserSurvey(surveyData.getRequire().getSurveyno());
-		System.out.println(userSurvey.getUser_survey_no());
+		// user_survey 테이블 insert
+		UserSurvey userSurvey = submitService.insertUserSurvey(require.getSurveyno());
 		
 		int userSurveyNo = userSurvey.getUser_survey_no();
-		
 		submitService.insertInputInfo(userSurveyNo, require);
-		
 		submitService.insertAnswers(userSurveyNo, list);
 		
 		return ResponseEntity.ok().body("{\"message\":\"success\"}");
 	}
 	
+	// 3-4 페이지 화면
 	@PostMapping(value = "/success")
 	public String surveySuccess(@RequestParam String subject, @RequestParam int surveyno, @RequestParam String url, Model model) {
+		// 참여한 설문과 같은 주제의 설문 리스트(3개)
 		List<SurveyPaper> surveyPaperList = submitService.getSurveyPaperList(subject, surveyno);
 
 	    model.addAttribute("url", url);

@@ -11,12 +11,12 @@ import com.surveasy.user.model.User;
 import com.surveasy.user.model.UserDTO;
 
 public interface SurveyService {
-	SurveyPaper getSurveyPaper(int surveyno);
+	List<SurveyPaper> getSurveyPaperList();
 	SurveyPaper getSurveyPaperByLink(String link);
 	SurveyOption getSurveyOption(int surveyno);
 	SurveyRequire getSurveyRequire(int surveyno);
 	List<SurveyQuestion> getSurveyQuestion(int surveyno);
 	List<Answers> getAnswers(List<SurveyQuestion> list);
-	boolean getUserSurvey(int surveyno, int userno);
+	boolean getUserSurvey(int surveyno);
 	UserDTO getUserInfo();
 }

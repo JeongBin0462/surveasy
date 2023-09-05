@@ -27,7 +27,7 @@ public class SubmitServiceImpl implements SubmitService {
 
 	@Autowired
 	SubmitMapper submitMapper;
-
+	// 설문지 submit
 	@Override
 	public UserSurvey insertUserSurvey(int surveyno) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -38,7 +38,6 @@ public class SubmitServiceImpl implements SubmitService {
 		} else {
 			username = principal.toString();
 		}
-
 		// 현재 userno
 		Integer userNo = userSecurityServiceImpl.getUserno(username);
 
@@ -65,11 +64,9 @@ public class SubmitServiceImpl implements SubmitService {
 	public int insertAnswers(int user_survey_no, List<SurveyAnswers> list) {
 		int insertCount = 0;
 		for (int i = 0; i < list.size(); i++) {
-
 			UserAnswers userAnswers = convertToUserAnswers(user_survey_no, list.get(i));
 			insertCount += submitMapper.insertUserAnswer(userAnswers);
 		}
-
 		return insertCount;
 	}
 
@@ -149,11 +146,12 @@ public class SubmitServiceImpl implements SubmitService {
 		return userAnswers;
 	}
 	
+	// 리스트 랜덤 index 번호
 	public List<Integer> getRandomElements(List<Integer> surveynoList, int surveyno) {
+		// 3보다 작으면 바로 리턴
 	    if (3 >= surveynoList.size()) {
 	        return surveynoList;
 	    }
-
 	    List<Integer> randomNumbers = new ArrayList<>();
 	    Random random = new Random();
 
@@ -170,18 +168,18 @@ public class SubmitServiceImpl implements SubmitService {
 
 	@Override
 	public List<SurveyPaper> getSurveyPaperList(String subject, int surveyno) {
+		List<SurveyPaper> surveyPaperList = new ArrayList<>();
+		// 같은 주제의 설문지no 리스트
 	    List<Integer> surveynoList = submitMapper.getSurveynoList(subject);
+	    // 랜덤한 index 번호 3개
 	    List<Integer> randomNumbers = getRandomElements(surveynoList, surveyno);
 	    
-	    List<SurveyPaper> surveyPaperList = new ArrayList<>();
 	    for (int i = 0; i < randomNumbers.size(); i++) {
 	        SurveyPaper surveyPaper = submitMapper.getSurveyPaperBySurveyno(randomNumbers.get(i));
 	        if (surveyPaper != null) {
 	            surveyPaperList.add(surveyPaper);
 	        }
 	    }
-	    System.out.println(surveyPaperList.toString());
 	    return surveyPaperList;
 	}
-
 }

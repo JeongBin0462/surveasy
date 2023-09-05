@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.surveasy.survey.model.Answers;
 import com.surveasy.survey.model.SurveyOption;
@@ -24,12 +25,24 @@ public class SurveyController {
 	@Autowired
 	SurveyService surveyService;
 	
+	// 전체 설문 리스트 화면
 	@GetMapping(value = "/board")
-	public String boardSurvey() {
+	public String boardSurvey(Model model) {
+		List<SurveyPaper> list = surveyService.getSurveyPaperList();
+		model.addAttribute("surveyPapers", list);
 		return "/3.1survey_board";
 	}
+	
+	// 각 설문의 대략적인 정보 화면
+	@GetMapping(value = "{link}")
+	public String getSurveyPage(@PathVariable("link") String link, @RequestParam("no") int surveyno, Model model) {
+        SurveyPaper surveyPaper = surveyService.getSurveyPaperByLink(link);
+        model.addAttribute("surveyPaper", surveyPaper);
+        return "/3.2survey_board_start";
+    }
 
-	@GetMapping(value = "/{link}")
+	// 설문 시작 화면
+	@GetMapping(value = "/start/{link}")
 	public String showSurveyByLink(@PathVariable("link") String link, Model model) {
 	    SurveyPaper surveyPaper = surveyService.getSurveyPaperByLink(link);
 	    
@@ -37,16 +50,10 @@ public class SurveyController {
 	    if (surveyPaper == null) {
 	        return "/1.main";
 	    }
-
 	    int surveyNo = surveyPaper.getSurveyno();
-	    int userNo = surveyPaper.getUserno();
-	    
-	    System.out.println(surveyNo);
-	    System.out.println(userNo);
-	    System.out.println(surveyService.getUserSurvey(userNo, surveyNo));
 	    
 	    // 이미 참여한 설문인지 확인
-	    if (!surveyService.getUserSurvey(userNo, surveyNo)) {
+	    if (!surveyService.getUserSurvey(surveyNo)) {
 	    	model.addAttribute("alertMessage", "이미 참여한 설문입니다");
 	    	return "/0.error";
 	    }

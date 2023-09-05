@@ -18,27 +18,39 @@ import com.surveasy.user.model.User;
 
 @Mapper
 public interface SurveyMapper {
-	@Select("SELECT * FROM surveypaper WHERE surveyno=#{surveyno}")
-	SurveyPaper getSurvey(@Param("surveyno") int surveyno);
+	// 3-1 설문지 목록
+	@Select("SELECT * FROM surveypaper")
+	List<SurveyPaper> getSurveyList();
 	
+	// 3-1 설문지no로 설문지 옵션
+	@Select("SELECT surveyno FROM survey_option WHERE surveyno=#{surveyno} AND is_public_survey = 0")
+	Integer getSurveyOptionIsPublic(int surveyno);
+	
+	// 3-2, 3-3 링크를 통해 접근 -> 어떤 설문지인지
+		@Select("SELECT * FROM surveypaper WHERE link=#{link}")
+		SurveyPaper getSurveyByLink(@Param("link") String link);
+	
+	// 3-3 설문지 생성을 위한 설문지 옵션
 	@Select("SELECT * FROM survey_option WHERE surveyno=#{surveyno}")
 	SurveyOption getSurveyOption(@Param("surveyno") int surveyno);
 	
+	// 3-3 설문지 생성을 위한 설문지 필수입력정보
 	@Select("SELECT * FROM surveyrequire WHERE surveyno=#{surveyno}")
 	SurveyRequire getSurveyRequire(@Param("surveyno") int surveyno);
 	
+	// 3-3 설문지 생성을 위한 설문지 문항정보 리스트
 	@Select("SELECT * FROM question WHERE surveyno=#{surveyno}")
 	List<SurveyQuestion> getQuestion(@Param("surveyno") int surveyno);
 	
+	// 3-3 설문지 생성을 위한 설문지 문항들
 	@Select("SELECT * FROM answers WHERE questionno=#{questionno}")
 	Answers getAnswer(@Param("questionno") int questionno);
 	
-	@Select("SELECT * FROM surveypaper WHERE link=#{link}")
-	SurveyPaper getSurveyByLink(@Param("link") String link);
-	
+	// 3-3 설문참여 정보 불러오기
 	@Select("SELECT user_survey_no FROM user_survey WHERE userno=#{userno} AND surveyno=#{surveyno}")
-	Integer getUserSurvey(@Param("userno") int userno, @Param("surveyno") int surveyno);
+	Integer getUserSurveyBySurveyno(@Param("userno") int userno, @Param("surveyno") int surveyno);
 	
+	// 3-3 입력정보 구성 전 확인
 	@Select("SELECT\r\n"
 			+ "`userno`,\r\n"
 			+ "`email`,\r\n"
@@ -51,11 +63,11 @@ public interface SurveyMapper {
 			+ "`incomelevel`\r\n"
 			+ "FROM `user`\r\n"
 			+ "WHERE `username`=#{username}")
-	User getUser(@Param("username") String username);
+	User getUserInfo(@Param("username") String username);
 	
 	@Select("SELECT * FROM student WHERE userno=#{userno}")
-	Student getStudent(@Param("userno") int userno);
+	Student getStudentInfo(@Param("userno") int userno);
 	
 	@Select("SELECT * FROM employees WHERE userno=#{userno}")
-	Employees getEmployees(@Param("userno") int userno);
+	Employees getEmployeesInfo(@Param("userno") int userno);
 }

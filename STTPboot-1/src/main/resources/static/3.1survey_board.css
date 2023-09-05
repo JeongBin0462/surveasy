@@ -1,7 +1,7 @@
 .survey {
   width: 95%;
-  height: 80%;
-
+  height: 530px;
+  
   background-color: #83b5a6;
 
   display: flex;
@@ -49,9 +49,16 @@
   top: 244px;
 }
 
+#survey-view-title {
+	margin-top: 25px;
+}
+
 .survey-view-container {
   width: 90%;
-  height: 85%;
+  height: 100%;
+  
+  display: flex;
+  flex-direction: column;
 }
 
 .survey-view {
@@ -64,6 +71,11 @@
 
   position: relative;
   bottom: 15px;
+}
+
+.survey-urls-div {
+	text-decoration: none;
+	color: black;
 }
 
 .survey-view-text-title {
