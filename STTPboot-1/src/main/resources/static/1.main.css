@@ -22,7 +22,7 @@
   justify-content: center;
 }
 
-.survey-view-btn{
+.survey-view-btn {
   font-size: 40px;
   background-color: transparent;
   color: #1D7659;
@@ -47,7 +47,8 @@
   height: 85%;
 }
 
-.survey-view {
+.survey-view,
+.survey-view-text-column {
   display: flex;
 
   border-bottom: 1px;

@@ -97,8 +97,6 @@ public class MainServiceImpl implements MainService {
 		System.out.println("subject 정렬" + sortedList);
 		return sortedList;
 	}
-	
-	
 }
 
 class RemainTimeComparator implements Comparator<MainSurveyObj> {
