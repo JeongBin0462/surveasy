@@ -2,28 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
-    
+
     <title>STTP</title>
     <link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
     <link rel="stylesheet" href="/1.main.css" type="text/css" />
   </head>
   <body>
     <header id="header">
-	  <a href="http://localhost:8080/surveasy/main">
-      	<img src="/img/로고2차.png" id="headerTitle" />
+      <a href="http://localhost:8080/surveasy/main">
+        <img src="/img/로고2차.png" id="headerTitle" />
       </a>
-      <a class="headerLogin" id="loginLink" href="http://localhost:8080/surveasy/user/login">로그인</a>
-	  <a class="headerLogin" id="logoutLink" href="http://localhost:8080/surveasy/user/logout">로그아웃</a>
+      <a
+        class="headerLogin"
+        id="loginLink"
+        href="http://localhost:8080/surveasy/user/login"
+        >로그인</a
+      >
+      <a
+        class="headerLogin"
+        id="logoutLink"
+        href="http://localhost:8080/surveasy/user/logout"
+        >로그아웃</a
+      >
       <div id="headerNavi">
         <div id="surveyMainDiv">
           <p class="naviLink">설문지 작성</p>
           <div id="hiddenDiv">
-            <a href="http://localhost:8080/surveasy/inputsurvey" class="hiddenText">새로만들기</a>
+            <a
+              href="http://localhost:8080/surveasy/inputsurvey"
+              class="hiddenText"
+              >새로만들기</a
+            >
             <a href="#" class="hiddenText">불러오기</a>
             <a href="#" class="hiddenText">가져오기</a>
           </div>
         </div>
-        <a href="http://localhost:8080/surveasy/survey/board" class="naviLink">설문참여</a>
+        <a href="http://localhost:8080/surveasy/survey/board" class="naviLink"
+          >설문참여</a
+        >
         <a href="#" class="naviLink">설문결과</a>
         <a href="#" class="naviLink">MY PAGE</a>
         <a href="#" class="naviLink">고객센터</a>
@@ -35,7 +51,7 @@
         <div class="center-div">
           <div id="survey-view-container">
             <div class="survey" id="survey-view-top">
-              <select class="surveyOption">
+              <select class="surveyOption" id="surveyOptionBySort">
                 <option>남은기간</option>
                 <option>최신순</option>
                 <option>참여순</option>
@@ -78,7 +94,7 @@
               </button>
             </div>
             <div class="survey" id="survey-view-bottom">
-              <select class="surveyOption">
+              <select class="surveyOption" id="surveyOptionBySubject">
                 <option>정치</option>
                 <option>경제</option>
                 <option>사회</option>
@@ -132,35 +148,36 @@
         <div class="gitDivOne">
           <img src="/img/깃.png" class="footerGitImg" />
           <a href="https://github.com/Jisu-Seong" class="gitId">
-          <p class="gitId">Jisu-Seong</p>
+            <p class="gitId">Jisu-Seong</p>
           </a>
         </div>
         <div class="gitDivOne">
           <img src="/img/깃.png" class="footerGitImg" />
           <a href="https://github.com/JeongBin0462" class="gitId">
-          <p class="gitId">JeongBin0462</p>
+            <p class="gitId">JeongBin0462</p>
           </a>
         </div>
       </div>
       <div id="gitAdress">
         <img src="/img/깃.png" class="footerGitImg" />
         <a href="https://github.com/Jisu-Seong/surveasy" class="gitId">
-        <p>https://github.com/Jisu-Seong/surveasy</p>
+          <p>https://github.com/Jisu-Seong/surveasy</p>
         </a>
       </div>
     </footer>
   </body>
   <script src="/0.header_footer.js"></script>
+  <script src="/1.main.js"></script>
   <script th:inline="javascript">
     /*<![CDATA[*/
-    document.addEventListener("DOMContentLoaded", function() {
-        let isAuthenticated = /*[[${isAuthenticated}]]*/ false;
-        if (isAuthenticated) {
-            document.getElementById("loginLink").style.display = "none";
-        } else {
-            document.getElementById("logoutLink").style.display = "none";
-        }
+    document.addEventListener("DOMContentLoaded", function () {
+      let isAuthenticated = /*[[${isAuthenticated}]]*/ false;
+      if (isAuthenticated) {
+        document.getElementById("loginLink").style.display = "none";
+      } else {
+        document.getElementById("logoutLink").style.display = "none";
+      }
     });
     /*]]>*/
-	</script>
+  </script>
 </html>
