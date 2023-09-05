@@ -12,7 +12,6 @@ import com.surveasy.submit.model.InputInfoTable;
 import com.surveasy.submit.model.UserAnswers;
 import com.surveasy.submit.model.UserSurvey;
 import com.surveasy.survey.model.SurveyPaper;
-import com.surveasy.survey.model.SurveyQuestion;
 
 @Mapper
 public interface SubmitMapper {
@@ -116,7 +115,9 @@ public interface SubmitMapper {
 	@Select("SELECT surveyno FROM surveyrequire WHERE subject=#{subject}")
 	List<Integer> getSurveynoList(@Param("subject") String subject);
 	
-	// question의 surveyno 리스트
-	@Select("SELECT * FROM surveypaper WHERE surveyno=#{surveyno}")
-	SurveyPaper getSurveyPaperBySurveyno(@Param("surveyno") int surveyno);
+	// SurveyPaper리스트
+	@Select("SELECT * FROM surveypaper WHERE deadline > NOW() \r\n"
+			+ "AND surveyno NOT IN (SELECT surveyno FROM user_survey WHERE userno =#{userno}) "
+			+ "AND surveyno=#{surveyno}")
+	SurveyPaper getSurveyPaperBySurveyno(@Param("userno") int userno, @Param("surveyno") int surveyno);
 }

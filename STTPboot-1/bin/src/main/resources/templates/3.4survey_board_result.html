@@ -3,11 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <title>STTP</title>
-    <link
-      rel="stylesheet"
-      href="/0.header_footer.css"
-      type="text/css"
-    />
+    <link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
+    <link rel="stylesheet" href="/3.4survey_board_result.css" type="text/css" />
   </head>
   <body>
     <header id="header">
@@ -34,11 +31,28 @@
     <main>
       <div class="container">
         <div class="side-div"></div> 
+        
         <div class="center-div">
-          <p>설문완료!!</p>
-            <p th:text="${url}">url</p>
-            <p th:text="${subject}">subject</p>
+			<div id="result-title-div">
+	          <p>설문을 완료하였습니다.</p>
+	        </div>
+	        
+	        <div id="url-div">
+	            <p th:text="${url}" id="url-text">url</p>
+	            <button id="url-copy-btn">[ 복사 ]</button>
+            </div>
+            
+            <div id="survey-container">
+	        <div th:each="surveyPaper : ${surveyPaperList}" class="survey-title-box">
+	            <p th:text="${surveyPaper.surveytitle}" class="surveyPapers"></p>
+	        </div>
+	        </div>
+	        
+	        <div id="main-btn-div">
+				<a href="http://localhost:8080/surveasy/main" id="main-url-btn">메인으로</a>
+			</div>
         </div>
+        
         <div class="side-div"></div>
       </div>
     </main>
@@ -66,6 +80,7 @@
     </footer>
   </body>
   <script src="/0.header_footer.js"></script>
+  <script src="/3.4survey_board_result.js"></script>
   <script th:inline="javascript">
     /*<![CDATA[*/
     document.addEventListener("DOMContentLoaded", function() {

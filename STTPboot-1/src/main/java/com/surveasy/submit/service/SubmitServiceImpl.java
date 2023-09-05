@@ -168,14 +168,39 @@ public class SubmitServiceImpl implements SubmitService {
 
 	@Override
 	public List<SurveyPaper> getSurveyPaperList(String subject, int surveyno) {
-		List<SurveyPaper> surveyPaperList = new ArrayList<>();
-		// 같은 주제의 설문지no 리스트
+	    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+	    String username;
+	    if (principal instanceof UserDetails) {
+	        username = ((UserDetails) principal).getUsername();
+	    } else {
+	        username = principal.toString();
+	    }
+	    // 현재 userno
+	    Integer userNo = userSecurityServiceImpl.getUserno(username);
+
+	    List<SurveyPaper> surveyPaperList = new ArrayList<>();
+	    // 같은 주제의 설문지no 리스트
 	    List<Integer> surveynoList = submitMapper.getSurveynoList(subject);
-	    // 랜덤한 index 번호 3개
-	    List<Integer> randomNumbers = getRandomElements(surveynoList, surveyno);
-	    
+
+	    // 조건에 맞는 설문 필터링
+	    List<Integer> filteredSurveynoList = new ArrayList<>();
+	    for (Integer surveynoFilter : surveynoList) {
+	        SurveyPaper surveyPaper = submitMapper.getSurveyPaperBySurveyno(userNo, surveynoFilter);
+	        if (surveyPaper != null) {
+	            filteredSurveynoList.add(surveynoFilter);
+	        }
+	    }
+
+	    // 필터링된 설문 중에서 랜덤하게 3개 선택
+	    List<Integer> randomNumbers = getRandomElements(filteredSurveynoList, 3);
+
 	    for (int i = 0; i < randomNumbers.size(); i++) {
-	        SurveyPaper surveyPaper = submitMapper.getSurveyPaperBySurveyno(randomNumbers.get(i));
+	        System.out.println("userno : " + userNo);
+	        System.out.println("surveyno : " + randomNumbers.get(i));
+	        System.out.println("---------");
+
+	        SurveyPaper surveyPaper = submitMapper.getSurveyPaperBySurveyno(userNo, randomNumbers.get(i));
 	        if (surveyPaper != null) {
 	            surveyPaperList.add(surveyPaper);
 	        }

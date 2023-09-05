@@ -60,7 +60,7 @@
                   <p class="survey-view-text-number">☆</p>
                 </div>
                 <div th:each="surveyPaper : ${surveyPapers}">
-					 <a th:href="@{'http://localhost:8080/surveasy/survey/' + ${surveyPaper.link} + '?no=' + ${surveyPaper.surveyno}}" class="survey-urls-div">
+					 <a th:if="${not #strings.isEmpty(surveyPaper.link)}" th:href="@{'http://localhost:8080/surveasy/survey/' + ${surveyPaper.link} + '?no=' + ${surveyPaper.surveyno}}" class="survey-urls-div">
 						 <div class="survey-view">
 			        <p class="survey-view-text-title" th:text="${surveyPaper.surveytitle}"></p>
 			        <p class="survey-view-text-person" th:text="${surveyPaper.participants} + '명'"></p>
