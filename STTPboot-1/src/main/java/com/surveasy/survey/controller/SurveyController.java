@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.surveasy.submit.service.SubmitService;
 import com.surveasy.survey.model.Answers;
 import com.surveasy.survey.model.SurveyOption;
 import com.surveasy.survey.model.SurveyPaper;
@@ -23,9 +24,12 @@ import com.surveasy.user.model.UserDTO;
 public class SurveyController {
 
 	@Autowired
-	SurveyService surveyService;
+	private SurveyService surveyService;
 	
-	// 전체 설문 리스트 화면
+	@Autowired
+	private SubmitService submitService;
+	
+	// 3-1 전체 설문 리스트 화면
 	@GetMapping(value = "/board")
 	public String boardSurvey(Model model) {
 		List<SurveyPaper> list = surveyService.getSurveyPaperList();
@@ -33,15 +37,21 @@ public class SurveyController {
 		return "/3.1survey_board";
 	}
 	
-	// 각 설문의 대략적인 정보 화면
+	// 3-2 각 설문의 대략적인 정보 화면
 	@GetMapping(value = "{link}")
 	public String getSurveyPage(@PathVariable("link") String link, @RequestParam("no") int surveyno, Model model) {
         SurveyPaper surveyPaper = surveyService.getSurveyPaperByLink(link);
+        SurveyRequire surveyRequire = surveyService.getSurveyRequire(surveyno);
+        String subject = surveyRequire.getSubject();
+        // 참여한 설문과 같은 주제의 설문 리스트(3개)
+        List<SurveyPaper> surveyPaperList = submitService.getSurveyPaperList(subject, surveyno);
+        
         model.addAttribute("surveyPaper", surveyPaper);
+        model.addAttribute("surveyPaperList", surveyPaperList);
         return "/3.2survey_board_start";
     }
 
-	// 설문 시작 화면
+	// 3-3 설문 시작 화면
 	@GetMapping(value = "/start/{link}")
 	public String showSurveyByLink(@PathVariable("link") String link, Model model) {
 	    SurveyPaper surveyPaper = surveyService.getSurveyPaperByLink(link);
@@ -64,7 +74,6 @@ public class SurveyController {
 	    List<SurveyQuestion> surveyQuestion = surveyService.getSurveyQuestion(surveyNo);
 	    List<Answers> answers = surveyService.getAnswers(surveyQuestion);
 	    UserDTO userInfo = surveyService.getUserInfo();
-	    System.out.println(userInfo);
 	    
 	    // 요청 보내기
 	    model.addAttribute("surveyPaper", surveyPaper);

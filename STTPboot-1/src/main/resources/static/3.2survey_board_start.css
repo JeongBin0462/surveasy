@@ -46,6 +46,11 @@
   padding: 20px;
 }
 
+.survey-urls-div {
+	text-decoration: none;
+	color: black;
+}
+
 #link-container-div {
   margin-top: 40px;
 
@@ -77,24 +82,31 @@
   color: white;
 
   font-size: 18px;
+  height: 50px;
+  width: 150px;
+  border-radius: 50px;
 }
 
-.related-survey {
+#survey-container {
   margin-top: 40px;
 
   display: flex;
   justify-content: space-evenly;
 }
 
-.related-survey-div {
-  background-color: #1d7659;
-  color: white;
-
+.survey-title-box {
   height: 80px;
   width: 300px;
+  border-radius: 50px;
+  background-color: #83b5a6;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 18px;
+}
+
+.survey-title-box:hover {
+    background-color: #1d7659;
+    color: #fbfafb;
 }

@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.surveasy.security.UserSecurityService;
 import com.surveasy.security.UserSecurityServiceImpl;
 import com.surveasy.survey.mapper.SurveyMapper;
 import com.surveasy.survey.model.Answers;
@@ -134,9 +133,9 @@ public class SurveyServiceImpl implements SurveyService {
 		}
 		// 현재 userno
 		Integer userno = userSecurityServiceImpl.getUserno(username);
+		Integer userSurveyno = surveyMapper.getUserSurveyBySurveyno(userno, surveyno);
 		
-		Integer userSurveyno = surveyMapper.getUserSurveyBySurveyno(surveyno, userno);
-		System.out.println("surveyno" + userno);
+		System.out.println("surveyno: " + surveyno);
 		System.out.println("userno: " + userno);
 		System.out.println("userSurveyNo : " + userSurveyno);
 		if (userSurveyno != null) {
