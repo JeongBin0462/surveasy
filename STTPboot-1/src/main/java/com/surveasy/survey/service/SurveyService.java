@@ -12,7 +12,6 @@ import com.surveasy.user.model.UserDTO;
 
 public interface SurveyService {
 	List<SurveyPaper> getSurveyPaperList();
-	SurveyPaper getSurveyPaper(int surveyno);
 	SurveyPaper getSurveyPaperByLink(String link);
 	SurveyOption getSurveyOption(int surveyno);
 	SurveyRequire getSurveyRequire(int surveyno);

@@ -1,6 +1,5 @@
 package com.surveasy.user.mapper;
 
-import java.util.Optional;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,6 +13,7 @@ import com.surveasy.user.model.User;
 
 @Mapper
 public interface UserMapper {
+	// 회원 가입 - 유저 정보 insert
 	@Insert({
         "<script>",
         "INSERT INTO user (username, password, email, phonenumber",
@@ -37,7 +37,7 @@ public interface UserMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "userno")
     int insertUser(User user);
 	
-	
+	// 회원 가입 - 학생 정보 insert
 	@Insert({
 	    "<script>",
 	    "INSERT INTO student (userno",
@@ -52,6 +52,7 @@ public interface UserMapper {
 	})
     int insertStudent(Student student);
 	
+	// 회원 가입 - 직장인 정보 insert
 	@Insert({
 	    "<script>",
 	    "INSERT INTO employees (userno",
@@ -66,15 +67,15 @@ public interface UserMapper {
 	})
     int insertEmployees(Employees employees);
 	
+	// 회원 가입 - 아이디 확인
 	@Select("SELECT userno FROM user WHERE username=#{username}")
-	Integer getUsername(@Param("username") String username);
+	Integer getHasUsername(@Param("username") String username);
 	
+	// 회원 가입 - 이메일 확인
 	@Select("SELECT userno FROM user WHERE email=#{email}")
-	Integer getEmail(@Param("email") String email);
+	Integer getHasEmail(@Param("email") String email);
 	
+	// 회원 가입 - 전화번호 확인
 	@Select("SELECT userno FROM user WHERE phonenumber=#{phonenumber}")
-	Integer getPhonenumber(@Param("phonenumber") String phonenumber);
-	
-	@Select("SELECT * FROM user WHERE username=#{username}")
-	Optional<User> findByusername(@Param("username") String username);
+	Integer getHasPhonenumber(@Param("phonenumber") String phonenumber);
 }

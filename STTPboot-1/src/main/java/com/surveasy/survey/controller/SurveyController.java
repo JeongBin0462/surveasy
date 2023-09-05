@@ -25,6 +25,7 @@ public class SurveyController {
 	@Autowired
 	SurveyService surveyService;
 	
+	// 전체 설문 리스트 화면
 	@GetMapping(value = "/board")
 	public String boardSurvey(Model model) {
 		List<SurveyPaper> list = surveyService.getSurveyPaperList();
@@ -32,15 +33,15 @@ public class SurveyController {
 		return "/3.1survey_board";
 	}
 	
+	// 각 설문의 대략적인 정보 화면
 	@GetMapping(value = "{link}")
 	public String getSurveyPage(@PathVariable("link") String link, @RequestParam("no") int surveyno, Model model) {
-        SurveyPaper surveyPaper = surveyService.getSurveyPaper(surveyno);
-
+        SurveyPaper surveyPaper = surveyService.getSurveyPaperByLink(link);
         model.addAttribute("surveyPaper", surveyPaper);
-
         return "/3.2survey_board_start";
     }
 
+	// 설문 시작 화면
 	@GetMapping(value = "/start/{link}")
 	public String showSurveyByLink(@PathVariable("link") String link, Model model) {
 	    SurveyPaper surveyPaper = surveyService.getSurveyPaperByLink(link);
@@ -49,7 +50,6 @@ public class SurveyController {
 	    if (surveyPaper == null) {
 	        return "/1.main";
 	    }
-
 	    int surveyNo = surveyPaper.getSurveyno();
 	    int userNo = surveyPaper.getUserno();
 	    
