@@ -18,12 +18,6 @@ public class test {
 		return "/1.main";
 	}
 	
-	@GetMapping(value = "/surveasy/main")
-	public String main() {
-		
-		return "/1.main";
-	}
-	
 	@GetMapping(value = "/surveasy/inputsurvey")
 	public String inputSurvey() {
 		return "2.2survey_make_input";
