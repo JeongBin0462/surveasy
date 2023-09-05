@@ -3,57 +3,93 @@ let sortBox = document.getElementById("surveyOptionBySort");
 // 주제별
 let subjectBox = document.getElementById("surveyOptionBySubject");
 
-viewSelected();
 
-sortBox.addEventListener("change", function (event) {
-  viewSelected();
+sortBox.addEventListener("change", function(event) {
+	viewSelected();
 });
 
-subjectBox.addEventListener("change", function (event) {
-  viewSelected();
+subjectBox.addEventListener("change", function(event) {
+	viewSelected();
 });
 
-function viewSelected() {
-  let sortIndex = sortBox.selectedIndex;
-  let selectedSort = sortBox.options[sortIndex];
-  console.log("선택한 정렬 방식: ", selectedSort.text);
+document.addEventListener("DOMContentLoaded", function () {
+    // 클라이언트 측 JavaScript 코드
 
-  let subjectIndex = subjectBox.selectedIndex;
-  let selectedSubject = subjectBox.options[subjectIndex];
-  console.log("선택한 주제: ", selectedSubject.text);
+    // 이벤트 리스너 등록
+    document.getElementById("surveyOptionBySort").addEventListener("change", viewSelected);
 
-  fetch("/surveasy/main/update", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      selectedSort: selectedSort.text,
-      selectedSubject: selectedSubject.text,
-    })
-  });
-  // .then(response)
-  // .then(data => {
-  // 	const topListContainer = document.getElementById("topListContainer");
-  // 	const bottomListContainer = document.getElementById("bottomListContainer");
+    // viewSelected 함수 정의
+    function viewSelected() {
+        let sortBox = document.getElementById("surveyOptionBySort");
+        let subjectBox = document.getElementById("surveyOptionBySubject");
+        let selectedSort = sortBox.options[sortBox.selectedIndex].text;
+        let selectedSubject = subjectBox.options[subjectBox.selectedIndex].text;
 
-  // 	// 기존 리스트 내용을 지운다
-  // 	topListContainer.innerHTML = "";
-  // 	bottomListContainer.innerHTML = "";
+        fetch("/surveasy/main/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                selectedSort: selectedSort,
+                selectedSubject: selectedSubject,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                const topListContainer = document.querySelector(".survey-view-container");
+                topListContainer.innerHTML = "";
+                data.topList.forEach((topelem) => {
+                    const surveyView = document.createElement("div");
+                    surveyView.classList.add("survey-view");
 
-  // 	// 새로운 topList 항목들을 추가한다
-  // 	data.topList.forEach(item => {
-  // 		const newItem = document.createElement("div");
-  // 		newItem.textContent = item.someProperty;  // someProperty는 서버로부터 받은 객체의 속성
-  // 		topListContainer.appendChild(newItem);
-  // 	});
+                    const title = document.createElement("div");
+                    title.classList.add("survey-view-text-title");
+                    title.textContent = topelem.surveytitle;
 
-  // 	// 새로운 bottomList 항목들을 추가한다
-  // 	data.bottomList.forEach(item => {
-  // 		const newItem = document.createElement("div");
-  // 		newItem.textContent = item.someOtherProperty;  // someOtherProperty도 서버로부터 받은 객체의 속성
-  // 		bottomListContainer.appendChild(newItem);
-  // 	.catch ((error) => {
-  // 			console.error("Error:", error);
-  // 		});
-}
+                    const person = document.createElement("div");
+                    person.classList.add("survey-view-text-person");
+                    person.textContent = topelem.participants;
+
+                    const date = document.createElement("div");
+                    date.classList.add("survey-view-text-date");
+                    date.textContent = topelem.deadline;
+
+                    surveyView.appendChild(title);
+                    surveyView.appendChild(person);
+                    surveyView.appendChild(date);
+
+                    topListContainer.appendChild(surveyView);
+                });
+
+
+                const bottomListContainer = document.querySelector("#survey-view-bottom .survey-view-container");
+                bottomListContainer.innerHTML = "";
+                data.bottomList.forEach((bottomelem) => {
+                    const surveyView = document.createElement("div");
+                    surveyView.classList.add("survey-view");
+
+                    const title = document.createElement("div");
+                    title.classList.add("survey-view-text-title");
+                    title.textContent = bottomelem.surveytitle;
+
+                    const person = document.createElement("div");
+                    person.classList.add("survey-view-text-person");
+                    person.textContent = bottomelem.participants;
+
+                    const date = document.createElement("div");
+                    date.classList.add("survey-view-text-date");
+                    date.textContent = bottomelem.deadline;
+
+                    surveyView.appendChild(title);
+                    surveyView.appendChild(person);
+                    surveyView.appendChild(date);
+
+                    bottomListContainer.appendChild(surveyView);
+                });
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    }
+});

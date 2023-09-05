@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
     <link rel="stylesheet" href="/1.main.css" type="text/css" />
   </head>
-
   <body>
     <header id="header">
       <a href="http://localhost:8080/surveasy/main">
@@ -61,14 +60,8 @@
               <button class="survey-view-btn">
                 <p>◀</p>
               </button>
-              <div class="survey-view-container" id="topListContainer">
+              <div class="survey-view-container">
                 <div class="survey-view" th:each="topelem : ${topList}">
-                  <!-- <div class="survey-view-text-column">
-									<p>제목</p>
-									<p>참여인원</p>
-									<p>등록일</p>
-									<p>마감일</p>
-								</div> -->
                   <div class="survey-view-text-title">
                     <span th:text="${topelem.surveytitle}"></span>
                   </div>
@@ -96,7 +89,7 @@
               <button class="survey-view-btn">
                 <p>◀</p>
               </button>
-              <div class="survey-view-container" id="bottomListContainer">
+              <div class="survey-view-container">
                 <div class="survey-view" th:each="bottomelem : ${bottomList}">
                   <div class="survey-view-text-title">
                     <span th:text="${bottomelem.surveytitle}"></span>
