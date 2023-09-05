@@ -33,51 +33,77 @@ public class MainServiceImpl implements MainService {
 
 		for (int i = 0; i < surveyPaperList.size(); i++) {
 			SurveyPaper surveyPaper = surveyPaperList.get(i);
+			System.out.println("surveyPaper: " + surveyPaper);
+			
 			SurveyRequire surveyRequire = surveyMapper.getSurveyRequire(surveyPaper.getSurveyno());
-
+			System.out.println("surveyRequire: " + surveyRequire);
+			
 			SurveyOption surveyOption = surveyMapper.getSurveyOption(surveyPaper.getSurveyno());
-
+			System.out.println("surveyOption: " + surveyOption);
+			
 			MainSurveyObj mainSurvey = MainSurveyObj.builder().surveyno(surveyPaper.getSurveyno()).surveytitle(surveyPaper.getSurveytitle())
 					.regidate(surveyPaper.getRegidate()).deadline(surveyPaper.getDeadline())
 					.participants(surveyPaper.getParticipants()).link(surveyPaper.getLink())
 					.bookmark(surveyPaper.getBookmark()).subject(surveyRequire.getSubject())
 					.target(surveyRequire.getTarget()).is_public_survey(surveyOption.is_public_survey()).build();
 			
+			System.out.println("mainSurvey: " + mainSurvey);
+			
 			mainSurveyList.add(mainSurvey);
+			System.out.println("mainSurveyList" + mainSurveyList);
 		}
 		return mainSurveyList;
 	}
 
+	@Override
 	public List<MainSurveyObj> sortByRemainTime(List<MainSurveyObj> mainSurveyList) {
 		mainSurveyList.sort(new RemainTimeComparator());
+		System.out.println("mainSurveyList 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 	
+	@Override
 	public List<MainSurveyObj> sortByLatest(List<MainSurveyObj> mainSurveyList) {
 		mainSurveyList.sort(new RegidateComparator());
+		System.out.println("mainSurveyList 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 	
+	@Override
 	public List<MainSurveyObj> sortByParticipants(List<MainSurveyObj> mainSurveyList) {
 		mainSurveyList.sort(new ParticipantsComparator());
+		System.out.println("mainSurveyList 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 	
+	@Override
+	public List<MainSurveyObj> sortByBookmark(List<MainSurveyObj> mainSurveyList) {
+		mainSurveyList.sort(new BookmarkComparator());
+		System.out.println("mainSurveyList 정렬" + mainSurveyList);
+		return mainSurveyList;
+	}
+	
+	@Override
 	public List<MainSurveyObj> sortBySubject(List<MainSurveyObj> mainSurveyList, String subject) {
+		List<MainSurveyObj> sortedList = new ArrayList<>();
 		Iterator<MainSurveyObj> iter = mainSurveyList.iterator();
 		while(iter.hasNext()) {
 			MainSurveyObj elem = iter.next();
 			if (elem.getSubject().equals(subject)) {
-				iter.remove();
+				sortedList.add(elem);
 			}
 		}
-		return mainSurveyList;
+		System.out.println("subject 정렬" + sortedList);
+		return sortedList;
 	}
+	
+	
 }
 
 class RemainTimeComparator implements Comparator<MainSurveyObj> {
 	@Override
 	public int compare(MainSurveyObj o1, MainSurveyObj o2) {
+		if (o1 == null || o2 == null) return 0;
 		return o1.getDeadline().compareTo(o2.getDeadline());
 	}
 }
@@ -85,7 +111,8 @@ class RemainTimeComparator implements Comparator<MainSurveyObj> {
 class RegidateComparator implements Comparator<MainSurveyObj> {
 	@Override
 	public int compare(MainSurveyObj o1, MainSurveyObj o2) {
-		return o2.getRegidate().compareTo(o1.getRegidate());
+		if (o1 == null || o2 == null) return 0;
+		return o1.getRegidate().compareTo(o2.getRegidate());
 	}
 	
 }
@@ -93,7 +120,17 @@ class RegidateComparator implements Comparator<MainSurveyObj> {
 class ParticipantsComparator implements Comparator<MainSurveyObj> {
 	@Override
 	public int compare(MainSurveyObj o1, MainSurveyObj o2) {
+		if (o1 == null || o2 == null) return 0;
 		return o1.getParticipants()-o2.getParticipants();
+	}
+	
+}
+
+class BookmarkComparator implements Comparator<MainSurveyObj> {
+	@Override
+	public int compare(MainSurveyObj o1, MainSurveyObj o2) {
+		if (o1 == null || o2 == null) return 0;
+		return o1.getBookmark()-o2.getBookmark();
 	}
 	
 }
