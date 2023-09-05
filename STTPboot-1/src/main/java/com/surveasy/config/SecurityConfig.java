@@ -20,8 +20,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
 				// 로그인 인증이 되어야 접속할 수 있는 url
 				.requestMatchers(new AntPathRequestMatcher("/surveasy/inputsurvey")).authenticated()
-				.requestMatchers(new AntPathRequestMatcher("/surveasy/makesurvey")).authenticated()
-				.requestMatchers(new AntPathRequestMatcher("/surveasy/survey")).authenticated()
+				.requestMatchers(new AntPathRequestMatcher("/surveasy/survey/*")).authenticated()
 				// html, js, css 허용
 				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
 				// CSRF: 웹 사이트 취약점 공격 방지를 위해 사용하는 기술

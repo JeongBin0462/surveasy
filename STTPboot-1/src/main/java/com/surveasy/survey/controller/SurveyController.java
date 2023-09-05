@@ -51,14 +51,9 @@ public class SurveyController {
 	        return "/1.main";
 	    }
 	    int surveyNo = surveyPaper.getSurveyno();
-	    int userNo = surveyPaper.getUserno();
-	    
-	    System.out.println(surveyNo);
-	    System.out.println(userNo);
-	    System.out.println(surveyService.getUserSurvey(userNo, surveyNo));
 	    
 	    // 이미 참여한 설문인지 확인
-	    if (!surveyService.getUserSurvey(userNo, surveyNo)) {
+	    if (!surveyService.getUserSurvey(surveyNo)) {
 	    	model.addAttribute("alertMessage", "이미 참여한 설문입니다");
 	    	return "/0.error";
 	    }

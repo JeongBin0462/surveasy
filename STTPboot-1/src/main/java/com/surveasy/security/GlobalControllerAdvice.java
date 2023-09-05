@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
-	
 	// 인증여부
 	@ModelAttribute("isAuthenticated")
 	public boolean isAuthenticated() {

@@ -17,6 +17,6 @@ public interface SurveyService {
 	SurveyRequire getSurveyRequire(int surveyno);
 	List<SurveyQuestion> getSurveyQuestion(int surveyno);
 	List<Answers> getAnswers(List<SurveyQuestion> list);
-	boolean getUserSurvey(int surveyno, int userno);
+	boolean getUserSurvey(int surveyno);
 	UserDTO getUserInfo();
 }

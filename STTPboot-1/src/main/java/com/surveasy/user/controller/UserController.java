@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.surveasy.security.UserRepository;
+import com.surveasy.security.UserSecurityService;
 import com.surveasy.user.model.EmailDTO;
 import com.surveasy.user.model.PhoneNumberDTO;
 import com.surveasy.user.model.User;
@@ -42,7 +42,7 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserSecurityService userRepository;
 
 	// 회원가입 사용자 동의 화면
 	@GetMapping(value = "/joinagree")

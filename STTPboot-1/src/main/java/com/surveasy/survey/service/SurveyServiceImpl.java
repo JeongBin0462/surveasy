@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.surveasy.security.UserSecurityService;
+import com.surveasy.security.UserSecurityServiceImpl;
 import com.surveasy.survey.mapper.SurveyMapper;
 import com.surveasy.survey.model.Answers;
 import com.surveasy.survey.model.SurveyOption;
@@ -25,6 +27,9 @@ import com.surveasy.user.model.UserDTO;
 public class SurveyServiceImpl implements SurveyService {
 	@Autowired
 	SurveyMapper surveyMapper;
+	
+	@Autowired
+	UserSecurityServiceImpl userSecurityServiceImpl;
 
 	// 3-1에 사용되는 전체 설문 목록
 	@Override
@@ -118,8 +123,21 @@ public class SurveyServiceImpl implements SurveyService {
 	
 	// 설문 중복 참여 방지를 위한 설문 참여 정보
 	@Override
-	public boolean getUserSurvey(int surveyno, int userno) {
+	public boolean getUserSurvey(int surveyno) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		// 현재 userno
+		Integer userno = userSecurityServiceImpl.getUserno(username);
+		
 		Integer userSurveyno = surveyMapper.getUserSurveyBySurveyno(surveyno, userno);
+		System.out.println("surveyno" + userno);
+		System.out.println("userno: " + userno);
 		System.out.println("userSurveyNo : " + userSurveyno);
 		if (userSurveyno != null) {
 			return false;
