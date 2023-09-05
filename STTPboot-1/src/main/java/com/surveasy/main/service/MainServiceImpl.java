@@ -3,8 +3,10 @@ package com.surveasy.main.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,19 @@ import com.surveasy.survey.model.SurveyRequire;
 
 @Service
 public class MainServiceImpl implements MainService {
-
+	public static final Map<String, String> SUBJECT_MAP;
+	
+	static {
+		Map<String, String> tempMap = new HashMap<>();
+		tempMap.put("정치", "politics");
+		tempMap.put("경제", "economy");
+		tempMap.put("사회", "society");
+		tempMap.put("문화", "culture");
+		tempMap.put("과학", "science");
+		tempMap.put("철학", "philosophy");
+		SUBJECT_MAP = Collections.unmodifiableMap(tempMap);
+	}
+	
 	@Autowired
 	SurveyMapper surveyMapper;
 
@@ -86,11 +100,14 @@ public class MainServiceImpl implements MainService {
 	
 	@Override
 	public List<MainSurveyObj> sortBySubject(List<MainSurveyObj> mainSurveyList, String subject) {
+		
+		String sortSubject = SUBJECT_MAP.get(subject);
+		
 		List<MainSurveyObj> sortedList = new ArrayList<>();
 		Iterator<MainSurveyObj> iter = mainSurveyList.iterator();
 		while(iter.hasNext()) {
 			MainSurveyObj elem = iter.next();
-			if (elem.getSubject().equals(subject)) {
+			if (elem.getSubject().equals(sortSubject)) {
 				sortedList.add(elem);
 			}
 		}

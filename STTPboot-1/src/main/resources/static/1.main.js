@@ -1,8 +1,9 @@
+
+document.addEventListener("DOMContentLoaded", function () {
 // 전체리스트 정렬방식별
 let sortBox = document.getElementById("surveyOptionBySort");
 // 주제별
 let subjectBox = document.getElementById("surveyOptionBySubject");
-
 
 sortBox.addEventListener("change", function(event) {
 	viewSelected();
@@ -12,7 +13,6 @@ subjectBox.addEventListener("change", function(event) {
 	viewSelected();
 });
 
-document.addEventListener("DOMContentLoaded", function () {
     // 클라이언트 측 JavaScript 코드
 
     // 이벤트 리스너 등록
@@ -93,3 +93,4 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 });
+
