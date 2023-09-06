@@ -1,6 +1,8 @@
 package com.surveasy.survey.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -32,49 +34,62 @@ public class SurveyController {
 	@Autowired
 	private SubmitService submitService;
 
-	// 3-1 전체 설문 리스트 화면
+	// 페이지에 나타낼 설문지 수
+	private static final int PAGE_SIZE = 10;
+
+	// 3-1 설문지 게시판 화면
 	@GetMapping(value = "/board")
-	public Object boardSurvey(Model model, @RequestParam(required = false) String subject,
-			@RequestParam(required = false) String sort,
+	public Object boardSurvey(Model model, @RequestParam(required = false) String search,
+			@RequestParam(required = false) String subject, @RequestParam(required = false) String sort,
 			@RequestParam(required = false, defaultValue = "1") int currentPage,
 			@RequestParam(required = false, defaultValue = "false") boolean json) {
-		String search = null;
-		List<SurveyPaper> list = surveyService.getSurveyPaperList(subject, sort, search, currentPage);
-		System.out.println(surveyService.getTotalSurveyCount(subject, sort, search));
-		int totalPage = (surveyService.getTotalSurveyCount(subject, sort, search) / 10) + 1;
-		System.out.println(totalPage);
-		model.addAttribute("totalPage", totalPage);
-		if (json) {
-			System.out.println("여기로 오니?");
-			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(list);
-		}
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("surveyPapers", list);
-		return "/3.1survey_board";
+		return handleRequest(model, search, subject, sort, currentPage, json);
 	}
 
-	// 3-1 설문 리스트 검색
+	// 검색기능을 하는 post 매핑
 	@PostMapping(value = "board")
-	public Object boardSearchSurvey(Model model,
-			@RequestParam String search,
-			@RequestParam(required = false) String subject,
-			@RequestParam(required = false) String sort,
+	public Object boardSearchSurvey(Model model, @RequestParam String search,
+			@RequestParam(required = false) String subject, @RequestParam(required = false) String sort,
 			@RequestParam(required = false, defaultValue = "1") int currentPage,
 			@RequestParam(required = false, defaultValue = "false") boolean json) {
+		return handleRequest(model, search, subject, sort, currentPage, json);
+	}
 
+	private Object handleRequest(Model model, String search, String subject, String sort, int currentPage,
+			boolean json) {
 		List<SurveyPaper> list = surveyService.getSurveyPaperList(subject, sort, search, currentPage);
-		System.out.println(surveyService.getTotalSurveyCount(subject, sort, search));
-		int totalPage = (surveyService.getTotalSurveyCount(subject, sort, search) / 10) + 1;
-		System.out.println(totalPage);
-		
-		model.addAttribute("search", search);
+		int totalCount = surveyService.getTotalSurveyCount(subject, sort, search);
+		int totalPage = (totalCount + PAGE_SIZE - 1) / PAGE_SIZE;
+
+		System.out.println(totalCount);
+		System.out.println(currentPage);
 		model.addAttribute("totalPage", totalPage);
-		if (json) {
-			System.out.println("여기로 오니?");
-			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(list);
-		}
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("surveyPapers", list);
+
+		if (search != null) {
+			model.addAttribute("search", search);
+		}
+
+		if (subject != null) {
+			model.addAttribute("subject", subject);
+		}
+
+		if (sort != null) {
+			model.addAttribute("sort", sort);
+		}
+
+		if (json) {
+			Map<String, Object> response = new HashMap<>();
+			response.put("totalPage", totalPage);
+			response.put("currentPage", currentPage);
+			response.put("surveyPapers", list);
+			response.put("search", search);
+			response.put("subject", subject);
+			response.put("sort", sort);
+			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(response);
+		}
+
 		return "/3.1survey_board";
 	}
 

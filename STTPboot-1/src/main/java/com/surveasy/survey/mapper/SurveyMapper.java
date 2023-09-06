@@ -19,7 +19,7 @@ import com.surveasy.user.model.User;
 @Mapper
 public interface SurveyMapper {
 	// 3-1 설문지 목록
-	@Select("SELECT * FROM surveypaper")
+	@Select("SELECT * FROM surveypaper WHERE deadline > now()")
 	List<SurveyPaper> getSurveyList();
 	
 	// 3-1 설문지no로 설문지 옵션
