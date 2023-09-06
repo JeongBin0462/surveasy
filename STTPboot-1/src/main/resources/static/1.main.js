@@ -9,9 +9,13 @@ document.addEventListener("DOMContentLoaded", function() {
 	// 주제별
 	let subjectBox = document.getElementById("surveyOptionBySubject");
 
-	sortBox.addEventListener("change", viewSelected);
-
-	subjectBox.addEventListener("change", viewSelected);
+	sortBox.addEventListener("change", function() {
+		viewSelected(0, 0);
+	});
+	
+	subjectBox.addEventListener("change", function() {
+		viewSelected(0, 0);
+	});
 
 	// 이벤트 리스너 등록
 	document

@@ -58,12 +58,16 @@ public class MainController {
 		String selectedSort = (String) (request.get("selectedSort"));
 		String selectedSubject = (String) (request.get("selectedSubject"));
 		
-		// 페이지 0, 1, 2
-		String topPageNumStr = (String) (request.get("topPageNum"));
-		String bottomPageNumStr = (String) (request.get("bottomPageNum"));
+		System.out.println(request.get("topPageNum"));
+		System.out.println(request.get("bottomPageNum"));
 		
-		System.out.println(topPageNumStr);
-		System.out.println(bottomPageNumStr);
+		
+		// 페이지 0, 1, 2
+		Integer topPageNum = (Integer) (request.get("topPageNum"));
+		Integer bottomPageNum = (Integer) (request.get("bottomPageNum"));
+		
+		System.out.println(topPageNum);
+		System.out.println(bottomPageNum);
 
 		List<MainSurveyObj> topList = mainService.generateMainList();
 		List<MainSurveyObj> bottomList = mainService.generateMainList();
