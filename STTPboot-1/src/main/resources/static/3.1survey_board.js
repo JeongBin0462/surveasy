@@ -79,7 +79,8 @@ function updateSurveyData(data) {
 	document.querySelector('.survey-search').value = data.search || "";
     document.querySelector('.survey-subject').value = data.subject || "";
     document.querySelector('.survey-sort').value = data.sort || "";
-
+	
+	// surveyPaper 갱신
 	data.surveyPapers.forEach(surveyPaper => {
 		const surveyDiv = document.createElement('div');
 		surveyDiv.id = 'survey-papers';
