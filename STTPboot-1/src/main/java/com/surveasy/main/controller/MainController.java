@@ -52,11 +52,18 @@ public class MainController {
 
 	@PostMapping("/update")
 	@ResponseBody
-	public Map<String, Object> showMainBySelected(@RequestBody Map<String, String> request) {
+	public Map<String, Object> showMainBySelected(@RequestBody Map<String, Object> request) {
 		System.out.println(request);
 		
-		String selectedSort = request.get("selectedSort");
-		String selectedSubject = request.get("selectedSubject");
+		String selectedSort = (String) (request.get("selectedSort"));
+		String selectedSubject = (String) (request.get("selectedSubject"));
+		
+		// 페이지 0, 1, 2
+		String topPageNumStr = (String) (request.get("topPageNum"));
+		String bottomPageNumStr = (String) (request.get("bottomPageNum"));
+		
+		System.out.println(topPageNumStr);
+		System.out.println(bottomPageNumStr);
 
 		List<MainSurveyObj> topList = mainService.generateMainList();
 		List<MainSurveyObj> bottomList = mainService.generateMainList();

@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
+	var topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
+	var bottomPageNum = parseInt(document.getElementById("bottomPageNum").value, 10);
+	console.log("초기 topPageNum: " + topPageNum);
+	console.log("초기 bottomPageNum: " + bottomPageNum);
+	
 	// 전체리스트 정렬방식별
 	let sortBox = document.getElementById("surveyOptionBySort");
 	// 주제별
@@ -13,10 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		.getElementById("surveyOptionBySort")
 		.addEventListener("change", viewSelected);
 
-	var topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
-	var bottomPageNum = parseInt(document.getElementById("bottomPageNum").value, 10);
-	console.log("초기 topPageNum: " + topPageNum);
-	console.log("초기 bottomPageNum: " + bottomPageNum);
 	
 	// 좌우 버튼
 	document.getElementById("nextBtn1").addEventListener("click", () => {
