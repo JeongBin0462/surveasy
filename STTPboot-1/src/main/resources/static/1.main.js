@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	subjectBox.addEventListener("change", viewSelected);
 
-	// 클라이언트 측 JavaScript 코드
-
 	// 이벤트 리스너 등록
 	document
 		.getElementById("surveyOptionBySort")
@@ -17,16 +15,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	var topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
 	var bottomPageNum = parseInt(document.getElementById("bottomPageNum").value, 10);
-
-	console.log("Initial topPageNum:", topPageNum);  // 로그 추가
-	console.log("Initial bottomPageNum:", bottomPageNum);  // 로그 추가
-
+	console.log("초기 topPageNum: " + topPageNum);
+	console.log("초기 bottomPageNum: " + bottomPageNum);
+	
 	// 좌우 버튼
 	document.getElementById("nextBtn1").addEventListener("click", () => {
 		console.log("nextBtn1 눌림");
 		topPageNum = plusPageNum(topPageNum);
 		pageNumLog(topPageNum, bottomPageNum);
 		updatePageNum(topPageNum, bottomPageNum);
+		viewSelected(topPageNum, bottomPageNum);
 	});
 
 	document.getElementById("nextBtn2").addEventListener("click", () => {
@@ -34,25 +32,28 @@ document.addEventListener("DOMContentLoaded", function() {
 		bottomPageNum = plusPageNum(bottomPageNum);
 		pageNumLog(topPageNum, bottomPageNum);
 		updatePageNum(topPageNum, bottomPageNum);
+		viewSelected(topPageNum, bottomPageNum);
 	});
 
 	document.getElementById("backBtn1").addEventListener("click", () => {
 		console.log("backBtn1 눌림");
-		minusPageNum(topPageNum);
+		topPageNum = minusPageNum(topPageNum);
 		pageNumLog(topPageNum, bottomPageNum);
 		updatePageNum(topPageNum, bottomPageNum);
+		viewSelected(topPageNum, bottomPageNum);
 	});
 
 	document.getElementById("backBtn2").addEventListener("click", () => {
 		console.log("backBtn2 눌림");
-		minusPageNum(bottomPageNum);
+		bottomPageNum = minusPageNum(bottomPageNum);
 		pageNumLog(topPageNum, bottomPageNum);
 		updatePageNum(topPageNum, bottomPageNum);
+		viewSelected(topPageNum, bottomPageNum);
 	});
 });
 
 // viewSelected 함수 정의
-function viewSelected() {
+function viewSelected(topPageNum, bottomPageNum) {
 	let sortBox = document.getElementById("surveyOptionBySort");
 	let subjectBox = document.getElementById("surveyOptionBySubject");
 	let selectedSort = sortBox.options[sortBox.selectedIndex].text;
@@ -66,6 +67,8 @@ function viewSelected() {
 		body: JSON.stringify({
 			selectedSort: selectedSort,
 			selectedSubject: selectedSubject,
+			topPageNum: topPageNum, 
+			bottomPageNum: bottomPageNum,
 		}),
 	})
 		.then((response) => response.json())
@@ -128,14 +131,12 @@ function viewSelected() {
 }
 
 function plusPageNum(pageNum) {
-	pageNum++;
-	pageNum = (pageNum - 1) % 3 + 1;
+	pageNum = ((pageNum + 1) + 3) % 3;
 	return pageNum;
 }
 
 function minusPageNum(pageNum) {
-	pageNum--;
-	pageNum = (pageNum - 1) % 3 + 1;
+	pageNum = ((pageNum - 1) + 3) % 3;
 	return pageNum;
 }
 

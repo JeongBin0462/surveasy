@@ -53,6 +53,8 @@ public class MainController {
 	@PostMapping("/update")
 	@ResponseBody
 	public Map<String, Object> showMainBySelected(@RequestBody Map<String, String> request) {
+		System.out.println(request);
+		
 		String selectedSort = request.get("selectedSort");
 		String selectedSubject = request.get("selectedSubject");
 
