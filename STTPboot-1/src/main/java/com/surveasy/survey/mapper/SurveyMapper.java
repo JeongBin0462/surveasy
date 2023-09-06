@@ -26,9 +26,13 @@ public interface SurveyMapper {
 	@Select("SELECT surveyno FROM survey_option WHERE surveyno=#{surveyno} AND is_public_survey = 0")
 	Integer getSurveyOptionIsPublic(int surveyno);
 	
+	// 3-1 주제로 설문지번호 리스트 반환
+	@Select("SELECT surveyno FROM surveyrequire WHERE subject=#{subject}")
+	List<Integer> getSurveynoBySubject(String subject);
+	
 	// 3-2, 3-3 링크를 통해 접근 -> 어떤 설문지인지
-		@Select("SELECT * FROM surveypaper WHERE link=#{link}")
-		SurveyPaper getSurveyByLink(@Param("link") String link);
+	@Select("SELECT * FROM surveypaper WHERE link=#{link}")
+	SurveyPaper getSurveyByLink(@Param("link") String link);
 	
 	// 3-3 설문지 생성을 위한 설문지 옵션
 	@Select("SELECT * FROM survey_option WHERE surveyno=#{surveyno}")

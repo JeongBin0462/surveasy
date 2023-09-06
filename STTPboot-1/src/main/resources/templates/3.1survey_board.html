@@ -74,9 +74,9 @@
                 <p>▶</p>
               </button>
             </div>
-            <form id="formDiv">
+            <form id="formDiv" method="post">
               <label id="textDiv" >제목</label>
-              <input type="search" />
+              <input type="search" name="search" th:value="${search}" />
               <button id="searchText">검색</button>
             </form>
           </div>
@@ -108,6 +108,7 @@
     </footer>
   </body>
   <script src="/0.header_footer.js"></script>
+  <script src="/3.1survey_board.js"></script>
   <script th:inline="javascript">
     /*<![CDATA[*/
     document.addEventListener("DOMContentLoaded", function() {
