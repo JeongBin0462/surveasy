@@ -46,9 +46,7 @@ public class MainController {
 		
 		model.addAttribute("topList", topList);
 		model.addAttribute("bottomList", bottomList);
-		model.addAttribute("topPageNum", 1);
-		model.addAttribute("bottomPageNum", 1);
-
+		
 		return "/1.main";
 	}
 
