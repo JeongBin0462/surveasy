@@ -92,24 +92,19 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error:", error);
       });
   }
+});
 
-  // let forwardBtn1 = document.getElementById("forwardBtn1");
-  // forwardBtn1.addEventListner("click", function(event) {
-  // 	console.log("이전 화살표1 눌림");
-  // });
+document.getElementById("nextBtn1").addEventListener("click", () => {
+  console.log("nextBtn1 눌림");
+});
 
-  // let backBtn1 = document.getElementById("backBtn1");
-  // backBtn1.addEventListener("click", function(event) {
-  // 	console.log("이후 화살표1 눌림");
-  // })
+document.getElementById("nextBtn2").addEventListener("click", () => {
+  console.log("nextBtn2 눌림");
+});
 
-  // let forwardBtn2 = document.getElementById("forwardBtn2");
-  // forwardBtn2.addEventListner("click", function(event) {
-  // 	console.log("이전 화살표2 눌림");
-  // });
-
-  // let backBtn2 = document.getElementById("backBtn2");
-  // backBtn2.addEventListener("click", function(event) {
-  // 	console.log("이후 화살표2 눌림");
-  // })
+document.getElementById("backBtn1").addEventListener("click", () => {
+  console.log("backBtn1 눌림");
+});
+document.getElementById("backBtn2").addEventListener("click", () => {
+  console.log("backBtn2 눌림");
 });

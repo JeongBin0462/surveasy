@@ -33,13 +33,13 @@ public class MainController {
 		bottomList = mainService.sortByRemainTime(bottomList);
 
 		if (topList.size() > 5) {
-			for (int i = topList.size(); i > 4; i--) {
+			for (int i = topList.size() - 1; i > 4; i--) {
 				topList.remove(i);
 			}
 		}
 		
 		if (bottomList.size() > 5) {
-			for (int i = bottomList.size(); i > 4; i--) {
+			for (int i = bottomList.size() - 1; i > 4; i--) {
 				bottomList.remove(i);
 			}
 		}
@@ -78,13 +78,13 @@ public class MainController {
 		bottomList = mainService.sortByRemainTime(bottomList);
 
 		if (topList.size() > 5) {
-			for (int i = topList.size(); i > 4; i--) {
+			for (int i = topList.size() - 1; i > 4; i--) {
 				topList.remove(i);
 			}
 		}
 		
 		if (bottomList.size() > 5) {
-			for (int i = bottomList.size(); i > 4; i--) {
+			for (int i = bottomList.size() - 1; i > 4; i--) {
 				bottomList.remove(i);
 			}
 		}
