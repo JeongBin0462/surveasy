@@ -36,15 +36,19 @@ public class SurveyController {
 	@GetMapping(value = "/board")
 	public Object boardSurvey(Model model, @RequestParam(required = false) String subject,
 			@RequestParam(required = false) String sort,
+			@RequestParam(required = false, defaultValue = "1") int currentPage,
 			@RequestParam(required = false, defaultValue = "false") boolean json) {
 		String search = null;
-		List<SurveyPaper> list = surveyService.getSurveyPaperList(subject, sort, search);
-
+		List<SurveyPaper> list = surveyService.getSurveyPaperList(subject, sort, search, currentPage);
+		System.out.println(surveyService.getTotalSurveyCount(subject, sort, search));
+		int totalPage = (surveyService.getTotalSurveyCount(subject, sort, search) / 10) + 1;
+		System.out.println(totalPage);
+		model.addAttribute("totalPage", totalPage);
 		if (json) {
 			System.out.println("여기로 오니?");
 			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(list);
 		}
-
+		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("surveyPapers", list);
 		return "/3.1survey_board";
 	}
@@ -55,16 +59,21 @@ public class SurveyController {
 			@RequestParam String search,
 			@RequestParam(required = false) String subject,
 			@RequestParam(required = false) String sort,
+			@RequestParam(required = false, defaultValue = "1") int currentPage,
 			@RequestParam(required = false, defaultValue = "false") boolean json) {
 
-		List<SurveyPaper> list = surveyService.getSurveyPaperList(subject, sort, search);
+		List<SurveyPaper> list = surveyService.getSurveyPaperList(subject, sort, search, currentPage);
+		System.out.println(surveyService.getTotalSurveyCount(subject, sort, search));
+		int totalPage = (surveyService.getTotalSurveyCount(subject, sort, search) / 10) + 1;
+		System.out.println(totalPage);
 		
 		model.addAttribute("search", search);
+		model.addAttribute("totalPage", totalPage);
 		if (json) {
 			System.out.println("여기로 오니?");
 			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(list);
 		}
-
+		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("surveyPapers", list);
 		return "/3.1survey_board";
 	}

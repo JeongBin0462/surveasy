@@ -74,4 +74,5 @@ public interface SurveyMapper {
 	
 	@Select("SELECT * FROM employees WHERE userno=#{userno}")
 	Employees getEmployeesInfo(@Param("userno") int userno);
+
 }

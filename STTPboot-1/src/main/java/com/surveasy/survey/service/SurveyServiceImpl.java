@@ -35,7 +35,8 @@ public class SurveyServiceImpl implements SurveyService {
 
 	// 3-1에 사용되는 전체 설문 목록
 	@Override
-	public List<SurveyPaper> getSurveyPaperList(String subject, String sortOption, String search) {
+	public List<SurveyPaper> getSurveyPaperList(String subject, String sortOption, String search, int currentPage) {
+		final int PAGE_SIZE = 10; // 한 페이지에 표시될 항목 수
 		List<SurveyPaper> list = surveyMapper.getSurveyList();
 		LocalDateTime now = LocalDateTime.now();
 
@@ -97,8 +98,80 @@ public class SurveyServiceImpl implements SurveyService {
 		} else if ("참여순".equals(sortOption)) {
 			list.sort(Comparator.comparing(SurveyPaper::getParticipants).reversed());
 		}
+		
+		// 페이징처리
+	    int startItem = (currentPage - 1) * PAGE_SIZE;
+	    int endItem = startItem + PAGE_SIZE;
+	    if (endItem > list.size()) {
+	        endItem = list.size();
+	    }
+	    return list.subList(startItem, endItem);
+	}
+	
+	// 전체 리스트
+	public int getTotalSurveyCount(String subject, String sort, String search) {
+		List<SurveyPaper> list = surveyMapper.getSurveyList();
+		LocalDateTime now = LocalDateTime.now();
 
-		return list;
+		List<SurveyPaper> removeList = new ArrayList<>();
+
+		for (SurveyPaper surveyPaper : list) {
+			LocalDateTime deadline = surveyPaper.getDeadline();
+
+			if (deadline == null || now.isAfter(deadline)) {
+				removeList.add(surveyPaper);
+			}
+		}
+		list.removeAll(removeList);
+		System.out.println(list.toString());
+
+		removeList = new ArrayList<>();
+		List<Integer> removeListPrivate = new ArrayList<>();
+		for (SurveyPaper surveyPaper : list) {
+			int surveyno = surveyPaper.getSurveyno();
+			removeListPrivate.add(surveyMapper.getSurveyOptionIsPublic(surveyno));
+		}
+
+		for (SurveyPaper surveyPaper : list) {
+			if (removeListPrivate == null) {
+				break;
+			}
+			for (Integer numbers : removeListPrivate) {
+				if (surveyPaper.getSurveyno() == numbers) {
+					removeList.add(surveyPaper);
+				}
+			}
+		}
+		list.removeAll(removeList);
+		
+		if (search != null && !search.trim().isEmpty()) {
+			list = list.stream()
+	                 .filter(paper -> paper.getSurveytitle().contains(search))
+	                 .collect(Collectors.toList());
+	    }
+
+		// 필터링: 주제선택
+		if (subject != null && !subject.isEmpty()) {
+			String parseSubject = parseSubject(subject);
+			List<Integer> keepSurveynoList = surveyMapper.getSurveynoBySubject(parseSubject);
+			Iterator<SurveyPaper> iterator = list.iterator();
+			while (iterator.hasNext()) {
+				SurveyPaper paper = iterator.next();
+				if (!keepSurveynoList.contains(paper.getSurveyno())) {
+					iterator.remove();
+				}
+			}
+		}
+
+		// 정렬: sortOption에 따라 리스트를 정렬
+		if ("남은기간".equals(sort)) {
+			list.sort(Comparator.comparing(SurveyPaper::getDeadline));
+		} else if ("최신순".equals(sort)) {
+			list.sort(Comparator.comparing(SurveyPaper::getRegidate));
+		} else if ("참여순".equals(sort)) {
+			list.sort(Comparator.comparing(SurveyPaper::getParticipants).reversed());
+		}
+	    return list.size();
 	}
 
 	// 주제 parse
