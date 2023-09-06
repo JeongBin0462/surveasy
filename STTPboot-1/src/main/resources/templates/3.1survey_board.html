@@ -49,9 +49,12 @@
                 <option>참여순</option>
                 <option>즐겨찾기순</option>
               </select>
-              <button class="survey-view-btn">
-                <p>◀</p>
-              </button>
+              <form method="get">
+			    <input type="hidden" name="currentPage" th:value="${currentPage - 1}" />
+			    <button type="submit" class="survey-view-btn" th:disabled="${currentPage == 1}">
+			        <p>◀</p>
+			    </button>
+			  </form>
               <div class="survey-view-container">
 				  <div class="survey-view" id="survey-view-title">
                   <p class="survey-view-text-title">제목</p>
@@ -70,13 +73,16 @@
 			        </a>
 			    </div>
               </div>
-              <button class="survey-view-btn">
-                <p>▶</p>
-              </button>
+              <form method="get">
+			    <input type="hidden" name="currentPage" th:value="${currentPage + 1}" />
+			    <button type="submit" class="survey-view-btn" th:disabled="${currentPage == totalPage}">
+			        <p>▶</p>
+			    </button>
+			  </form>
             </div>
-            <form id="formDiv">
+            <form id="formDiv" method="post">
               <label id="textDiv" >제목</label>
-              <input type="search" />
+              <input type="search" name="search" th:value="${search}" />
               <button id="searchText">검색</button>
             </form>
           </div>
@@ -108,6 +114,7 @@
     </footer>
   </body>
   <script src="/0.header_footer.js"></script>
+  <script src="/3.1survey_board.js"></script>
   <script th:inline="javascript">
     /*<![CDATA[*/
     document.addEventListener("DOMContentLoaded", function() {
