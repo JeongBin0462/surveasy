@@ -56,27 +56,34 @@
 }
 
 .survey-column {
-	display: flex;
-	flex-direction: row;
-	text-align: left;
-	width: 100%;
-	margin-left: 200px;
-	margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  width: 100%;
+  margin-left: 200px;
+  margin-top: 10px;
+}
+
+.survey-urls-div {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  color: black;
 }
 
 .survey-view-column-title {
-	flex: 3;
-	font-weight: bolder;
+  flex: 3;
+  font-weight: bolder;
 }
 
 .survey-view-column-participants {
-	flex: 2;
-	font-weight: bolder;
+  flex: 2;
+  font-weight: bolder;
 }
 
 .survey-view-column-deadline {
-	flex: 3;
-	font-weight: bolder;
+  flex: 3;
+  font-weight: bolder;
 }
 
 .survey-view-text-title {
@@ -108,7 +115,7 @@
   display: flex;
 }
 
-#survey-view-top{
+#survey-view-top {
   margin-top: 20px;
 }
 

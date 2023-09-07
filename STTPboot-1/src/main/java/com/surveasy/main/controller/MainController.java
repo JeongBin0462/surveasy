@@ -32,21 +32,12 @@ public class MainController {
 		bottomList = mainService.sortBySubject(bottomList, "정치");
 		bottomList = mainService.sortByRemainTime(bottomList);
 
-		if (topList.size() > 5) {
-			for (int i = topList.size() - 1; i > 4; i--) {
-				topList.remove(i);
-			}
-		}
-		
-		if (bottomList.size() > 5) {
-			for (int i = bottomList.size() - 1; i > 4; i--) {
-				bottomList.remove(i);
-			}
-		}
-		
+		topList = mainService.listByPage(topList, 0);
+		bottomList = mainService.listByPage(bottomList, 0);
+
 		model.addAttribute("topList", topList);
 		model.addAttribute("bottomList", bottomList);
-		
+
 		return "/1.main";
 	}
 
@@ -54,20 +45,12 @@ public class MainController {
 	@ResponseBody
 	public Map<String, Object> showMainBySelected(@RequestBody Map<String, Object> request) {
 		System.out.println(request);
-		
+
 		String selectedSort = (String) (request.get("selectedSort"));
 		String selectedSubject = (String) (request.get("selectedSubject"));
-		
-		System.out.println(request.get("topPageNum"));
-		System.out.println(request.get("bottomPageNum"));
-		
-		
-		// 페이지 0, 1, 2
-		Integer topPageNum = (Integer) (request.get("topPageNum"));
-		Integer bottomPageNum = (Integer) (request.get("bottomPageNum"));
-		
-		System.out.println(topPageNum);
-		System.out.println(bottomPageNum);
+
+		int topPageNum = Integer.parseInt(request.get("topPageNum").toString());
+		int bottomPageNum = Integer.parseInt(request.get("bottomPageNum").toString());
 
 		List<MainSurveyObj> topList = mainService.generateMainList();
 		List<MainSurveyObj> bottomList = mainService.generateMainList();
@@ -90,21 +73,17 @@ public class MainController {
 		bottomList = mainService.sortBySubject(bottomList, selectedSubject);
 		bottomList = mainService.sortByRemainTime(bottomList);
 
-		if (topList.size() > 5) {
-			for (int i = topList.size() - 1; i > 4; i--) {
-				topList.remove(i);
-			}
-		}
-		
-		if (bottomList.size() > 5) {
-			for (int i = bottomList.size() - 1; i > 4; i--) {
-				bottomList.remove(i);
-			}
-		}
+		int currentTopPageNum = mainService.getCurrentPage(topList, topPageNum);
+		int currentBottomPageNum = mainService.getCurrentPage(bottomList, bottomPageNum);
+
+		topList = mainService.listByPage(topList, currentTopPageNum);
+		bottomList = mainService.listByPage(bottomList, currentBottomPageNum);
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("topList", topList);
 		response.put("bottomList", bottomList);
+		response.put("currentTopPageNum", currentTopPageNum);
+		response.put("currentBottomPageNum", currentBottomPageNum);
 
 		return response;
 	}

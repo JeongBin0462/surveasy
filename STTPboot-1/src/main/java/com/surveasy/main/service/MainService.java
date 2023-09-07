@@ -18,4 +18,8 @@ public interface MainService {
 
 	List<MainSurveyObj> sortByBookmark(List<MainSurveyObj> mainSurveyList);
 
+	int getCurrentPage(List<MainSurveyObj> list, int pageNum);
+
+	List<MainSurveyObj> listByPage(List<MainSurveyObj> list, int currentPage);
+
 }
