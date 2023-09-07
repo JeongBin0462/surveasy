@@ -36,7 +36,8 @@
       <div class="container">
         <div class="side-div"></div>
         <div class="center-div">
-          <p th:text="${'☆ ' + surveyPaper.bookmark}" class="survey-view-text-number"></p>
+          <p th:text="${'☆ ' + surveyPaper.bookmark}" th:classappend="${checkBookmark} ? 'highlighted' : ''" class="survey-view-text-number" onclick="sendPostRequest()"></p>
+          <input type="hidden" th:value="${surveyPaper.surveyno}" id="surveyno-hidden-div">
           <div id="survey-title-container">
             <div class="survey-title">
               <p th:text="${surveyPaper.surveytitle}"></p>
@@ -94,6 +95,7 @@
     </footer>
   </body>
   <script src="/0.header_footer.js"></script>
+  <script src="/3.2survey_board_start.js"></script>
   <script th:inline="javascript">
     /*<![CDATA[*/
     document.addEventListener("DOMContentLoaded", function () {

@@ -19,5 +19,8 @@ public interface SurveyService {
 	List<SurveyQuestion> getSurveyQuestion(int surveyno);
 	List<Answers> getAnswers(List<SurveyQuestion> list);
 	boolean getUserSurvey(int surveyno);
+	boolean surveyMine(int surveyno);
 	UserDTO getUserInfo();
+	boolean checkBookmark(int surveyno);
+	int insertBookmark(int surveyno);
 }

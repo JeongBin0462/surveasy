@@ -72,11 +72,13 @@
         } else {
             document.getElementById("logoutLink").style.display = "none";
         }
+        
+        let alertMessage = /*[[${alertMessage}]]*/ null;
+        if(alertMessage) {
+            alert(alertMessage);
+            window.location.href = '/surveasy/survey/board';
+        }
     });
     /*]]>*/
-	</script>
-	<script>
-	    alert("이미 참여한 설문입니다.");
-	    window.location.href = '/surveasy/survey/board';
-	</script>
+</script>
 </html>

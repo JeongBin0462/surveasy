@@ -51,6 +51,10 @@
 	color: black;
 }
 
+.highlighted {
+    color: yellow;
+}
+
 #link-container-div {
   margin-top: 40px;
 

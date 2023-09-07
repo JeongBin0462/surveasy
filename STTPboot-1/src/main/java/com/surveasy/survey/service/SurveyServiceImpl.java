@@ -44,14 +44,14 @@ public class SurveyServiceImpl implements SurveyService {
 		sortByOption(list, sort);
 		// 페이징처리
 		final int PAGE_SIZE = 10; // 한 페이지에 표시될 항목 수
-	    int startItem = (currentPage - 1) * PAGE_SIZE;
-	    int endItem = startItem + PAGE_SIZE;
-	    if (endItem > list.size()) {
-	        endItem = list.size();
-	    }
-	    return list.subList(startItem, endItem);
+		int startItem = (currentPage - 1) * PAGE_SIZE;
+		int endItem = startItem + PAGE_SIZE;
+		if (endItem > list.size()) {
+			endItem = list.size();
+		}
+		return list.subList(startItem, endItem);
 	}
-	
+
 	// 전체 리스트
 	public int getTotalSurveyCount(String subject, String sort, String search) {
 		List<SurveyPaper> list = surveyMapper.getSurveyList();
@@ -63,48 +63,51 @@ public class SurveyServiceImpl implements SurveyService {
 		filterBySubject(list, subject);
 		// 정렬: sortOption에 따라 리스트를 정렬
 		sortByOption(list, sort);
-	    return list.size();
+		return list.size();
 	}
-	
+
 	// 비공개 설문 리스트에서 삭제
 	private void removePrivateSurveys(List<SurveyPaper> list) {
-	    List<SurveyPaper> removeList = new ArrayList<>();
-	    List<Integer> removeListPrivate = new ArrayList<>();
-	    
-	    for (SurveyPaper surveyPaper : list) {
-	        int surveyno = surveyPaper.getSurveyno();
-	        removeListPrivate.add(surveyMapper.getSurveyOptionIsPublic(surveyno));
-	    }
-	    for (SurveyPaper surveyPaper : list) {
-	        if (removeListPrivate.contains(surveyPaper.getSurveyno())) {
-	            removeList.add(surveyPaper);
-	        }
-	    }
-	    list.removeAll(removeList);
+		List<SurveyPaper> removeList = new ArrayList<>();
+		List<Integer> removeListPrivate = new ArrayList<>();
+
+		for (SurveyPaper surveyPaper : list) {
+			int surveyno = surveyPaper.getSurveyno();
+			removeListPrivate.add(surveyMapper.getSurveyOptionIsPublic(surveyno));
+		}
+		for (SurveyPaper surveyPaper : list) {
+			if (removeListPrivate.contains(surveyPaper.getSurveyno())) {
+				removeList.add(surveyPaper);
+			}
+		}
+		list.removeAll(removeList);
 	}
+
 	// 필터: 검색
 	private void filterBySearch(List<SurveyPaper> list, String search) {
-	    if (search != null && !search.trim().isEmpty()) {
-	        list.removeIf(paper -> !paper.getSurveytitle().contains(search));
-	    }
+		if (search != null && !search.trim().isEmpty()) {
+			list.removeIf(paper -> !paper.getSurveytitle().contains(search));
+		}
 	}
+
 	// 필터: 셀렉트 박스 주제
 	private void filterBySubject(List<SurveyPaper> list, String subject) {
-	    if (subject != null && !subject.isEmpty()) {
-	        String parseSubject = parseSubject(subject);
-	        List<Integer> keepSurveynoList = surveyMapper.getSurveynoBySubject(parseSubject);
-	        list.removeIf(paper -> !keepSurveynoList.contains(paper.getSurveyno()));
-	    }
+		if (subject != null && !subject.isEmpty()) {
+			String parseSubject = parseSubject(subject);
+			List<Integer> keepSurveynoList = surveyMapper.getSurveynoBySubject(parseSubject);
+			list.removeIf(paper -> !keepSurveynoList.contains(paper.getSurveyno()));
+		}
 	}
+
 	// 정렬: 셀렉트 박스 옵션
 	private void sortByOption(List<SurveyPaper> list, String sortOption) {
-	    if ("남은기간".equals(sortOption)) {
-	        list.sort(Comparator.comparing(SurveyPaper::getDeadline));
-	    } else if ("최신순".equals(sortOption)) {
-	        list.sort(Comparator.comparing(SurveyPaper::getRegidate).reversed());
-	    } else if ("참여순".equals(sortOption)) {
-	        list.sort(Comparator.comparing(SurveyPaper::getParticipants).reversed());
-	    }
+		if ("남은기간".equals(sortOption)) {
+			list.sort(Comparator.comparing(SurveyPaper::getDeadline));
+		} else if ("최신순".equals(sortOption)) {
+			list.sort(Comparator.comparing(SurveyPaper::getRegidate).reversed());
+		} else if ("참여순".equals(sortOption)) {
+			list.sort(Comparator.comparing(SurveyPaper::getParticipants).reversed());
+		}
 	}
 
 	// 주제 parse
@@ -180,16 +183,8 @@ public class SurveyServiceImpl implements SurveyService {
 	// 설문 중복 참여 방지를 위한 설문 참여 정보
 	@Override
 	public boolean getUserSurvey(int surveyno) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		String username;
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
 		// 현재 userno
-		Integer userno = userSecurityServiceImpl.getUserno(username);
+		Integer userno = userSecurityServiceImpl.getUserno(getUserno());
 		Integer userSurveyno = surveyMapper.getUserSurveyBySurveyno(userno, surveyno);
 
 		System.out.println("surveyno: " + surveyno);
@@ -201,22 +196,51 @@ public class SurveyServiceImpl implements SurveyService {
 		return true;
 	}
 
+	// 본인이 만든 설문인지 확인
+	@Override
+	public boolean surveyMine(int surveyno) {
+		Integer userno = userSecurityServiceImpl.getUserno(getUserno());
+		Integer surveynoByUserno = surveyMapper.getSurveyByUserno(userno, surveyno);
+
+		if (surveynoByUserno != null) {
+			return false;
+		}
+		return true;
+	}
+	
+	// 즐겨찾기 추가/제거
+	@Override
+	public int insertBookmark(int surveyno) {
+		Integer userno = userSecurityServiceImpl.getUserno(getUserno());
+		Integer checkSurveyno = surveyMapper.CheckBookmark(userno, surveyno);
+		System.out.println(checkSurveyno);
+		if (checkSurveyno != null) {
+			surveyMapper.DeleteBookmark(userno);
+			return surveyMapper.CountBookmark(surveyno);
+		} else {
+			int check = surveyMapper.InsertBookmark(userno, surveyno);
+			System.out.println(check);
+			return surveyMapper.CountBookmark(surveyno);
+		}
+	}
+	
+	// 즐겨찾기 확인
+	@Override
+	public boolean checkBookmark(int surveyno) {
+		Integer userno = userSecurityServiceImpl.getUserno(getUserno());
+		Integer checkBookmark = surveyMapper.CheckBookmark(userno, surveyno);
+		if (checkBookmark != null) {
+			return true;
+		}
+		return false;
+	}
+
 	// 기본 데이터 미리 입력을 위해 회원가입 시 입력된 정보 불러오기
 	@Override
 	public UserDTO getUserInfo() {
-		// 시큐리티를 통한 유저아이디 불러오기
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-
 		// 유저 정보 중 필요한 정보만 객체로 생성
 		UserDTO userInfo = new UserDTO();
-		User user = surveyMapper.getUserInfo(username);
+		User user = surveyMapper.getUserInfo(getUserno());
 		BeanUtils.copyProperties(user, userInfo);
 		int userno = user.getUserno();
 		if (user.getJob() != null) {
@@ -230,5 +254,19 @@ public class SurveyServiceImpl implements SurveyService {
 			}
 		}
 		return userInfo;
+	}
+
+	private String getUserno() {
+		// 시큐리티를 통한 유저아이디 불러오기
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		
+		return username;
 	}
 }

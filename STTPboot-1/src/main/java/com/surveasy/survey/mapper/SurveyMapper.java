@@ -3,6 +3,8 @@ package com.surveasy.survey.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -30,6 +32,22 @@ public interface SurveyMapper {
 	@Select("SELECT surveyno FROM surveyrequire WHERE subject=#{subject}")
 	List<Integer> getSurveynoBySubject(String subject);
 	
+	// 3-2 즐겨찾기 되어있는지
+	@Select("SELECT bookmark_no FROM user_bookmark WHERE userno=#{userno} AND surveyno=#{surveyno}")
+	Integer CheckBookmark(@Param("userno") int userno, @Param("surveyno") int surveyno);
+	
+	// 3-2 즐겨찾기 카운트
+	@Select ("SELECT count(*) FROM user_bookmark WHERE surveyno=#{surveyno}")
+	int CountBookmark(@Param("surveyno") int surveyno);
+	
+	// 3-2 즐겨찾기 추가
+	@Insert ("INSERT INTO user_bookmark (userno, surveyno) VALUES (#{userno}, #{surveyno})")
+	int InsertBookmark(@Param("userno") int userno, @Param("surveyno") int surveyno);
+	
+	// 3-2 즐겨찾기 제거
+	@Delete ("DELETE FROM user_bookmark WHERE userno=#{userno}")
+	int DeleteBookmark(@Param("userno") int userno);
+	
 	// 3-2, 3-3 링크를 통해 접근 -> 어떤 설문지인지
 	@Select("SELECT * FROM surveypaper WHERE link=#{link}")
 	SurveyPaper getSurveyByLink(@Param("link") String link);
@@ -50,9 +68,13 @@ public interface SurveyMapper {
 	@Select("SELECT * FROM answers WHERE questionno=#{questionno}")
 	Answers getAnswer(@Param("questionno") int questionno);
 	
-	// 3-3 설문참여 정보 불러오기
+	// 3-3 설문 중복 참여 방지
 	@Select("SELECT user_survey_no FROM user_survey WHERE userno=#{userno} AND surveyno=#{surveyno}")
 	Integer getUserSurveyBySurveyno(@Param("userno") int userno, @Param("surveyno") int surveyno);
+	
+	// 3-3 본인 설문 참여 방지
+	@Select("SELECT surveyno FROM surveypaper WHERE userno=#{userno} AND surveyno=#{surveyno}")
+	Integer getSurveyByUserno(@Param("userno") int userno, @Param("surveyno") int surveyno);
 	
 	// 3-3 입력정보 구성 전 확인
 	@Select("SELECT\r\n"
@@ -74,5 +96,5 @@ public interface SurveyMapper {
 	
 	@Select("SELECT * FROM employees WHERE userno=#{userno}")
 	Employees getEmployeesInfo(@Param("userno") int userno);
-
+	
 }

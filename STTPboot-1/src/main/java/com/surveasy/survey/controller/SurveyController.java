@@ -1,10 +1,12 @@
 package com.surveasy.survey.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -102,10 +105,27 @@ public class SurveyController {
 		String subject = surveyRequire.getSubject();
 		// 참여한 설문과 같은 주제의 설문 리스트(3개)
 		List<SurveyPaper> surveyPaperList = submitService.getSurveyPaperList(subject, surveyno);
-
+		
+		boolean checkBookmark = surveyService.checkBookmark(surveyno);
+		model.addAttribute("checkBookmark", checkBookmark);
 		model.addAttribute("surveyPaper", surveyPaper);
 		model.addAttribute("surveyPaperList", surveyPaperList);
 		return "/3.2survey_board_start";
+	}
+	
+	// 3-2 즐겨찾기
+	@PostMapping(value = "{link}")
+	public ResponseEntity<?> handleBookmark(@PathVariable String link, @RequestBody Map<String, Integer> surveyMap) {
+		Map<String, Object> responseMap = new HashMap<>();
+		int surveyno = surveyMap.get("surveyKey");
+		
+		int bookmark = surveyService.insertBookmark(surveyno);
+		boolean checkBookmark = surveyService.checkBookmark(surveyno);
+		
+		responseMap.put("bookmark", bookmark);
+		responseMap.put("checkBookmark", checkBookmark);
+
+		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
 
 	// 3-3 설문 시작 화면
@@ -121,7 +141,13 @@ public class SurveyController {
 
 		// 이미 참여한 설문인지 확인
 		if (!surveyService.getUserSurvey(surveyNo)) {
-			model.addAttribute("alertMessage", "이미 참여한 설문입니다");
+			model.addAttribute("alertMessage", "이미 참여한 설문입니다.");
+			return "/0.error";
+		}
+		
+		// 본인이 만든 설문인지 확인
+		if (!surveyService.surveyMine(surveyNo)) {
+			model.addAttribute("alertMessage", "본인이 만든 설문은 참여할 수 없습니다.");
 			return "/0.error";
 		}
 

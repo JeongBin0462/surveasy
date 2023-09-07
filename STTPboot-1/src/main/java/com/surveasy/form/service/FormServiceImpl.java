@@ -226,7 +226,6 @@ public class FormServiceImpl implements FormService {
 		for (int i = 0; i < surveyQuestionList.size(); i++) {
 			int result4 = formMapper.insertSurveyQuestion(surveyQuestionList.get(i));
 			System.out.println("surveyQuestion : " + i + " 번째 - " + result4);
-
 		}
 	}
 
@@ -240,8 +239,6 @@ public class FormServiceImpl implements FormService {
 			int result5 = formMapper.insertAnswers(answersList.get(i));
 
 			System.out.println("Answers : " + i + "번째 - " + result5);
-
 		}
 	}
-
 }
