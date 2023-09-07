@@ -19,7 +19,6 @@ import com.surveasy.form.service.FormService;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RestController
 @RequestMapping("/surveasy/makesurvey")
 @Slf4j
 public class FormController {
@@ -77,7 +76,7 @@ public class FormController {
 		System.out.println("link: " + currentLink);
 		
 		Map<String, String> response = new HashMap<>();
-        response.put("surveyTitle", "제목 : " + currentSurveyTitle);
+        response.put("surveyTitle", "설문지 제목 : " + currentSurveyTitle);
         response.put("link", "URL : http://localhost:8080/surveasy/survey/" + currentLink);
         
         return response;

@@ -119,10 +119,14 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public int getCurrentPage(List<MainSurveyObj> list, int pageNum) {
-		if ((list.size() / 5) >= pageNum) {
-			return pageNum;
+		if (list.size() % 5 != 0) {
+			if ((list.size() / 5) >= pageNum) {
+				return pageNum;
+			} else {
+				return list.size() / 5;
+			}
 		} else {
-			return list.size() / 5;
+			return (list.size() / 5 - 1 + 3) % 3;
 		}
 	}
 
