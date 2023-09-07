@@ -23,4 +23,5 @@ public interface SurveyService {
 	UserDTO getUserInfo();
 	boolean checkBookmark(int surveyno);
 	int insertBookmark(int surveyno);
+	int countBookmark(int surveyno);
 }

@@ -216,7 +216,9 @@ public class SurveyServiceImpl implements SurveyService {
 		System.out.println(checkSurveyno);
 		if (checkSurveyno != null) {
 			surveyMapper.DeleteBookmark(userno);
-			return surveyMapper.CountBookmark(surveyno);
+			int count = surveyMapper.CountBookmark(surveyno);
+			System.out.println(count);
+			return count; 
 		} else {
 			int check = surveyMapper.InsertBookmark(userno, surveyno);
 			System.out.println(check);
@@ -233,6 +235,12 @@ public class SurveyServiceImpl implements SurveyService {
 			return true;
 		}
 		return false;
+	}
+	
+	// 즐겨찾기 카운트
+	@Override
+	public int countBookmark(int surveyno) {
+		return surveyMapper.CountBookmark(surveyno);
 	}
 
 	// 기본 데이터 미리 입력을 위해 회원가입 시 입력된 정보 불러오기
