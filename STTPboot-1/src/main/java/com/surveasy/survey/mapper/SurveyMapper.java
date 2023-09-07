@@ -76,6 +76,10 @@ public interface SurveyMapper {
 	@Select("SELECT surveyno FROM surveypaper WHERE userno=#{userno} AND surveyno=#{surveyno}")
 	Integer getSurveyByUserno(@Param("userno") int userno, @Param("surveyno") int surveyno);
 	
+	// 3-3 전체 문항 수
+	@Select("SELECT count(*) FROM answers WHERE surveyno=#{surveyno}")
+	Integer getCountAnswers(@Param("surveyno") int surveyno);
+	
 	// 3-3 입력정보 구성 전 확인
 	@Select("SELECT\r\n"
 			+ "`userno`,\r\n"

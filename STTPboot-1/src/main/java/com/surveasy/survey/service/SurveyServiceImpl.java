@@ -244,6 +244,12 @@ public class SurveyServiceImpl implements SurveyService {
 	public int countBookmark(int surveyno) {
 		return surveyMapper.CountBookmark(surveyno);
 	}
+	
+	// 전체문항 수 확인
+	@Override
+	public int countAnswers(int surveyno) {
+		return surveyMapper.getCountAnswers(surveyno);
+	}
 
 	// 기본 데이터 미리 입력을 위해 회원가입 시 입력된 정보 불러오기
 	@Override

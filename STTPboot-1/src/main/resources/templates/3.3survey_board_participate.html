@@ -254,7 +254,26 @@
 	          	</form>
 			</div>
         </div>
-        <div class="side-div"></div>
+        <div class="side-div">
+			<div th:if="${surveyOption.show_progress == true}" id="controller">
+              <div class="controllerInputDiv">
+		        진행률
+		      </div>
+		      <div class="controllerInputDiv" id="controller-count-div">
+		        <div>0</div>
+		        <div>/</div>
+		        <div id="totalQuestions" th:text="${countAnswers}"></div>
+		      </div>
+		      <div class="controllerInputDiv" id="progressPercentage">
+		        0%
+		      </div>
+		      <div class="controllerInputDiv">
+			    <div class="progress-bar">
+			        <div class="progress-bar-fill"></div>
+			    </div>
+			</div>
+            </div>
+        </div>
       </div>
     </main>
     <footer id="footer">

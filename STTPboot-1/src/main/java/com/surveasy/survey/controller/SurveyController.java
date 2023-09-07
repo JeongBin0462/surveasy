@@ -161,6 +161,9 @@ public class SurveyController {
 		List<SurveyQuestion> surveyQuestion = surveyService.getSurveyQuestion(surveyNo);
 		List<Answers> answers = surveyService.getAnswers(surveyQuestion);
 		UserDTO userInfo = surveyService.getUserInfo();
+		
+		// 전체 문항 수 확인
+		int countAnswers = surveyService.countAnswers(surveyNo);
 
 		// 요청 보내기
 		model.addAttribute("surveyPaper", surveyPaper);
@@ -169,6 +172,8 @@ public class SurveyController {
 		model.addAttribute("surveyQuestion", surveyQuestion);
 		model.addAttribute("answers", answers);
 		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("countAnswers", countAnswers);
+		model.addAttribute("count", 0);
 
 		return "/3.3survey_board_participate";
 	}
