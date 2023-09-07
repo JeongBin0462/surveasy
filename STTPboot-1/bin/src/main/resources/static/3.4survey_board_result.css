@@ -61,6 +61,11 @@
     color: #fbfafb;
 }
 
+.survey-urls-div {
+	text-decoration: none;
+	color: black;
+}
+
 #main-btn-div {
 	margin-top: 80px;
 }

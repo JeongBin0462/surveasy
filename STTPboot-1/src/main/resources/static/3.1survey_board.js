@@ -10,7 +10,7 @@ async function redirectToBoardWithParams() {
 	// 정렬
 	let queryString = `/surveasy/survey/board?sort=${encodeURIComponent(sortOption)}`;
 	// currentPage를 항상 1로 초기화
-	queryString += `&currentPage=1`;
+	queryString += `&currentPage=${encodeURIComponent(1)}`;
 	// 주제
 	if (subject) {
 		queryString += `&subject=${encodeURIComponent(subject)}`;
@@ -63,23 +63,31 @@ function updateSurveyData(data) {
 	}
 
 	// 현재 페이지와 전체 페이지 수를 업데이트
-	const currentPage = 1;
+	const currentPage = data.currentPage;
 	const totalPage = data.totalPage;
-	console.log(totalPage);
+	console.log("버튼 제약 currentPage" + currentPage);
+	console.log("버튼 제약 totalPage" + totalPage);
 
 	// 페이지 이동 버튼의 활성화/비활성화 상태 갱신
-	const nextPageButton = document.querySelectorAll('.survey-view-btn')[1]; // 두 번째 버튼만 선택
+	const prevPageButton = document.querySelectorAll('.survey-view-btn')[0]; // 첫 번째 버튼 선택
+	if (currentPage == 1) {
+		prevPageButton.disabled = true;
+	} else {
+		prevPageButton.disabled = false;
+	}
+
+	const nextPageButton = document.querySelectorAll('.survey-view-btn')[1]; // 두 번째 버튼 선택
 	if (currentPage == totalPage) {
 		nextPageButton.disabled = true;
 	} else {
 		nextPageButton.disabled = false;
 	}
-	
+
 	// hidden input값 갱신
 	document.querySelector('.survey-search').value = data.search || "";
-    document.querySelector('.survey-subject').value = data.subject || "";
-    document.querySelector('.survey-sort').value = data.sort || "";
-	
+	document.querySelector('.survey-subject').value = data.subject || "";
+	document.querySelector('.survey-sort').value = data.sort || "";
+
 	// surveyPaper 갱신
 	data.surveyPapers.forEach(surveyPaper => {
 		const surveyDiv = document.createElement('div');
@@ -117,8 +125,8 @@ document.getElementById('survey-option-rate').addEventListener('change', redirec
 // 페이징버튼 비동기화
 async function loadPageData(currentPage, search, subject, sort) {
 	let queryString = `/surveasy/survey/board?sort=${encodeURIComponent(sort)}`;
-	queryString += `&currentPage=${currentPage}`;
-
+	queryString += `&currentPage=${encodeURIComponent(currentPage)}`;
+	console.log(currentPage);
 	if (subject && subject !== '주제선택') {
 		queryString += `&subject=${encodeURIComponent(subject)}`;
 	}
@@ -139,13 +147,33 @@ async function loadPageData(currentPage, search, subject, sort) {
 	}
 }
 
-document.querySelector('.survey-view-btn').addEventListener('click', function(event) {
-	event.preventDefault();
+const buttons = document.querySelectorAll('.survey-view-btn');
 
-	const currentPage = parseInt(document.querySelector('input[name="currentPage"]').value) + 1;
-	const search = document.querySelector('input[name="search"]').value;
-	const subject = document.querySelector('input[name="subject"]').value;
-	const sort = document.querySelector('input[name="sort"]').value;
+buttons.forEach(button => {
+	button.addEventListener('click', function(event) {
+		event.preventDefault();
 
-	loadPageData(currentPage, search, subject, sort);
+		let currentPage = parseInt(document.querySelector('input[name="currentPage"]').value);
+		console.log("여기오니1 ?" + currentPage);
+		if (currentPage == 0) {
+			currentPage = 1;
+			console.log("여기오니2 ?" + currentPage);
+		}
+		// 첫 번째 버튼(이전)을 눌렀을 때
+		if(button.textContent.trim() == '◀' && currentPage > 1) {
+			currentPage--;
+		}
+		// 두 번째 버튼(다음)을 눌렀을 때
+		else if(button.textContent.trim() == '▶') {
+			console.log("여기오니?");
+			currentPage++;
+			console.log("여기오니?" + currentPage);
+		}
+		
+		const search = document.querySelector('input[name="search"]').value;
+		const subject = document.querySelector('input[name="subject"]').value;
+		const sort = document.querySelector('input[name="sort"]').value;
+
+		loadPageData(currentPage, search, subject, sort);
+	});
 });
