@@ -107,6 +107,8 @@ public class SurveyServiceImpl implements SurveyService {
 			list.sort(Comparator.comparing(SurveyPaper::getRegidate).reversed());
 		} else if ("참여순".equals(sortOption)) {
 			list.sort(Comparator.comparing(SurveyPaper::getParticipants).reversed());
+		} else if ("즐겨찾기순".equals(sortOption)) {
+			list.sort(Comparator.comparing(SurveyPaper::getBookmark).reversed());
 		}
 	}
 
@@ -216,7 +218,9 @@ public class SurveyServiceImpl implements SurveyService {
 		System.out.println(checkSurveyno);
 		if (checkSurveyno != null) {
 			surveyMapper.DeleteBookmark(userno);
-			return surveyMapper.CountBookmark(surveyno);
+			int count = surveyMapper.CountBookmark(surveyno);
+			System.out.println(count);
+			return count; 
 		} else {
 			int check = surveyMapper.InsertBookmark(userno, surveyno);
 			System.out.println(check);
@@ -233,6 +237,18 @@ public class SurveyServiceImpl implements SurveyService {
 			return true;
 		}
 		return false;
+	}
+	
+	// 즐겨찾기 카운트
+	@Override
+	public int countBookmark(int surveyno) {
+		return surveyMapper.CountBookmark(surveyno);
+	}
+	
+	// 전체문항 수 확인
+	@Override
+	public int countAnswers(int surveyno) {
+		return surveyMapper.getCountAnswers(surveyno);
 	}
 
 	// 기본 데이터 미리 입력을 위해 회원가입 시 입력된 정보 불러오기

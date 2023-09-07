@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.surveasy.submit.service.SubmitService;
+import com.surveasy.survey.mapper.SurveyMapper;
 import com.surveasy.survey.model.Answers;
 import com.surveasy.survey.model.SurveyOption;
 import com.surveasy.survey.model.SurveyPaper;
@@ -107,6 +108,9 @@ public class SurveyController {
 		List<SurveyPaper> surveyPaperList = submitService.getSurveyPaperList(subject, surveyno);
 		
 		boolean checkBookmark = surveyService.checkBookmark(surveyno);
+		int count = surveyService.countBookmark(surveyno);
+		System.out.println(count);
+		model.addAttribute("bookmark", count);
 		model.addAttribute("checkBookmark", checkBookmark);
 		model.addAttribute("surveyPaper", surveyPaper);
 		model.addAttribute("surveyPaperList", surveyPaperList);
@@ -157,6 +161,9 @@ public class SurveyController {
 		List<SurveyQuestion> surveyQuestion = surveyService.getSurveyQuestion(surveyNo);
 		List<Answers> answers = surveyService.getAnswers(surveyQuestion);
 		UserDTO userInfo = surveyService.getUserInfo();
+		
+		// 전체 문항 수 확인
+		int countAnswers = surveyService.countAnswers(surveyNo);
 
 		// 요청 보내기
 		model.addAttribute("surveyPaper", surveyPaper);
@@ -165,6 +172,8 @@ public class SurveyController {
 		model.addAttribute("surveyQuestion", surveyQuestion);
 		model.addAttribute("answers", answers);
 		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("countAnswers", countAnswers);
+		model.addAttribute("count", 0);
 
 		return "/3.3survey_board_participate";
 	}

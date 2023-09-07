@@ -1,22 +1,22 @@
 .center-div {
 	display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    overflow: hidden;
-    height: auto;
+	flex-direction: column;
+	align-items: center;
+
+	overflow: hidden;
+	height: auto;
 }
 
 .survey-top-container {
 	background-color: #1D7659;
 	color: white;
-	
+
 	width: 85%;
 	min-height: 80px;
-	
+
 	display: flex;
 	align-items: center;
-	
+
 	padding-left: 20px;
 	box-sizing: border-box;
 }
@@ -27,7 +27,7 @@
 	padding-top: 20px;
 }
 
-.question-div > div.survey-center-container > div {
+.question-div>div.survey-center-container>div {
 	font-size: 14px;
 }
 
@@ -37,17 +37,17 @@
 }
 
 .input-box-input {
-  text-align-last: center;
-  text-align: center;
-	
-  min-width: 120px;
-  max-width: 120px;
+	text-align-last: center;
+	text-align: center;
+
+	min-width: 120px;
+	max-width: 120px;
 }
 
 #require-text-div {
 	width: 100%;
 	box-sizing: border-box;
-	
+
 	margin-bottom: 20px;
 }
 
@@ -71,37 +71,37 @@
 .check-min-max-div {
 	display: flex;
 	justify-content: space-evenly;
-    width: 350px;
+	width: 350px;
 }
 
-.question-div{
+.question-div {
 	background-color: #1D7659;
 	color: white;
-	
+
 	padding-left: 20px;
 	margin-top: 20px;
 }
 
-.question-div > p {
+.question-div>p {
 	padding: 10px;
 }
 
 .textarea-div {
-	width: 80%;	
+	width: 80%;
 	font-size: 16px;
-	
+
 	resize: none;
 }
 
 .answers-div {
 	padding-bottom: 20px;
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 #btn-div {
 	display: flex;
 	justify-content: center;
-	
+
 	margin-top: 40px;
 	margin-bottom: 30px;
 }
@@ -114,17 +114,64 @@
 
 .input-div {
 	display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    
+	justify-content: flex-start;
+	flex-wrap: wrap;
+
 }
 
 .input-div input[type="checkbox"],
 .input-div input[type="radio"] {
-    margin-right: 10px;
-    margin-left: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
 }
 
 .error-highlight {
-    color: #f5d114;
+	color: #f5d114;
+}
+
+/* 리모컨 css */
+#controller {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	background-color: #bdd6d0;
+
+	position: fixed;
+	right: 50%;
+	top: 40%;
+	margin-right: -720px;
+	text-align: center;
+	width: 120px;
+	height: 250px;
+
+	font-size: 15px;
+}
+
+.controllerInputDiv {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	
+	text-align-last: center;
+	text-align: center;
+}
+
+#controller-count-div {
+	display: flex;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%; /* 처음에는 0%로 시작 */
+    background-color: #1D7659; /* 이 부분에 원하는 색상을 설정 */
+    transition: width 0.5s; /* 부드러운 전환 효과 */
 }
