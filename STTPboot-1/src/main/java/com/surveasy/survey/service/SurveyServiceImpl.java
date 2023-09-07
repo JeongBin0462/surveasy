@@ -107,6 +107,8 @@ public class SurveyServiceImpl implements SurveyService {
 			list.sort(Comparator.comparing(SurveyPaper::getRegidate).reversed());
 		} else if ("참여순".equals(sortOption)) {
 			list.sort(Comparator.comparing(SurveyPaper::getParticipants).reversed());
+		} else if ("즐겨찾기순".equals(sortOption)) {
+			list.sort(Comparator.comparing(SurveyPaper::getBookmark).reversed());
 		}
 	}
 
