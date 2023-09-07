@@ -1,6 +1,5 @@
 package com.surveasy.form.mapper;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -159,4 +158,7 @@ public interface FormMapper {
 		"</script>"
 	})
 	int countTempSaveNum(@Param("userno") Integer userno);
+	
+	@Select("SELECT link FROM surveypaper WHERE surveyno = #{surveyno}")
+	String getLink(@Param("surveyno") Integer surveyno);
 }

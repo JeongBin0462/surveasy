@@ -54,7 +54,9 @@ public class MainServiceImpl implements MainService {
 			SurveyRequire surveyRequire = surveyMapper.getSurveyRequire(surveyPaper.getSurveyno());
 
 			SurveyOption surveyOption = surveyMapper.getSurveyOption(surveyPaper.getSurveyno());
-
+			if (!surveyOption.is_public_survey()) {
+				continue;
+			}
 			MainSurveyObj mainSurvey = MainSurveyObj.builder().surveyno(surveyPaper.getSurveyno())
 					.surveytitle(surveyPaper.getSurveytitle()).regidate(formatDateTime(surveyPaper.getRegidate()))
 					.deadline(formatDateTime(surveyPaper.getDeadline())).participants(surveyPaper.getParticipants())

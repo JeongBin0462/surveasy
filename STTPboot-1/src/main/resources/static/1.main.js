@@ -110,14 +110,15 @@ function viewSelected(topPageNum, bottomPageNum) {
         surveyView.appendChild(person);
         surveyView.appendChild(date);
 
-        surveyLink.appendChild(surveyView);
+        surveyView.appendChild(surveyLink);
 
-        topListContainer.appendChild(surveyLink);
+        topListContainer.appendChild(surveyView);
       });
 
       const bottomListContainer = document.querySelector(
         "#survey-view-bottom .survey-view-container"
       );
+
       bottomListContainer.innerHTML = "";
       data.bottomList.forEach((bottomelem) => {
         const surveyView = document.createElement("div");
@@ -147,9 +148,9 @@ function viewSelected(topPageNum, bottomPageNum) {
         surveyView.appendChild(person);
         surveyView.appendChild(date);
 
-        surveyLink.appendChild(surveyView);
+        surveyView.appendChild(surveyLink);
 
-        bottomListContainer.appendChild(surveyLink);
+        bottomListContainer.appendChild(surveyView);
       });
     })
     .catch((error) => {

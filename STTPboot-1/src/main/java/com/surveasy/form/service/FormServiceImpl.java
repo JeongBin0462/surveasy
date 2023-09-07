@@ -39,6 +39,11 @@ public class FormServiceImpl implements FormService {
 
 	@Autowired
 	SurveyMapper surveyMapper;
+	
+	@Override
+	public String getLinkOfSurveyNo(Integer surveyno) {
+		return formMapper.getLink(surveyno);
+	}
 
 	@Transactional
 	@Override
@@ -54,7 +59,7 @@ public class FormServiceImpl implements FormService {
 
 	@Transactional
 	@Override
-	public boolean insertSurvey(SurveyDTO surveyDTO) {
+	public Integer insertSurvey(SurveyDTO surveyDTO) {
 		Survey survey = surveyDTO.getSurvey();
 		Form form = surveyDTO.getForm();
 
@@ -93,7 +98,7 @@ public class FormServiceImpl implements FormService {
 		// answers 입력
 		answersListToDB(surveyno, questionNoList, answersList);
 
-		return true;
+		return surveyno;
 	}
 
 	private static void populateAnswersFromQuestion(Answers answers, List<String> questionAnswers) {
