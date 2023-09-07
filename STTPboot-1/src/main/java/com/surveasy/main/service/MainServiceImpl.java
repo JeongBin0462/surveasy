@@ -70,7 +70,7 @@ public class MainServiceImpl implements MainService {
 	public List<MainSurveyObj> sortByRemainTime(List<MainSurveyObj> mainSurveyList) {
 		RemainTimeComparator comp = new RemainTimeComparator();
 		Collections.sort(mainSurveyList, comp);
-		System.out.println("남은 시간순 정렬" + mainSurveyList);
+		System.out.println("남은 기간순 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 
@@ -123,8 +123,6 @@ public class MainServiceImpl implements MainService {
 			return list.size() / 5;
 		}
 	}
-	// 만약 2페이지가 없다면 0, 1페이지 왔다갔다해야하기때문에
-	// 1, 2페이지 둘다 없다면 0페이지만 왔다갔다
 
 	@Override
 	public List<MainSurveyObj> listByPage(List<MainSurveyObj> list, int currentPage) {
@@ -135,8 +133,6 @@ public class MainServiceImpl implements MainService {
 				break;
 			}
 		}
-		System.out.println("현재 페이지: " + currentPage);
-		System.out.println("페이징: " + mainSurveyList);
 		return mainSurveyList;
 	}
 
