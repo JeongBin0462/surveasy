@@ -86,6 +86,14 @@ function viewSelected(topPageNum, bottomPageNum) {
         const surveyView = document.createElement("div");
         surveyView.classList.add("survey-view");
 
+        const linkAddress = `http://localhost:8080/surveasy/survey/${topelem.link}?no=${topelem.surveyno}`;
+
+        let surveyLink = document.createElement("a");
+        if (topelem.link) {
+          surveyLink.href = linkAddress;
+          surveyLink.classList.add("survey-urls-div");
+        }
+
         const title = document.createElement("div");
         title.classList.add("survey-view-text-title");
         title.textContent = topelem.surveytitle;
@@ -102,7 +110,9 @@ function viewSelected(topPageNum, bottomPageNum) {
         surveyView.appendChild(person);
         surveyView.appendChild(date);
 
-        topListContainer.appendChild(surveyView);
+        surveyLink.appendChild(surveyView);
+
+        topListContainer.appendChild(surveyLink);
       });
 
       const bottomListContainer = document.querySelector(
@@ -112,6 +122,14 @@ function viewSelected(topPageNum, bottomPageNum) {
       data.bottomList.forEach((bottomelem) => {
         const surveyView = document.createElement("div");
         surveyView.classList.add("survey-view");
+
+        const linkAddress = `http://localhost:8080/surveasy/survey/${bottomelem.link}?no=${bottomelem.surveyno}`;
+
+        let surveyLink = document.createElement("a");
+        if (bottomelem.link) {
+          surveyLink.href = linkAddress;
+          surveyLink.classList.add("survey-urls-div");
+        }
 
         const title = document.createElement("div");
         title.classList.add("survey-view-text-title");
@@ -129,7 +147,9 @@ function viewSelected(topPageNum, bottomPageNum) {
         surveyView.appendChild(person);
         surveyView.appendChild(date);
 
-        bottomListContainer.appendChild(surveyView);
+        surveyLink.appendChild(surveyView);
+
+        bottomListContainer.appendChild(surveyLink);
       });
     })
     .catch((error) => {

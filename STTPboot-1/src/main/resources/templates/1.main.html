@@ -67,15 +67,21 @@
               </button>
               <div class="survey-view-container">
                 <div class="survey-view" th:each="topelem : ${topList}">
-                  <div class="survey-view-text-title">
-                    <span th:text="${topelem.surveytitle}"></span>
-                  </div>
-                  <div class="survey-view-text-person">
-                    <span th:text="${topelem.participants}"></span>
-                  </div>
-                  <div class="survey-view-text-date">
-                    <span th:text="${topelem.deadline}"></span>
-                  </div>
+                  <a
+                    th:if="${not #strings.isEmpty(topelem.link)}"
+                    th:href="@{'http://localhost:8080/surveasy/survey/' + ${topelem.link} + '?no=' + ${topelem.surveyno}}"
+                  	class="survey-urls-div"
+                  >
+                    <div class="survey-view-text-title">
+                      <span th:text="${topelem.surveytitle}"></span>
+                    </div>
+                    <div class="survey-view-text-person">
+                      <span th:text="${topelem.participants}"></span>
+                    </div>
+                    <div class="survey-view-text-date">
+                      <span th:text="${topelem.deadline}"></span>
+                    </div>
+                  </a>
                 </div>
               </div>
               <button class="survey-view-btn" id="nextBtn1" type="button">
@@ -96,15 +102,21 @@
               </button>
               <div class="survey-view-container">
                 <div class="survey-view" th:each="bottomelem : ${bottomList}">
-                  <div class="survey-view-text-title">
-                    <span th:text="${bottomelem.surveytitle}"></span>
-                  </div>
-                  <div class="survey-view-text-person">
-                    <span th:text="${bottomelem.participants}"></span>
-                  </div>
-                  <div class="survey-view-text-date">
-                    <span th:text="${bottomelem.deadline}"></span>
-                  </div>
+                  <a
+                    th:if="${not #strings.isEmpty(bottomelem.link)}"
+                    th:href="@{'http://localhost:8080/surveasy/survey/' + ${bottomelem.link} + '?no=' + ${bottomelem.surveyno}}"
+                  	class="survey-urls-div"
+                  >
+                    <div class="survey-view-text-title">
+                      <span th:text="${bottomelem.surveytitle}"></span>
+                    </div>
+                    <div class="survey-view-text-person">
+                      <span th:text="${bottomelem.participants}"></span>
+                    </div>
+                    <div class="survey-view-text-date">
+                      <span th:text="${bottomelem.deadline}"></span>
+                    </div>
+                  </a>
                 </div>
               </div>
               <button class="survey-view-btn" id="nextBtn2" type="button">
@@ -115,8 +127,8 @@
         </div>
         <div class="side-div"></div>
       </div>
-      <input id="topPageNum" type="hidden" value="0"/>
-      <input id="bottomPageNum" type="hidden" value="0"/>
+      <input id="topPageNum" type="hidden" value="0" />
+      <input id="bottomPageNum" type="hidden" value="0" />
     </main>
     <footer id="footer">
       <div id="gitDiv">
