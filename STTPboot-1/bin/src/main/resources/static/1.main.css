@@ -16,13 +16,12 @@
 }
 
 .survey {
-
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.survey-view-btn{
+.survey-view-btn {
   font-size: 40px;
   background-color: transparent;
   color: #1D7659;
@@ -31,8 +30,8 @@
 .surveyOption {
   position: absolute;
 
-  margin-bottom: 260px;
-  margin-left: 700px;
+  margin-bottom: 285px;
+  margin-left: 890px;
 
   font-size: 18px;
 
@@ -56,9 +55,33 @@
   padding-bottom: 4px;
 }
 
+.survey-column {
+	display: flex;
+	flex-direction: row;
+	text-align: left;
+	width: 100%;
+	margin-left: 200px;
+	margin-top: 10px;
+}
+
+.survey-view-column-title {
+	flex: 3;
+	font-weight: bolder;
+}
+
+.survey-view-column-participants {
+	flex: 2;
+	font-weight: bolder;
+}
+
+.survey-view-column-deadline {
+	flex: 3;
+	font-weight: bolder;
+}
+
 .survey-view-text-title {
   margin-left: 30px;
-  margin-top: 20px;
+  margin-top: 15px;
 
   width: 400px;
   white-space: nowrap;
@@ -67,8 +90,8 @@
 }
 
 .survey-view-text-person {
-  margin-left: 30px;
-  margin-top: 20px;
+  margin-left: 10px;
+  margin-top: 15px;
 
   width: 150px;
   white-space: nowrap;
@@ -78,11 +101,15 @@
 
 .survey-view-text-date {
   margin-left: 30px;
-  margin-top: 20px;
+  margin-top: 15px;
 
   width: auto;
 
   display: flex;
+}
+
+#survey-view-top{
+  margin-top: 20px;
 }
 
 #survey-view-bottom {

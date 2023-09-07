@@ -40,8 +40,9 @@ public class SurveyController {
 	// 3-1 설문지 게시판 화면
 	@GetMapping(value = "/board")
 	public Object boardSurvey(Model model, @RequestParam(required = false) String search,
-			@RequestParam(required = false) String subject, @RequestParam(required = false) String sort,
-			@RequestParam(required = false, defaultValue = "1") int currentPage,
+			@RequestParam(required = false) String subject, 
+			@RequestParam(defaultValue = "최신순") String sort,
+			@RequestParam(defaultValue = "1") int currentPage,
 			@RequestParam(required = false, defaultValue = "false") boolean json) {
 		return handleRequest(model, search, subject, sort, currentPage, json);
 	}

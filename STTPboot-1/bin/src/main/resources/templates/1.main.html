@@ -50,6 +50,11 @@
         <div class="side-div"></div>
         <div class="center-div">
           <div id="survey-view-container">
+            <div class="survey-column">
+              <div class="survey-view-column-title">설문지 제목</div>
+              <div class="survey-view-column-participants">참가자수</div>
+              <div class="survey-view-column-deadline">마감일자</div>
+            </div>
             <div class="survey" id="survey-view-top">
               <select class="surveyOption" id="surveyOptionBySort">
                 <option>남은기간</option>
@@ -57,8 +62,8 @@
                 <option>참여순</option>
                 <option>즐겨찾기순</option>
               </select>
-              <button class="survey-view-btn">
-                <p>◀</p>
+              <button class="survey-view-btn" id="backBtn1" type="button">
+                ◀
               </button>
               <div class="survey-view-container">
                 <div class="survey-view" th:each="topelem : ${topList}">
@@ -73,8 +78,8 @@
                   </div>
                 </div>
               </div>
-              <button class="survey-view-btn">
-                <p>▶</p>
+              <button class="survey-view-btn" id="nextBtn1" type="button">
+                ▶
               </button>
             </div>
             <div class="survey" id="survey-view-bottom">
@@ -86,8 +91,8 @@
                 <option>과학</option>
                 <option>철학</option>
               </select>
-              <button class="survey-view-btn">
-                <p>◀</p>
+              <button class="survey-view-btn" id="backBtn2" type="button">
+                ◀
               </button>
               <div class="survey-view-container">
                 <div class="survey-view" th:each="bottomelem : ${bottomList}">
@@ -102,14 +107,16 @@
                   </div>
                 </div>
               </div>
-              <button class="survey-view-btn">
-                <p>▶</p>
+              <button class="survey-view-btn" id="nextBtn2" type="button">
+                ▶
               </button>
             </div>
           </div>
         </div>
         <div class="side-div"></div>
       </div>
+      <input id="topPageNum" type="hidden" value="0"/>
+      <input id="bottomPageNum" type="hidden" value="0"/>
     </main>
     <footer id="footer">
       <div id="gitDiv">

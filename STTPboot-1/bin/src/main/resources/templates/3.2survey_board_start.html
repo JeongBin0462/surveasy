@@ -59,17 +59,13 @@
             <button id="sruvey-start-btn">설문시작하기</button>
             </a>
           </div>
-          <div class="related-survey">
-            <div class="related-survey-div">
-              <label>연관설문의 제목입니다</label>
-            </div>
-            <div class="related-survey-div">
-              <label>연관설문의 제목입니다</label>
-            </div>
-            <div class="related-survey-div">
-              <label>연관설문의 제목입니다</label>
-            </div>
-          </div>
+          <div id="survey-container">
+		        <div th:each="surveyPaper : ${surveyPaperList}" class="survey-title-box">
+				  <a th:if="${not #strings.isEmpty(surveyPaper.link)}" th:href="@{'http://localhost:8080/surveasy/survey/' + ${surveyPaper.link} + '?no=' + ${surveyPaper.surveyno}}" class="survey-urls-div">
+			         <p th:text="${surveyPaper.surveytitle}" class="surveyPapers"></p>
+		          </a>
+		        </div>
+	        </div>
         </div>
         <div class="side-div"></div>
       </div>

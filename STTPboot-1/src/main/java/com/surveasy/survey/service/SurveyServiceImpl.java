@@ -101,7 +101,7 @@ public class SurveyServiceImpl implements SurveyService {
 	    if ("남은기간".equals(sortOption)) {
 	        list.sort(Comparator.comparing(SurveyPaper::getDeadline));
 	    } else if ("최신순".equals(sortOption)) {
-	        list.sort(Comparator.comparing(SurveyPaper::getRegidate));
+	        list.sort(Comparator.comparing(SurveyPaper::getRegidate).reversed());
 	    } else if ("참여순".equals(sortOption)) {
 	        list.sort(Comparator.comparing(SurveyPaper::getParticipants).reversed());
 	    }
