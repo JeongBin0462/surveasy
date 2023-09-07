@@ -57,14 +57,9 @@ public class MainController {
 		
 		String selectedSort = (String) (request.get("selectedSort"));
 		String selectedSubject = (String) (request.get("selectedSubject"));
-		
-		System.out.println(request.get("topPageNum"));
-		System.out.println(request.get("bottomPageNum"));
-		
-		
-		// 페이지 0, 1, 2
-		Integer topPageNum = (Integer) (request.get("topPageNum"));
-		Integer bottomPageNum = (Integer) (request.get("bottomPageNum"));
+
+		int topPageNum = Integer.parseInt(request.get("topPageNum").toString());
+		int bottomPageNum = Integer.parseInt(request.get("bottomPageNum").toString());
 		
 		System.out.println(topPageNum);
 		System.out.println(bottomPageNum);
@@ -90,21 +85,17 @@ public class MainController {
 		bottomList = mainService.sortBySubject(bottomList, selectedSubject);
 		bottomList = mainService.sortByRemainTime(bottomList);
 
-		if (topList.size() > 5) {
-			for (int i = topList.size() - 1; i > 4; i--) {
-				topList.remove(i);
-			}
-		}
+		int currentTopPageNum = mainService.getCurrentPage(topList, topPageNum);
+		int currentBottomPageNum = mainService.getCurrentPage(bottomList, bottomPageNum);
 		
-		if (bottomList.size() > 5) {
-			for (int i = bottomList.size() - 1; i > 4; i--) {
-				bottomList.remove(i);
-			}
-		}
-
+		topList = mainService.listByPage(topList, currentTopPageNum);
+		bottomList = mainService.listByPage(bottomList, currentBottomPageNum);
+		
 		Map<String, Object> response = new HashMap<>();
 		response.put("topList", topList);
 		response.put("bottomList", bottomList);
+		response.put("currentTopPageNum", currentTopPageNum);
+		response.put("currentBottomPageNum", currentBottomPageNum);
 
 		return response;
 	}
