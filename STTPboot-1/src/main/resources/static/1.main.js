@@ -4,8 +4,6 @@ var bottomPageNum;
 document.addEventListener("DOMContentLoaded", function () {
   topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
   bottomPageNum = parseInt(document.getElementById("bottomPageNum").value, 10);
-  console.log("초기 topPageNum: " + topPageNum);
-  console.log("초기 bottomPageNum: " + bottomPageNum);
 
   // 전체리스트 정렬방식별
   let sortBox = document.getElementById("surveyOptionBySort");
@@ -22,33 +20,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 좌우 버튼
   document.getElementById("nextBtn1").addEventListener("click", () => {
-    console.log("nextBtn1 눌림");
+	  topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
     topPageNum = plusPageNum(topPageNum);
-    pageNumLog(topPageNum, bottomPageNum);
+//    pageNumLog(topPageNum, bottomPageNum);
     updatePageNum(topPageNum, bottomPageNum);
     viewSelected(topPageNum, bottomPageNum);
   });
 
   document.getElementById("nextBtn2").addEventListener("click", () => {
-    console.log("nextBtn2 눌림");
+	  bottomPageNum = parseInt(document.getElementById("bottomPageNum").value, 10);
     bottomPageNum = plusPageNum(bottomPageNum);
-    pageNumLog(topPageNum, bottomPageNum);
+//    pageNumLog(topPageNum, bottomPageNum);
     updatePageNum(topPageNum, bottomPageNum);
     viewSelected(topPageNum, bottomPageNum);
   });
 
   document.getElementById("backBtn1").addEventListener("click", () => {
-    console.log("backBtn1 눌림");
+	  topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
     topPageNum = minusPageNum(topPageNum);
-    pageNumLog(topPageNum, bottomPageNum);
+//    pageNumLog(topPageNum, bottomPageNum);
     updatePageNum(topPageNum, bottomPageNum);
     viewSelected(topPageNum, bottomPageNum);
   });
 
   document.getElementById("backBtn2").addEventListener("click", () => {
-    console.log("backBtn2 눌림");
+	  bottomPageNum = parseInt(document.getElementById("bottomPageNum").value, 10);
     bottomPageNum = minusPageNum(bottomPageNum);
-    pageNumLog(topPageNum, bottomPageNum);
+//    pageNumLog(topPageNum, bottomPageNum);
     updatePageNum(topPageNum, bottomPageNum);
     viewSelected(topPageNum, bottomPageNum);
   });
@@ -56,9 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // viewSelected 함수 정의
 function viewSelected(topPageNum, bottomPageNum) {
-  console.log("Sending topPageNum:", topPageNum);
-  console.log("Sending bottomPageNum:", bottomPageNum);
-
   let sortBox = document.getElementById("surveyOptionBySort");
   let subjectBox = document.getElementById("surveyOptionBySubject");
   let selectedSort = sortBox.options[sortBox.selectedIndex].text;
@@ -79,7 +74,7 @@ function viewSelected(topPageNum, bottomPageNum) {
     .then((response) => response.json())
     .then((data) => {
       updatePageNum(data.currentTopPageNum, data.currentBottomPageNum);
-
+ 
       const topListContainer = document.querySelector(".survey-view-container");
       topListContainer.innerHTML = "";
       data.topList.forEach((topelem) => {
@@ -168,10 +163,10 @@ function minusPageNum(pageNum) {
   return pageNum;
 }
 
-function pageNumLog(topPageNum, bottomPageNum) {
-  console.log("topPageNum : " + topPageNum);
-  console.log("bottomPageNum : " + bottomPageNum);
-}
+//function pageNumLog(topPageNum, bottomPageNum) {
+//  console.log("topPageNum : " + topPageNum);
+//  console.log("bottomPageNum : " + bottomPageNum);
+//}
 
 function updatePageNum(topPageNum, bottomPageNum) {
   document.getElementById("topPageNum").value = topPageNum;

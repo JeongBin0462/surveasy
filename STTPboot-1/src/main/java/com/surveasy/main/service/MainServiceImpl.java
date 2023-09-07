@@ -72,7 +72,6 @@ public class MainServiceImpl implements MainService {
 	public List<MainSurveyObj> sortByRemainTime(List<MainSurveyObj> mainSurveyList) {
 		RemainTimeComparator comp = new RemainTimeComparator();
 		Collections.sort(mainSurveyList, comp);
-		System.out.println("남은 기간순 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 
@@ -80,7 +79,6 @@ public class MainServiceImpl implements MainService {
 	public List<MainSurveyObj> sortByLatest(List<MainSurveyObj> mainSurveyList) {
 		RegidateComparator comp = new RegidateComparator();
 		Collections.sort(mainSurveyList, comp);
-		System.out.println("최신순 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 
@@ -88,7 +86,6 @@ public class MainServiceImpl implements MainService {
 	public List<MainSurveyObj> sortByParticipants(List<MainSurveyObj> mainSurveyList) {
 		ParticipantsComparator comp = new ParticipantsComparator();
 		Collections.sort(mainSurveyList, comp);
-		System.out.println("참여자순별 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 
@@ -96,13 +93,11 @@ public class MainServiceImpl implements MainService {
 	public List<MainSurveyObj> sortByBookmark(List<MainSurveyObj> mainSurveyList) {
 		BookmarkComparator comp = new BookmarkComparator();
 		Collections.sort(mainSurveyList, comp);
-		System.out.println("즐겨찾기순 정렬" + mainSurveyList);
 		return mainSurveyList;
 	}
 
 	@Override
 	public List<MainSurveyObj> sortBySubject(List<MainSurveyObj> mainSurveyList, String subject) {
-
 		String sortSubject = SUBJECT_MAP.get(subject);
 
 		List<MainSurveyObj> sortedList = new ArrayList<>();
@@ -113,16 +108,15 @@ public class MainServiceImpl implements MainService {
 				sortedList.add(elem);
 			}
 		}
-		System.out.println(subject + "별 정렬" + sortedList);
 		return sortedList;
 	}
 
 	@Override
 	public int getCurrentPage(List<MainSurveyObj> list, int pageNum) {
-		if ((list.size() / 5) >= pageNum) {
+		if (((list.size() / 5) - 1) >= pageNum) {
 			return pageNum;
 		} else {
-			return list.size() / 5;
+			return 0;
 		}
 	}
 
