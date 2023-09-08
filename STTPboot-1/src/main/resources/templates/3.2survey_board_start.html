@@ -36,7 +36,9 @@
       <div class="container">
         <div class="side-div"></div>
         <div class="center-div">
+			<div id="bookmark-div">
           <p th:text="${'☆ ' + bookmark}" th:classappend="${checkBookmark} ? 'highlighted' : ''" class="survey-view-text-number" onclick="sendPostRequest()"></p>
+          </div>
           <input type="hidden" th:value="${surveyPaper.surveyno}" id="surveyno-hidden-div">
           <div id="survey-title-container">
             <div class="survey-title">

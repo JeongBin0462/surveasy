@@ -45,7 +45,7 @@ function formatDate(dateString) {
 	const mm = String(date.getMinutes()).padStart(2, '0');
 	const ss = String(date.getSeconds()).padStart(2, '0');
 
-	return `${YYYY}-${MM}-${DD} ${HH}:${mm}:${ss}`;
+	return `${MM}-${DD} ${HH}:${mm}`;
 }
 
 
@@ -107,7 +107,8 @@ function updateSurveyData(data) {
 		surveyContentView.innerHTML = `
         <p class="survey-view-text-title">${surveyPaper.surveytitle}</p>
         <p class="survey-view-text-person">${surveyPaper.participants}명</p>
-        <p class="survey-view-text-date">${formatDate(surveyPaper.deadline)}</p>
+        <p class="survey-view-text-regidate">${formatDate(surveyPaper.regidate)}</p>
+        <p class="survey-view-text-deadline">${formatDate(surveyPaper.deadline)}</p>
         <p class="survey-view-text-number">${surveyPaper.bookmark}</p>
     `;
 
