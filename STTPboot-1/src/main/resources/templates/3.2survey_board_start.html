@@ -21,7 +21,7 @@
         <div id="surveyMainDiv">
           <p class="naviLink">설문지 작성</p>
           <div id="hiddenDiv">
-            <a href="http://localhost:8080/surveasy/inputsurvey" class="hiddenText">새로만들기</a>
+            <a href="http://localhost:8080/surveasy/inputsurvey" class="hiddenText"></a>
             <a href="#" class="hiddenText">불러오기</a>
             <a href="#" class="hiddenText">가져오기</a>
           </div>
@@ -37,6 +37,9 @@
         <div class="side-div"></div>
         <div class="center-div">
 			<div id="bookmark-div">
+				<a href="http://localhost:8080/surveasy/survey/board" id="back-link">
+					<img src="/img/return.png" id="backImg" />
+				</a>
           <p th:text="${'☆ ' + bookmark}" th:classappend="${checkBookmark} ? 'highlighted' : ''" class="survey-view-text-number" onclick="sendPostRequest()"></p>
           </div>
           <input type="hidden" th:value="${surveyPaper.surveyno}" id="surveyno-hidden-div">
@@ -63,9 +66,11 @@
             </a>
           </div>
           <div id="survey-container">
-		        <div th:each="surveyPaper : ${surveyPaperList}" class="survey-title-box">
+		        <div th:each="surveyPaper : ${surveyPaperList}">
 				  <a th:if="${not #strings.isEmpty(surveyPaper.link)}" th:href="@{'http://localhost:8080/surveasy/survey/' + ${surveyPaper.link} + '?no=' + ${surveyPaper.surveyno}}" class="survey-urls-div">
-			         <p th:text="${surveyPaper.surveytitle}" class="surveyPapers"></p>
+					 <div class="survey-title-box">
+			         	<p th:text="${surveyPaper.surveytitle}" class="surveyPapers"></p>
+			         </div>
 		          </a>
 		        </div>
 	        </div>
