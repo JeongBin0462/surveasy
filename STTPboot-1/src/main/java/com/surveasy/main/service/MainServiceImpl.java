@@ -113,10 +113,26 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public int getCurrentPage(List<MainSurveyObj> list, int pageNum) {
-		if (((list.size() / 5) - 1) >= pageNum) {
+		if (list.size() > 15) {
 			return pageNum;
-		} else {
+		}
+		
+		if ((list.size() != 0) && (((list.size() - 1) / 5)) > pageNum) {
+			return pageNum;
+			
+			
+			// 사이즈가 9일때, 오른쪽 버튼을 누르면 1에서 더이상 증가하지 않음.
+			// 사이즈가 9이고 pageNum이 1일 떄 버튼을 누르면 0이 되어야함.
+			
+			// ex) 사이즈가 14이고 pageNum이 2일 때 버튼을 누르면 0
+			// 사이즈가 4이고 pageNum이 0일 때 버튼을 누르면 0
+			
+		} else if ((list.size() != 0) && ((list.size() - 1) / 5) == pageNum) {
 			return 0;
+		
+		
+	} else {
+			return (list.size() / 5);
 		}
 	}
 
@@ -133,7 +149,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	private String formatDateTime(LocalDateTime dateTime) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd hh:mm");
 		return dateTime.format(formatter);
 	}
 

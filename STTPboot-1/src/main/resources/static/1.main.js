@@ -20,33 +20,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 좌우 버튼
   document.getElementById("nextBtn1").addEventListener("click", () => {
-	  topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
+    topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
     topPageNum = plusPageNum(topPageNum);
-//    pageNumLog(topPageNum, bottomPageNum);
+    //    pageNumLog(topPageNum, bottomPageNum);
     updatePageNum(topPageNum, bottomPageNum);
     viewSelected(topPageNum, bottomPageNum);
   });
 
   document.getElementById("nextBtn2").addEventListener("click", () => {
-	  bottomPageNum = parseInt(document.getElementById("bottomPageNum").value, 10);
+    bottomPageNum = parseInt(
+      document.getElementById("bottomPageNum").value,
+      10
+    );
     bottomPageNum = plusPageNum(bottomPageNum);
-//    pageNumLog(topPageNum, bottomPageNum);
+    //    pageNumLog(topPageNum, bottomPageNum);
     updatePageNum(topPageNum, bottomPageNum);
     viewSelected(topPageNum, bottomPageNum);
   });
 
   document.getElementById("backBtn1").addEventListener("click", () => {
-	  topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
+    topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
     topPageNum = minusPageNum(topPageNum);
-//    pageNumLog(topPageNum, bottomPageNum);
+    //    pageNumLog(topPageNum, bottomPageNum);
     updatePageNum(topPageNum, bottomPageNum);
     viewSelected(topPageNum, bottomPageNum);
   });
 
   document.getElementById("backBtn2").addEventListener("click", () => {
-	  bottomPageNum = parseInt(document.getElementById("bottomPageNum").value, 10);
+    bottomPageNum = parseInt(
+      document.getElementById("bottomPageNum").value,
+      10
+    );
     bottomPageNum = minusPageNum(bottomPageNum);
-//    pageNumLog(topPageNum, bottomPageNum);
+    //    pageNumLog(topPageNum, bottomPageNum);
     updatePageNum(topPageNum, bottomPageNum);
     viewSelected(topPageNum, bottomPageNum);
   });
@@ -74,7 +80,10 @@ function viewSelected(topPageNum, bottomPageNum) {
     .then((response) => response.json())
     .then((data) => {
       updatePageNum(data.currentTopPageNum, data.currentBottomPageNum);
- 
+
+      topPageNum = data.currentTopPageNum;
+      bottomPageNum = data.currentBottomPageNum;
+
       const topListContainer = document.querySelector(".survey-view-container");
       topListContainer.innerHTML = "";
       data.topList.forEach((topelem) => {
