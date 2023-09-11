@@ -44,8 +44,8 @@
             </select>
             <div class="survey" id="survey-view-top">
               <select class="surveyOption" id="survey-option-rate">
-                <option>남은기간</option>
                 <option>최신순</option>
+                <option>남은기간</option>
                 <option>참여순</option>
                 <option>즐겨찾기순</option>
               </select>
@@ -62,7 +62,8 @@
 				  <div class="survey-view" id="survey-view-title">
                   <p class="survey-view-text-title">설문지 제목</p>
                   <p class="survey-view-text-person">참가자수</p>
-                  <p class="survey-view-text-date">마감일자</p>
+                  <p class="survey-view-text-regidate">등록일자</p>
+                  <p class="survey-view-text-deadline">마감일자</p>
                   <p class="survey-view-text-number">☆</p>
                 </div>
                 <div th:each="surveyPaper : ${surveyPapers}" id="survey-papers">
@@ -70,7 +71,8 @@
 					<div class="survey-view">
 				        <p class="survey-view-text-title" th:text="${surveyPaper.surveytitle}"></p>
 				        <p class="survey-view-text-person" th:text="${surveyPaper.participants} + '명'"></p>
-				        <p class="survey-view-text-date" th:text="${#temporals.format(surveyPaper.deadline, 'yyyy-MM-dd HH:mm:ss')}"></p>
+				        <p class="survey-view-text-regidate" th:text="${#temporals.format(surveyPaper.regidate, 'MM-dd HH:mm')}"></p>
+				        <p class="survey-view-text-deadline" th:text="${#temporals.format(surveyPaper.deadline, 'MM-dd HH:mm')}"></p>
 				        <p class="survey-view-text-number" th:text="${surveyPaper.bookmark}"></p>
 			        </div>
 			        </a>

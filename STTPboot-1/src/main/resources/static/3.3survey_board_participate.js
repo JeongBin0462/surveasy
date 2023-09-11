@@ -355,12 +355,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 		}
 
-		
+
 
 		var totalQuestions = parseInt(document.getElementById("totalQuestions").textContent);
 
 		var progress = (checkedCount / totalQuestions) * 100;
-		
+
 		// 진행률 막대바 업데이트
 		var progressBarFill = document.querySelector('.progress-bar-fill');
 		progressBarFill.style.width = progress.toFixed(2) + "%";

@@ -53,7 +53,7 @@
 								<span>이메일</span>
 							</p>
 							<div class="answers-div">
-								<input type="text" name="email" th:value="${userInfo.email}" th:readonly="${userInfo.email != null}">
+								<input type="text" name="email" th:value="${userInfo.email}" >
 							</div>
 						</div>
 						
@@ -62,7 +62,7 @@
 								<span>전화번호</span>
 							</p>
 							<div class="answers-div">
-								<input type="number" name="phonenumber" th:value="${userInfo.phonenumber}" th:readonly="${userInfo.phonenumber != null}">
+								<input type="number" name="phonenumber" th:value="${userInfo.phonenumber}" >
 							</div>
 						</div>
 						
@@ -71,7 +71,7 @@
 								<span>생년월일</span>
 							</p>
 							<div class="answers-div">
-								<input type="date" name="birth" th:value="${userInfo.birth}" th:readonly="${userInfo.birth != null}">
+								<input type="date" name="birth" th:value="${userInfo.birth}" >
 							</div>
 						</div>
 						
@@ -80,7 +80,7 @@
 							<span>성별</span>
 							</p>
 							<div class="answers-div">
-								<select name="gender" class="input-box-input" th:readonly="${userInfo.gender != null}">
+								<select name="gender" class="input-box-input" >
 	                    			<option>선택</option>
 	                   				<option th:selected="${userInfo.gender == true}">남자</option>
 									<option th:selected="${userInfo.gender == false}">여자</option>
@@ -93,7 +93,7 @@
 							<span>부서</span>
 							</p>
 							<div class="answers-div">
-								<select name="department" class="input-box-input" th:readonly="${userInfo.department != null}">
+								<select name="department" class="input-box-input" >
 	                    			<option>선택</option>
 	                    			<option th:selected="${userInfo.department == '개발'}">개발</option>
 	                    			<option th:selected="${userInfo.department == '생산'}">생산</option>
@@ -108,7 +108,7 @@
 							<span>직책</span>
 							</p>
 							<div class="answers-div">
-								<select name="position" class="input-box-input" th:readonly="${userInfo.position != null}">
+								<select name="position" class="input-box-input" >
 				                    <option>선택</option>
 				                    <option th:selected="${userInfo.position == '사원'}">사원</option>
 				                    <option th:selected="${userInfo.position == '주임'}">주임</option>
@@ -126,7 +126,7 @@
 							<span>학년</span>
 							</p>
 							<div class="answers-div">
-								<select name="grade" class="input-box-input" id="input-grade" th:readonly="${userInfo.grade != null}">
+								<select name="grade" class="input-box-input" id="input-grade" >
 				                    <option>선택</option>
 				                    <option th:selected="${userInfo.grade == 1}">1학년</option>
 				                    <option th:selected="${userInfo.grade == 2}">2학년</option>
@@ -141,7 +141,7 @@
 							<span>학과</span>
 							</p>
 							<div class="answers-div">
-								<select name="college" class="input-box-input" th:readonly="${userInfo.college != null}">
+								<select name="college" class="input-box-input" >
 				                    <option>선택</option>
 				                    <option th:selected="${userInfo.college == '공학'}">공학</option>
 				                    <option th:selected="${userInfo.college == '교육'}">교육</option>
@@ -159,7 +159,7 @@
 							<span>지역</span>
 							</p>
 							<div class="answers-div">
-								<select name="region" class="input-box-input" th:readonly="${userInfo.region != null}">
+								<select name="region" class="input-box-input" >
 				                    <option>선택</option>
 				                    <option th:selected="${userInfo.region == '강원'}">강원</option>
 				                    <option th:selected="${userInfo.region == '경기'}">경기</option>
@@ -186,7 +186,7 @@
 							<span>최종학력</span>
 							</p>
 							<div class="answers-div">
-								<select name="finaledu" class="input-box-input" th:readonly="${userInfo.finaledu != null}">
+								<select name="finaledu" class="input-box-input" >
 				                    <option>선택</option>
 				                    <option th:selected="${userInfo.finaledu == '대학원졸업이상'}">대학원졸업이상</option>
 				                    <option th:selected="${userInfo.finaledu == '대학원재학'}">대학원재학</option>
@@ -205,7 +205,7 @@
 							<span>소득수준</span>
 							</p>
 							<div class="answers-div">
-								<select name="incomelevel" class="input-box-input" th:readonly="${userInfo.incomelevel != null}">
+								<select name="incomelevel" class="input-box-input" >
 				                    <option>선택</option>
 				                    <option th:selected="${userInfo.incomelevel == '상'}">상</option>
 				                    <option th:selected="${userInfo.incomelevel == '중'}">중</option>
@@ -267,7 +267,7 @@
 		      <div class="controllerInputDiv" id="progressPercentage">
 		        0%
 		      </div>
-		      <div class="controllerInputDiv">
+		      <div class="controllerInputDiv" id="progress-bar-div">
 			    <div class="progress-bar">
 			        <div class="progress-bar-fill"></div>
 			    </div>
