@@ -10,8 +10,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.surveasy.mapper.InputinfoMapper;
+import com.surveasy.mapper.SurveypaperMapper;
+import com.surveasy.mapper.SurveyrequireMapper;
+import com.surveasy.mapper.UseranswersMapper;
+import com.surveasy.mapper.UsersurveyMapper;
 import com.surveasy.security.UserSecurityServiceImpl;
-import com.surveasy.submit.mapper.SubmitMapper;
 import com.surveasy.submit.model.InputInfoTable;
 import com.surveasy.submit.model.Require;
 import com.surveasy.submit.model.SurveyAnswers;
@@ -26,7 +30,20 @@ public class SubmitServiceImpl implements SubmitService {
 	UserSecurityServiceImpl userSecurityServiceImpl;
 
 	@Autowired
-	SubmitMapper submitMapper;
+	UsersurveyMapper usersurveyMapper;
+	
+	@Autowired
+	InputinfoMapper inputinfoMapper;
+	
+	@Autowired
+	UseranswersMapper useranswerMapper;
+	
+	@Autowired
+	SurveyrequireMapper surveyrequireMapper;
+	
+	@Autowired
+	SurveypaperMapper surveypaperMapper;
+	
 	// 설문지 submit
 	@Override
 	public UserSurvey insertUserSurvey(int surveyno) {
@@ -46,7 +63,7 @@ public class SubmitServiceImpl implements SubmitService {
 		userSurvey.setUserno(userNo);
 		userSurvey.setSurveyno(surveyno);
 
-		submitMapper.insertUserSurvey(userSurvey);
+		usersurveyMapper.insertUserSurvey(userSurvey);
 
 		return userSurvey;
 	}
@@ -57,7 +74,7 @@ public class SubmitServiceImpl implements SubmitService {
 		BeanUtils.copyProperties(require, inputInfo);
 		inputInfo.setUser_survey_no(user_survey_no);
 
-		return submitMapper.insertInputInfo(inputInfo);
+		return inputinfoMapper.insertInputInfo(inputInfo);
 	}
 
 	@Override
@@ -65,7 +82,7 @@ public class SubmitServiceImpl implements SubmitService {
 		int insertCount = 0;
 		for (int i = 0; i < list.size(); i++) {
 			UserAnswers userAnswers = convertToUserAnswers(user_survey_no, list.get(i));
-			insertCount += submitMapper.insertUserAnswer(userAnswers);
+			insertCount += useranswerMapper.insertUserAnswer(userAnswers);
 		}
 		return insertCount;
 	}
@@ -181,12 +198,12 @@ public class SubmitServiceImpl implements SubmitService {
 
 	    List<SurveyPaper> surveyPaperList = new ArrayList<>();
 	    // 같은 주제의 설문지no 리스트
-	    List<Integer> surveynoList = submitMapper.getSurveynoList(subject);
+	    List<Integer> surveynoList = surveyrequireMapper.getSurveynoList(subject);
 
 	    // 조건에 맞는 설문 필터링
 	    List<Integer> filteredSurveynoList = new ArrayList<>();
 	    for (Integer surveynoFilter : surveynoList) {
-	        SurveyPaper surveyPaper = submitMapper.getSurveyPaperBySurveyno(userNo, surveynoFilter);
+	        SurveyPaper surveyPaper = surveypaperMapper.getSurveyPaperBySurveyno(userNo, surveynoFilter);
 	        if (surveyPaper != null) {
 	            filteredSurveynoList.add(surveynoFilter);
 	        }
@@ -200,7 +217,7 @@ public class SubmitServiceImpl implements SubmitService {
 	        System.out.println("surveyno : " + randomNumbers.get(i));
 	        System.out.println("---------");
 
-	        SurveyPaper surveyPaper = submitMapper.getSurveyPaperBySurveyno(userNo, randomNumbers.get(i));
+	        SurveyPaper surveyPaper = surveypaperMapper.getSurveyPaperBySurveyno(userNo, randomNumbers.get(i));
 	        if (surveyPaper != null) {
 	            surveyPaperList.add(surveyPaper);
 	        }

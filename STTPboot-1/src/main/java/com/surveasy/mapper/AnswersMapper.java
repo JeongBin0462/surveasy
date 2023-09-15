@@ -2,6 +2,8 @@ package com.surveasy.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.surveasy.survey.model.Answers;
 
@@ -35,4 +37,12 @@ public interface AnswersMapper {
 			"</script>"
 		})
 		int insertAnswers(Answers answers);
+		
+		// 3-3 설문지 생성을 위한 설문지 문항들
+		@Select("SELECT * FROM answers WHERE questionno=#{questionno}")
+		Answers getAnswer(@Param("questionno") int questionno);
+		
+		// 3-3 전체 문항 수
+		@Select("SELECT count(*) FROM answers WHERE surveyno=#{surveyno}")
+		Integer getCountAnswers(@Param("surveyno") int surveyno);
 }

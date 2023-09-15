@@ -1,6 +1,5 @@
 package com.surveasy.survey.controller;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.surveasy.submit.service.SubmitService;
-import com.surveasy.survey.mapper.SurveyMapper;
 import com.surveasy.survey.model.Answers;
 import com.surveasy.survey.model.SurveyOption;
 import com.surveasy.survey.model.SurveyPaper;

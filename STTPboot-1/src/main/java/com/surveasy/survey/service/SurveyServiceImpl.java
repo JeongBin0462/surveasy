@@ -10,8 +10,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.surveasy.mapper.AnswersMapper;
+import com.surveasy.mapper.EmployeesMapper;
+import com.surveasy.mapper.QuestionMapper;
+import com.surveasy.mapper.StudentMapper;
+import com.surveasy.mapper.SurveyoptionMapper;
+import com.surveasy.mapper.SurveypaperMapper;
+import com.surveasy.mapper.SurveyrequireMapper;
+import com.surveasy.mapper.UserMapper;
+import com.surveasy.mapper.UserbookmarkMapper;
+import com.surveasy.mapper.UsersurveyMapper;
 import com.surveasy.security.UserSecurityServiceImpl;
-import com.surveasy.survey.mapper.SurveyMapper;
 import com.surveasy.survey.model.Answers;
 import com.surveasy.survey.model.SurveyOption;
 import com.surveasy.survey.model.SurveyPaper;
@@ -24,16 +33,44 @@ import com.surveasy.user.model.UserDTO;
 
 @Service
 public class SurveyServiceImpl implements SurveyService {
-	@Autowired
-	SurveyMapper surveyMapper;
 
+	@Autowired
+	SurveypaperMapper surveypaperMapper;
+	
+	@Autowired
+	SurveyoptionMapper surveyoptionMapper;
+	
+	@Autowired
+	SurveyrequireMapper surveyrequireMapper;
+	
+	@Autowired
+	QuestionMapper questionMapper;
+	
+	@Autowired
+	AnswersMapper answersMapper;
+	
+	@Autowired
+	UsersurveyMapper usersurveyMapper;
+	
+	@Autowired
+	UserbookmarkMapper userbookmarkMapper;
+	
+	@Autowired
+	UserMapper userMapper;
+	
+	@Autowired
+	StudentMapper studentMapper;
+	
+	@Autowired
+	EmployeesMapper employeesMapper;
+	
 	@Autowired
 	UserSecurityServiceImpl userSecurityServiceImpl;
 
 	// 3-1에 사용되는 전체 설문 목록
 	@Override
 	public List<SurveyPaper> getSurveyPaperList(String subject, String sort, String search, int currentPage) {
-		List<SurveyPaper> list = surveyMapper.getSurveyList();
+		List<SurveyPaper> list = surveypaperMapper.getSurveyList();
 		// 비공개 설문 리스트에서 제거
 		removePrivateSurveys(list);
 		// 필터링: 검색
@@ -54,7 +91,7 @@ public class SurveyServiceImpl implements SurveyService {
 
 	// 전체 리스트
 	public int getTotalSurveyCount(String subject, String sort, String search) {
-		List<SurveyPaper> list = surveyMapper.getSurveyList();
+		List<SurveyPaper> list = surveypaperMapper.getSurveyList();
 		// 비공개 설문 리스트에서 제거
 		removePrivateSurveys(list);
 		// 필터링: 검색
@@ -73,7 +110,7 @@ public class SurveyServiceImpl implements SurveyService {
 
 		for (SurveyPaper surveyPaper : list) {
 			int surveyno = surveyPaper.getSurveyno();
-			removeListPrivate.add(surveyMapper.getSurveyOptionIsPublic(surveyno));
+			removeListPrivate.add(surveyoptionMapper.getSurveyOptionIsPublic(surveyno));
 		}
 		for (SurveyPaper surveyPaper : list) {
 			if (removeListPrivate.contains(surveyPaper.getSurveyno())) {
@@ -94,7 +131,7 @@ public class SurveyServiceImpl implements SurveyService {
 	private void filterBySubject(List<SurveyPaper> list, String subject) {
 		if (subject != null && !subject.isEmpty()) {
 			String parseSubject = parseSubject(subject);
-			List<Integer> keepSurveynoList = surveyMapper.getSurveynoBySubject(parseSubject);
+			List<Integer> keepSurveynoList = surveyrequireMapper.getSurveynoBySubject(parseSubject);
 			list.removeIf(paper -> !keepSurveynoList.contains(paper.getSurveyno()));
 		}
 	}
@@ -134,7 +171,7 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Override
 	public SurveyOption getSurveyOption(int surveyno) {
-		SurveyOption surveyOption = surveyMapper.getSurveyOption(surveyno);
+		SurveyOption surveyOption = surveyoptionMapper.getSurveyOption(surveyno);
 		System.out.println(surveyOption.toString());
 		System.out.println("--------------------");
 		return surveyOption;
@@ -142,7 +179,7 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Override
 	public SurveyRequire getSurveyRequire(int surveyno) {
-		SurveyRequire surveyRequire = surveyMapper.getSurveyRequire(surveyno);
+		SurveyRequire surveyRequire = surveyrequireMapper.getSurveyRequire(surveyno);
 		System.out.println(surveyRequire.toString());
 		System.out.println("--------------------");
 		return surveyRequire;
@@ -150,7 +187,7 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Override
 	public List<SurveyQuestion> getSurveyQuestion(int surveyno) {
-		List<SurveyQuestion> surveyQuestion = surveyMapper.getQuestion(surveyno);
+		List<SurveyQuestion> surveyQuestion = questionMapper.getQuestion(surveyno);
 		System.out.println(surveyQuestion.toString());
 		System.out.println("--------------------");
 		return surveyQuestion;
@@ -166,7 +203,7 @@ public class SurveyServiceImpl implements SurveyService {
 			System.out.println(type);
 
 			if (!type.equals("서술형")) {
-				answers = surveyMapper.getAnswer(questionno);
+				answers = answersMapper.getAnswer(questionno);
 
 				System.out.println(answers);
 				answersList.add(answers);
@@ -179,7 +216,7 @@ public class SurveyServiceImpl implements SurveyService {
 	// 링크를 통한 설문지 정보 가져오기
 	@Override
 	public SurveyPaper getSurveyPaperByLink(String link) {
-		return surveyMapper.getSurveyByLink(link);
+		return surveypaperMapper.getSurveyByLink(link);
 	}
 
 	// 설문 중복 참여 방지를 위한 설문 참여 정보
@@ -187,7 +224,7 @@ public class SurveyServiceImpl implements SurveyService {
 	public boolean getUserSurvey(int surveyno) {
 		// 현재 userno
 		Integer userno = userSecurityServiceImpl.getUserno(getUserno());
-		Integer userSurveyno = surveyMapper.getUserSurveyBySurveyno(userno, surveyno);
+		Integer userSurveyno = usersurveyMapper.getUserSurveyBySurveyno(userno, surveyno);
 
 		System.out.println("surveyno: " + surveyno);
 		System.out.println("userno: " + userno);
@@ -202,7 +239,7 @@ public class SurveyServiceImpl implements SurveyService {
 	@Override
 	public boolean surveyMine(int surveyno) {
 		Integer userno = userSecurityServiceImpl.getUserno(getUserno());
-		Integer surveynoByUserno = surveyMapper.getSurveyByUserno(userno, surveyno);
+		Integer surveynoByUserno = surveypaperMapper.getSurveyByUserno(userno, surveyno);
 
 		if (surveynoByUserno != null) {
 			return false;
@@ -214,17 +251,17 @@ public class SurveyServiceImpl implements SurveyService {
 	@Override
 	public int insertBookmark(int surveyno) {
 		Integer userno = userSecurityServiceImpl.getUserno(getUserno());
-		Integer checkSurveyno = surveyMapper.CheckBookmark(userno, surveyno);
+		Integer checkSurveyno = userbookmarkMapper.CheckBookmark(userno, surveyno);
 		System.out.println(checkSurveyno);
 		if (checkSurveyno != null) {
-			surveyMapper.DeleteBookmark(userno);
-			int count = surveyMapper.CountBookmark(surveyno);
+			userbookmarkMapper.DeleteBookmark(userno);
+			int count = userbookmarkMapper.CountBookmark(surveyno);
 			System.out.println(count);
 			return count; 
 		} else {
-			int check = surveyMapper.InsertBookmark(userno, surveyno);
+			int check = userbookmarkMapper.InsertBookmark(userno, surveyno);
 			System.out.println(check);
-			return surveyMapper.CountBookmark(surveyno);
+			return userbookmarkMapper.CountBookmark(surveyno);
 		}
 	}
 	
@@ -232,7 +269,7 @@ public class SurveyServiceImpl implements SurveyService {
 	@Override
 	public boolean checkBookmark(int surveyno) {
 		Integer userno = userSecurityServiceImpl.getUserno(getUserno());
-		Integer checkBookmark = surveyMapper.CheckBookmark(userno, surveyno);
+		Integer checkBookmark = userbookmarkMapper.CheckBookmark(userno, surveyno);
 		if (checkBookmark != null) {
 			return true;
 		}
@@ -242,13 +279,13 @@ public class SurveyServiceImpl implements SurveyService {
 	// 즐겨찾기 카운트
 	@Override
 	public int countBookmark(int surveyno) {
-		return surveyMapper.CountBookmark(surveyno);
+		return userbookmarkMapper.CountBookmark(surveyno);
 	}
 	
 	// 전체문항 수 확인
 	@Override
 	public int countAnswers(int surveyno) {
-		return surveyMapper.getCountAnswers(surveyno);
+		return answersMapper.getCountAnswers(surveyno);
 	}
 
 	// 기본 데이터 미리 입력을 위해 회원가입 시 입력된 정보 불러오기
@@ -256,16 +293,16 @@ public class SurveyServiceImpl implements SurveyService {
 	public UserDTO getUserInfo() {
 		// 유저 정보 중 필요한 정보만 객체로 생성
 		UserDTO userInfo = new UserDTO();
-		User user = surveyMapper.getUserInfo(getUserno());
+		User user = userMapper.getUserInfo(getUserno());
 		BeanUtils.copyProperties(user, userInfo);
 		int userno = user.getUserno();
 		if (user.getJob() != null) {
 			if (user.getJob().equals("학생")) {
-				Student student = surveyMapper.getStudentInfo(userno);
+				Student student = studentMapper.getStudentInfo(userno);
 				BeanUtils.copyProperties(student, userInfo);
 			}
 			if (user.getJob().equals("직장인")) {
-				Employees employees = surveyMapper.getEmployeesInfo(userno);
+				Employees employees = employeesMapper.getEmployeesInfo(userno);
 				BeanUtils.copyProperties(employees, userInfo);
 			}
 		}

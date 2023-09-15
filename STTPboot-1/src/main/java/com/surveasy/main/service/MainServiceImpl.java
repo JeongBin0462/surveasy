@@ -14,9 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.surveasy.main.mapper.MainMapper;
 import com.surveasy.main.model.MainSurveyObj;
-import com.surveasy.survey.mapper.SurveyMapper;
+import com.surveasy.mapper.SurveyoptionMapper;
+import com.surveasy.mapper.SurveypaperMapper;
+import com.surveasy.mapper.SurveyrequireMapper;
 import com.surveasy.survey.model.SurveyOption;
 import com.surveasy.survey.model.SurveyPaper;
 import com.surveasy.survey.model.SurveyRequire;
@@ -35,25 +36,28 @@ public class MainServiceImpl implements MainService {
 		tempMap.put("철학", "philosophy");
 		SUBJECT_MAP = Collections.unmodifiableMap(tempMap);
 	}
-
+	
 	@Autowired
-	SurveyMapper surveyMapper;
-
+	SurveypaperMapper surveypaperMapper;
+	
 	@Autowired
-	MainMapper mainMapper;
+	SurveyrequireMapper surveyrequireMapper;
+	
+	@Autowired
+	SurveyoptionMapper surveyoptionMapper;
 
 	@Transactional
 	@Override
 	public List<MainSurveyObj> generateMainList() {
 		List<MainSurveyObj> mainSurveyList = new ArrayList<>();
-		List<SurveyPaper> surveyPaperList = mainMapper.getSurveyListByTime();
+		List<SurveyPaper> surveyPaperList = surveypaperMapper.getSurveyListByTime();
 
 		for (int i = 0; i < surveyPaperList.size(); i++) {
 			SurveyPaper surveyPaper = surveyPaperList.get(i);
 
-			SurveyRequire surveyRequire = surveyMapper.getSurveyRequire(surveyPaper.getSurveyno());
+			SurveyRequire surveyRequire = surveyrequireMapper.getSurveyRequire(surveyPaper.getSurveyno());
 
-			SurveyOption surveyOption = surveyMapper.getSurveyOption(surveyPaper.getSurveyno());
+			SurveyOption surveyOption = surveyoptionMapper.getSurveyOption(surveyPaper.getSurveyno());
 			if (!surveyOption.is_public_survey()) {
 				continue;
 			}

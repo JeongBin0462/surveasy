@@ -3,12 +3,12 @@ package com.surveasy.user.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.surveasy.user.mapper.UserMapper;
+import com.surveasy.mapper.EmployeesMapper;
+import com.surveasy.mapper.StudentMapper;
+import com.surveasy.mapper.UserMapper;
 import com.surveasy.user.model.Employees;
 import com.surveasy.user.model.Student;
 import com.surveasy.user.model.User;
@@ -18,6 +18,13 @@ import com.surveasy.user.model.UserDTO;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	StudentMapper studentMapper;
+	
+	@Autowired
+	EmployeesMapper employeesMapper;
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
@@ -40,13 +47,13 @@ public class UserServiceImpl implements UserService {
 	    // 유저가 학생이면 학생 정보 입력
 	    if ("학생".equals(user.getJob())) {
 	        student.setUserno(user.getUserno());
-	        userMapper.insertStudent(student);
+	        studentMapper.insertStudent(student);
 	    }
 	    
 	    // 유저가 직장인이면 직장인 정보 입력
 	    if ("직장인".equals(user.getJob())) {
 	    	employees.setUserno(user.getUserno());
-	        userMapper.insertEmployees(employees);
+	    	employeesMapper.insertEmployees(employees);
 	    }
 	    return result > 0;
 	}

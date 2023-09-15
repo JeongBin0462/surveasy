@@ -1,7 +1,11 @@
 package com.surveasy.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.surveasy.survey.model.SurveyRequire;
 
@@ -41,4 +45,17 @@ public interface SurveyrequireMapper {
 		})
 		int insertSurveyRequire(SurveyRequire surveyRequire);
 	
+		// 3-1 주제로 설문지번호 리스트 반환
+		@Select("SELECT surveyno FROM surveyrequire WHERE subject=#{subject}")
+		List<Integer> getSurveynoBySubject(String subject);
+		
+		// 3-3 설문지 생성을 위한 설문지 필수입력정보
+		@Select("SELECT * FROM surveyrequire WHERE surveyno=#{surveyno}")
+		SurveyRequire getSurveyRequire(@Param("surveyno") int surveyno);
+		
+		// question의 surveyno 리스트
+		@Select("SELECT surveyno FROM surveyrequire WHERE subject=#{subject}")
+		List<Integer> getSurveynoList(@Param("subject") String subject);
+		
+		
 }
