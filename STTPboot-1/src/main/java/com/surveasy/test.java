@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class test {
 	
-	@GetMapping(value = "/surveasy")
-	public String start() {
-		return "0.header_footer";
-	}
-	
-	@GetMapping("/")
-	public String home() {
-		
-		return "/1.main";
-	}
+//	@GetMapping(value = "/surveasy")
+//	public String start() {
+//		return "0.header_footer";
+//	}
+//	
+//	@GetMapping("/")
+//	public String home() {
+//		
+//		return "/1.main";
+//	}
 	
 	@GetMapping(value = "/surveasy/inputsurvey")
 	public String inputSurvey() {

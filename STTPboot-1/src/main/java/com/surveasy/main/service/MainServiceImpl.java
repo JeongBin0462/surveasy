@@ -58,6 +58,11 @@ public class MainServiceImpl implements MainService {
 			SurveyRequire surveyRequire = surveyrequireMapper.getSurveyRequire(surveyPaper.getSurveyno());
 
 			SurveyOption surveyOption = surveyoptionMapper.getSurveyOption(surveyPaper.getSurveyno());
+			
+			if (surveyPaper == null || surveyRequire == null || surveyOption == null) {
+				continue;
+			}
+			
 			if (!surveyOption.is_public_survey()) {
 				continue;
 			}

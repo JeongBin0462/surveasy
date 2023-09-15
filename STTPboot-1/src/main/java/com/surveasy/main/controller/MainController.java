@@ -17,13 +17,13 @@ import com.surveasy.main.model.MainSurveyObj;
 import com.surveasy.main.service.MainService;
 
 @Controller
-@RequestMapping("/surveasy/main")
+@RequestMapping("/surveasy")
 public class MainController {
 
 	@Autowired
 	MainService mainService;
 
-	@GetMapping
+	@GetMapping(value = {"/", "", "/main"})
 	public String firstShow(Model model) {
 		List<MainSurveyObj> topList = mainService.generateMainList();
 		List<MainSurveyObj> bottomList = mainService.generateMainList();

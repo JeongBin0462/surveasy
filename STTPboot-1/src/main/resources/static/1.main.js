@@ -65,7 +65,7 @@ function viewSelected(topPageNum, bottomPageNum) {
   let selectedSort = sortBox.options[sortBox.selectedIndex].text;
   let selectedSubject = subjectBox.options[subjectBox.selectedIndex].text;
 
-  fetch("/surveasy/main/update", {
+  fetch("/surveasy/update", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
