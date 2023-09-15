@@ -16,13 +16,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.surveasy.form.RandomStringGenerator;
-import com.surveasy.form.mapper.FormMapper;
 import com.surveasy.form.model.Form;
 import com.surveasy.form.model.Question;
 import com.surveasy.form.model.Survey;
 import com.surveasy.form.model.SurveyDTO;
+import com.surveasy.mapper.AnswersMapper;
+import com.surveasy.mapper.QuestionMapper;
+import com.surveasy.mapper.SurveyoptionMapper;
+import com.surveasy.mapper.SurveypaperMapper;
+import com.surveasy.mapper.SurveyrequireMapper;
 import com.surveasy.security.UserSecurityServiceImpl;
-import com.surveasy.survey.mapper.SurveyMapper;
 import com.surveasy.survey.model.Answers;
 import com.surveasy.survey.model.SurveyOption;
 import com.surveasy.survey.model.SurveyQuestion;
@@ -33,23 +36,32 @@ public class FormServiceImpl implements FormService {
 
 	@Autowired
 	UserSecurityServiceImpl userSecurityServiceImpl;
-
+	
 	@Autowired
-	FormMapper formMapper;
-
+	SurveypaperMapper surveypaperMapper;
+	
 	@Autowired
-	SurveyMapper surveyMapper;
+	SurveyrequireMapper surveyrequireMapper;
+	
+	@Autowired
+	SurveyoptionMapper surveyoptionMapper;
+	
+	@Autowired
+	QuestionMapper questionMapper;
+	
+	@Autowired
+	AnswersMapper answersMapper;
 	
 	@Override
 	public String getLinkOfSurveyNo(Integer surveyno) {
-		return formMapper.getLink(surveyno);
+		return surveypaperMapper.getLink(surveyno);
 	}
 
 	@Transactional
 	@Override
 	public boolean tempSaveNum() {
 		Integer userNo = getCurrentUserNo();
-		int saveCount = formMapper.countTempSaveNum(userNo);
+		int saveCount = surveypaperMapper.countTempSaveNum(userNo);
 		if (saveCount >= 5) { 
 			return false;
 		} else {
@@ -71,13 +83,13 @@ public class FormServiceImpl implements FormService {
 		SurveyRequire surveyrequire = generateSurveyRequire(surveyno, form);
 
 		// surveyrequire db입력
-		int result2 = formMapper.insertSurveyRequire(surveyrequire);
+		int result2 = surveyrequireMapper.insertSurveyRequire(surveyrequire);
 		System.out.println("surveyRequire : " + result2);
 
 		SurveyOption surveyOption = generateSurveyOption(surveyno, survey);
 
 		// surveyoption db입력
-		int result3 = formMapper.insertSurveyOption(surveyOption);
+		int result3 = surveyoptionMapper.insertSurveyOption(surveyOption);
 		System.out.println("surveyOption : " + result3);
 
 		List<Question> questionList = generateQuestionList(survey);
@@ -176,7 +188,7 @@ public class FormServiceImpl implements FormService {
 	}
 
 	public Integer getSurveyno(Map<String, Object> params) {
-		int result1 = formMapper.insertSurveyPaperTemp(params);
+		int result1 = surveypaperMapper.insertSurveyPaperTemp(params);
 		System.out.println("surveyPaper : " + result1);
 
 		BigInteger surveynoBigInteger = (BigInteger) params.get("surveyno");
@@ -224,12 +236,12 @@ public class FormServiceImpl implements FormService {
 	}
 
 	public List<Integer> getQuestionNoList(Integer surveyno) {
-		return formMapper.selectQuestionNo(surveyno);
+		return questionMapper.selectQuestionNo(surveyno);
 	}
 
 	public void surveyQuestionListToDB(List<SurveyQuestion> surveyQuestionList) {
 		for (int i = 0; i < surveyQuestionList.size(); i++) {
-			int result4 = formMapper.insertSurveyQuestion(surveyQuestionList.get(i));
+			int result4 = questionMapper.insertSurveyQuestion(surveyQuestionList.get(i));
 			System.out.println("surveyQuestion : " + i + " 번째 - " + result4);
 		}
 	}
@@ -241,7 +253,7 @@ public class FormServiceImpl implements FormService {
 			answersList.get(i).setQuestionno(questionno);
 			answersList.get(i).setSurveyno(surveyno);
 
-			int result5 = formMapper.insertAnswers(answersList.get(i));
+			int result5 = answersMapper.insertAnswers(answersList.get(i));
 
 			System.out.println("Answers : " + i + "번째 - " + result5);
 		}
