@@ -65,7 +65,8 @@ public class SurveyController {
 		int totalPage = (totalCount + PAGE_SIZE - 1) / PAGE_SIZE;
 
 		System.out.println(totalCount);
-		System.out.println(currentPage);
+		System.out.println("현재 페이지" + currentPage);
+		System.out.println("전체 페이지" + totalPage);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("surveyPapers", list);

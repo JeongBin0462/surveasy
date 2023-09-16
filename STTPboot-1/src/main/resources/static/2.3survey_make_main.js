@@ -651,6 +651,8 @@ function submitForm(event, isFinalSubmit) {
   let formData = JSON.parse(sessionStorage.getItem("formData"));
 
   let surveySettings = getSurveySettings(); // 설문지 설정 가져오기
+  
+  console.log("Survey Settings:", surveySettings); 
 
   let finalDataToSend = {
     survey: {
@@ -661,7 +663,7 @@ function submitForm(event, isFinalSubmit) {
     },
     form: formData,
   };
-
+  console.log("Survey finalDataToSend:", finalDataToSend); 
   if (isFinalSubmit) {
     finalDataToSend.survey.currentTime = getCurrentLocalDateTime();
   }
