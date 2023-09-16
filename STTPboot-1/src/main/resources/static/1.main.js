@@ -120,6 +120,9 @@ function viewTop(topPageNum) {
         link.rel = "stylesheet";
         link.href = "/1.main.css";
         document.head.appendChild(link);
+
+        topPageDir = "";
+        bottomPageDir = "";
       });
     })
     .catch((error) => {
@@ -195,6 +198,9 @@ function viewBottom(bottomPageNum) {
         link.rel = "stylesheet";
         link.href = "/1.main.css";
         document.head.appendChild(link);
+
+        topPageDir = "";
+        bottomPageDir = "";
       });
     })
     .catch((error) => {
