@@ -163,12 +163,16 @@ buttons.forEach(button => {
 		// 첫 번째 버튼(이전)을 눌렀을 때
 		if(button.textContent.trim() == '◀' && currentPage > 1) {
 			currentPage--;
+			document.querySelector('input[name="currentPage"]').value = currentPage;
+
 		}
 		// 두 번째 버튼(다음)을 눌렀을 때
 		else if(button.textContent.trim() == '▶') {
 			console.log("여기오니?");
 			currentPage++;
 			console.log("여기오니?" + currentPage);
+			document.querySelector('input[name="currentPage"]').value = currentPage;
+
 		}
 		
 		const search = document.querySelector('input[name="search"]').value;

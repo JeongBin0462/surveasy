@@ -32,7 +32,7 @@ public class FormController {
 	@PostMapping("/submit")
 	public Map<String, Object> createSurvey(@RequestBody SurveyDTO surveyDTO, Model model) {
 		Map<String, Object> response = new HashMap<>();
-		System.out.println(surveyDTO);
+		System.out.println("이거야?" + surveyDTO);
 
 		String message = "";
 
