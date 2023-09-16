@@ -1,65 +1,61 @@
-var topPageNum;
-var bottomPageNum;
+var topPageDir = "";
+var bottomPageDir = "";
+var topPageNum = 0;
+var bottomPageNum = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
-  topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
-  bottomPageNum = parseInt(document.getElementById("bottomPageNum").value, 10);
-
   // 전체리스트 정렬방식별
-  let sortBox = document.getElementById("surveyOptionBySort");
+  document
+    .getElementById("surveyOptionBySort")
+    .addEventListener("change", function () {
+      topPageNum = -1;
+      viewTop(topPageNum);
+    });
+
   // 주제별
-  let subjectBox = document.getElementById("surveyOptionBySubject");
+  document
+    .getElementById("surveyOptionBySubject")
+    .addEventListener("change", function () {
+      bottomPageNum = -1;
 
-  sortBox.addEventListener("change", function () {
-    viewSelected(0, bottomPageNum);
-  });
-
-  subjectBox.addEventListener("change", function () {
-    viewSelected(topPageNum, 0);
-  });
+      viewBottom(bottomPageNum);
+    });
 
   // 좌우 버튼
   document.getElementById("nextBtn1").addEventListener("click", () => {
-    topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
-    topPageNum = plusPageNum(topPageNum);
-    //    pageNumLog(topPageNum, bottomPageNum);
-    updatePageNum(topPageNum, bottomPageNum);
-    viewSelected(topPageNum, bottomPageNum);
+    topPageDir = "next";
+    topPageNum = document.getElementById("topPageNum").value;
+    bottomPageNum = document.getElementById("bottomPageNum").value;
+
+    viewTop(topPageNum);
   });
 
   document.getElementById("nextBtn2").addEventListener("click", () => {
-    bottomPageNum = parseInt(
-      document.getElementById("bottomPageNum").value,
-      10
-    );
-    bottomPageNum = plusPageNum(bottomPageNum);
-    //    pageNumLog(topPageNum, bottomPageNum);
-    updatePageNum(topPageNum, bottomPageNum);
-    viewSelected(topPageNum, bottomPageNum);
+    bottomPageDir = "next";
+    topPageNum = document.getElementById("topPageNum").value;
+    bottomPageNum = document.getElementById("bottomPageNum").value;
+
+    viewBottom(bottomPageNum);
   });
 
   document.getElementById("backBtn1").addEventListener("click", () => {
-    topPageNum = parseInt(document.getElementById("topPageNum").value, 10);
-    topPageNum = minusPageNum(topPageNum);
-    //    pageNumLog(topPageNum, bottomPageNum);
-    updatePageNum(topPageNum, bottomPageNum);
-    viewSelected(topPageNum, bottomPageNum);
+    topPageDir = "prev";
+    topPageNum = document.getElementById("topPageNum").value;
+    bottomPageNum = document.getElementById("bottomPageNum").value;
+
+    viewTop(topPageNum);
   });
 
   document.getElementById("backBtn2").addEventListener("click", () => {
-    bottomPageNum = parseInt(
-      document.getElementById("bottomPageNum").value,
-      10
-    );
-    bottomPageNum = minusPageNum(bottomPageNum);
-    //    pageNumLog(topPageNum, bottomPageNum);
-    updatePageNum(topPageNum, bottomPageNum);
-    viewSelected(topPageNum, bottomPageNum);
+    bottomPageDir = "prev";
+    topPageNum = document.getElementById("topPageNum").value;
+    bottomPageNum = document.getElementById("bottomPageNum").value;
+
+    viewBottom(bottomPageNum);
   });
 });
 
-// viewSelected 함수 정의
-function viewSelected(topPageNum, bottomPageNum) {
+function viewTop(topPageNum) {
   let sortBox = document.getElementById("surveyOptionBySort");
   let subjectBox = document.getElementById("surveyOptionBySubject");
   let selectedSort = sortBox.options[sortBox.selectedIndex].text;
@@ -74,15 +70,12 @@ function viewSelected(topPageNum, bottomPageNum) {
       selectedSort: selectedSort,
       selectedSubject: selectedSubject,
       topPageNum: topPageNum,
-      bottomPageNum: bottomPageNum,
+      topPageDir: topPageDir,
     }),
   })
     .then((response) => response.json())
     .then((data) => {
-      updatePageNum(data.currentTopPageNum, data.currentBottomPageNum);
-
-      topPageNum = data.currentTopPageNum;
-      bottomPageNum = data.currentBottomPageNum;
+      document.getElementById("topPageNum").value = data.newTopPage;
 
       const topListContainer = document.querySelector(".survey-view-container");
       topListContainer.innerHTML = "";
@@ -106,18 +99,55 @@ function viewSelected(topPageNum, bottomPageNum) {
         person.classList.add("survey-view-text-person");
         person.textContent = topelem.participants;
 
+        const rdate = document.createElement("div");
+        rdate.classList.add("survey-view-text-rdate");
+        rdate.textContent = topelem.regidate;
+
         const date = document.createElement("div");
         date.classList.add("survey-view-text-date");
         date.textContent = topelem.deadline;
 
-        surveyView.appendChild(title);
-        surveyView.appendChild(person);
-        surveyView.appendChild(date);
+        surveyLink.appendChild(title);
+        surveyLink.appendChild(person);
+        surveyLink.appendChild(rdate);
+        surveyLink.appendChild(date);
 
         surveyView.appendChild(surveyLink);
 
         topListContainer.appendChild(surveyView);
+
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "/1.main.css";
+        document.head.appendChild(link);
       });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function viewBottom(bottomPageNum) {
+  let sortBox = document.getElementById("surveyOptionBySort");
+  let subjectBox = document.getElementById("surveyOptionBySubject");
+  let selectedSort = sortBox.options[sortBox.selectedIndex].text;
+  let selectedSubject = subjectBox.options[subjectBox.selectedIndex].text;
+
+  fetch("/surveasy/update", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      selectedSort: selectedSort,
+      selectedSubject: selectedSubject,
+      bottomPageNum: bottomPageNum,
+      bottomPageDir: bottomPageDir,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("bottomPageNum").value = data.newBottomPage;
 
       const bottomListContainer = document.querySelector(
         "#survey-view-bottom .survey-view-container"
@@ -144,40 +174,30 @@ function viewSelected(topPageNum, bottomPageNum) {
         person.classList.add("survey-view-text-person");
         person.textContent = bottomelem.participants;
 
+        const rdate = document.createElement("div");
+        rdate.classList.add("survey-view-text-rdate");
+        rdate.textContent = bottomelem.regidate;
+
         const date = document.createElement("div");
         date.classList.add("survey-view-text-date");
         date.textContent = bottomelem.deadline;
 
-        surveyView.appendChild(title);
-        surveyView.appendChild(person);
-        surveyView.appendChild(date);
+        surveyLink.appendChild(title);
+        surveyLink.appendChild(person);
+        surveyLink.appendChild(rdate);
+        surveyLink.appendChild(date);
 
         surveyView.appendChild(surveyLink);
 
         bottomListContainer.appendChild(surveyView);
+
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "/1.main.css";
+        document.head.appendChild(link);
       });
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-}
-
-function plusPageNum(pageNum) {
-  pageNum = (pageNum + 1 + 3) % 3;
-  return pageNum;
-}
-
-function minusPageNum(pageNum) {
-  pageNum = (pageNum - 1 + 3) % 3;
-  return pageNum;
-}
-
-//function pageNumLog(topPageNum, bottomPageNum) {
-//  console.log("topPageNum : " + topPageNum);
-//  console.log("bottomPageNum : " + bottomPageNum);
-//}
-
-function updatePageNum(topPageNum, bottomPageNum) {
-  document.getElementById("topPageNum").value = topPageNum;
-  document.getElementById("bottomPageNum").value = bottomPageNum;
 }

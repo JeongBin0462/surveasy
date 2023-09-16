@@ -25,6 +25,8 @@ import com.surveasy.survey.model.SurveyRequire;
 @Service
 public class MainServiceImpl implements MainService {
 	public static final Map<String, String> SUBJECT_MAP;
+	
+	private final int TOTAL_PAGE_NUM = 3; // 총 페이지 개수. 3개 > 0, 1, 2
 
 	static {
 		Map<String, String> tempMap = new HashMap<>();
@@ -36,13 +38,13 @@ public class MainServiceImpl implements MainService {
 		tempMap.put("철학", "philosophy");
 		SUBJECT_MAP = Collections.unmodifiableMap(tempMap);
 	}
-	
+
 	@Autowired
 	SurveypaperMapper surveypaperMapper;
-	
+
 	@Autowired
 	SurveyrequireMapper surveyrequireMapper;
-	
+
 	@Autowired
 	SurveyoptionMapper surveyoptionMapper;
 
@@ -58,11 +60,11 @@ public class MainServiceImpl implements MainService {
 			SurveyRequire surveyRequire = surveyrequireMapper.getSurveyRequire(surveyPaper.getSurveyno());
 
 			SurveyOption surveyOption = surveyoptionMapper.getSurveyOption(surveyPaper.getSurveyno());
-			
+
 			if (surveyPaper == null || surveyRequire == null || surveyOption == null) {
 				continue;
 			}
-			
+
 			if (!surveyOption.is_public_survey()) {
 				continue;
 			}
@@ -121,34 +123,9 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public int getCurrentPage(List<MainSurveyObj> list, int pageNum) {
-		if (list.size() > 15) {
-			return pageNum;
-		}
-		
-		if ((list.size() != 0) && (((list.size() - 1) / 5)) > pageNum) {
-			return pageNum;
-			
-			
-			// 사이즈가 9일때, 오른쪽 버튼을 누르면 1에서 더이상 증가하지 않음.
-			// 사이즈가 9이고 pageNum이 1일 떄 버튼을 누르면 0이 되어야함.
-			
-			// ex) 사이즈가 14이고 pageNum이 2일 때 버튼을 누르면 0
-			// 사이즈가 4이고 pageNum이 0일 때 버튼을 누르면 0
-			
-		} else if ((list.size() != 0) && ((list.size() - 1) / 5) == pageNum) {
-			return 0;
-		
-		
-	} else {
-			return (list.size() / 5);
-		}
-	}
-
-	@Override
-	public List<MainSurveyObj> listByPage(List<MainSurveyObj> list, int currentPage) {
+	public List<MainSurveyObj> listByNewPage(List<MainSurveyObj> list, int newPage) {
 		List<MainSurveyObj> mainSurveyList = new ArrayList<>();
-		for (int i = 5 * currentPage; i < list.size(); i++) {
+		for (int i = 5 * newPage; i < list.size(); i++) {
 			mainSurveyList.add(list.get(i));
 			if (mainSurveyList.size() == 5) {
 				break;
@@ -160,6 +137,40 @@ public class MainServiceImpl implements MainService {
 	private String formatDateTime(LocalDateTime dateTime) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd hh:mm");
 		return dateTime.format(formatter);
+	}
+
+	@Override
+	public int getMaxPage(List<MainSurveyObj> list) {
+		if (list.size() > TOTAL_PAGE_NUM * 5) {
+			return TOTAL_PAGE_NUM - 1;
+		}
+		if (list.size() == 0) {
+			return 0;
+		}
+		return (list.size() - 1) / 5;
+	}
+
+	@Override
+	public int getNewPage(List<MainSurveyObj> list, int currentPage, String dir) {
+
+		int maxPage = getMaxPage(list);
+		
+		if (dir.equals("prev")) {
+			if (maxPage < currentPage) {
+				return 0;
+			}
+			
+			return (currentPage - 1 + (maxPage + 1)) % (maxPage + 1);
+		}
+
+		if (dir.equals("next")) {
+			if (maxPage <= currentPage) {
+				return 0;
+			}
+			return (currentPage + 1 + (maxPage + 1)) % (maxPage + 1);
+		}
+
+		return 0;
 	}
 
 }

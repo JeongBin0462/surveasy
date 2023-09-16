@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
 
-    <title>STTP</title>
+    <title>Surveasy</title>
     <link rel="stylesheet" href="/0.header_footer.css" type="text/css" />
     <link rel="stylesheet" href="/1.main.css" type="text/css" />
   </head>
@@ -53,6 +53,7 @@
             <div class="survey-column">
               <div class="survey-view-column-title">설문지 제목</div>
               <div class="survey-view-column-participants">참가자수</div>
+              <div class="survey-view-column-regidate">등록일자</div>
               <div class="survey-view-column-deadline">마감일자</div>
             </div>
             <div class="survey" id="survey-view-top">
@@ -70,13 +71,16 @@
                   <a
                     th:if="${not #strings.isEmpty(topelem.link)}"
                     th:href="@{'http://localhost:8080/surveasy/survey/' + ${topelem.link} + '?no=' + ${topelem.surveyno}}"
-                  	class="survey-urls-div"
+                    class="survey-urls-div"
                   >
                     <div class="survey-view-text-title">
                       <span th:text="${topelem.surveytitle}"></span>
                     </div>
                     <div class="survey-view-text-person">
                       <span th:text="${topelem.participants}"></span>
+                    </div>
+                    <div class="survey-view-text-rdate">
+                      <span th:text="${topelem.regidate}"></span>
                     </div>
                     <div class="survey-view-text-date">
                       <span th:text="${topelem.deadline}"></span>
@@ -105,13 +109,16 @@
                   <a
                     th:if="${not #strings.isEmpty(bottomelem.link)}"
                     th:href="@{'http://localhost:8080/surveasy/survey/' + ${bottomelem.link} + '?no=' + ${bottomelem.surveyno}}"
-                  	class="survey-urls-div"
+                    class="survey-urls-div"
                   >
                     <div class="survey-view-text-title">
                       <span th:text="${bottomelem.surveytitle}"></span>
                     </div>
                     <div class="survey-view-text-person">
                       <span th:text="${bottomelem.participants}"></span>
+                    </div>
+                    <div class="survey-view-text-rdate">
+                      <span th:text="${bottomelem.regidate}"></span>
                     </div>
                     <div class="survey-view-text-date">
                       <span th:text="${bottomelem.deadline}"></span>
@@ -127,8 +134,8 @@
         </div>
         <div class="side-div"></div>
       </div>
-      <input id="topPageNum" type="hidden" value="0" />
-      <input id="bottomPageNum" type="hidden" value="0" />
+      <input id="topPageNum" type="number" value="0" disabled />
+      <input id="bottomPageNum" type="number" value="0" disabled />
     </main>
     <footer id="footer">
       <div id="gitDiv">
