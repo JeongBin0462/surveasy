@@ -245,9 +245,6 @@ function formToJSON(form) {
 	});
 }
 
-
-
-
 function submitData(event) {
 	event.preventDefault();
 
@@ -354,11 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			});
 		}
-
-
-
 		var totalQuestions = parseInt(document.getElementById("totalQuestions").textContent);
-
 		var progress = (checkedCount / totalQuestions) * 100;
 
 		// 진행률 막대바 업데이트
@@ -369,6 +362,3 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById("progressPercentage").textContent = progress.toFixed(2) + "%";
 	}
 });
-
-
-
