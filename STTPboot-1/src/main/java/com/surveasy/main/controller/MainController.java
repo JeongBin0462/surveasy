@@ -23,7 +23,7 @@ public class MainController {
 	@Autowired
 	MainService mainService;
 
-	@GetMapping(value = {"/", "", "/main"})
+	@GetMapping(value = { "/", "", "/main" })
 	public String firstShow(Model model) {
 		List<MainSurveyObj> topList = mainService.generateMainList();
 		List<MainSurveyObj> bottomList = mainService.generateMainList();
@@ -32,8 +32,8 @@ public class MainController {
 		bottomList = mainService.sortBySubject(bottomList, "정치");
 		bottomList = mainService.sortByRemainTime(bottomList);
 
-		topList = mainService.listByPage(topList, 0);
-		bottomList = mainService.listByPage(bottomList, 0);
+		topList = mainService.listByNewPage(topList, 0);
+		bottomList = mainService.listByNewPage(bottomList, 0);
 
 		model.addAttribute("topList", topList);
 		model.addAttribute("bottomList", bottomList);
@@ -44,44 +44,65 @@ public class MainController {
 	@PostMapping("/update")
 	@ResponseBody
 	public Map<String, Object> showMainBySelected(@RequestBody Map<String, Object> request) {
+		Map<String, Object> response = new HashMap<>();
+
 		String selectedSort = (String) (request.get("selectedSort"));
 		String selectedSubject = (String) (request.get("selectedSubject"));
 
-		int topPageNum = Integer.parseInt(request.get("topPageNum").toString());
-		int bottomPageNum = Integer.parseInt(request.get("bottomPageNum").toString());
-		
-		List<MainSurveyObj> topList = mainService.generateMainList();
-		List<MainSurveyObj> bottomList = mainService.generateMainList();
+		if (request.get("topPageNum") != null) {
+			List<MainSurveyObj> topList = mainService.generateMainList();
+			switch (selectedSort) {
+			case "남은기간":
+				topList = mainService.sortByRemainTime(topList);
+				break;
+			case "최신순":
+				topList = mainService.sortByLatest(topList);
+				break;
+			case "참여순":
+				topList = mainService.sortByParticipants(topList); 
+				break;
+			case "즐겨찾기순":
+				topList = mainService.sortByBookmark(topList);
+				break;
+			}
 
-		switch (selectedSort) {
-		case "남은기간":
-			topList = mainService.sortByRemainTime(topList);
-			break;
-		case "최신순":
-			topList = mainService.sortByLatest(topList);
-			break;
-		case "참여순":
-			topList = mainService.sortByParticipants(topList);
-			break;
-		case "즐겨찾기순":
-			topList = mainService.sortByBookmark(topList);
-			break;
+			Object topPageNumObj = request.get("topPageNum");
+			int topPageNum = Integer.parseInt(topPageNumObj.toString());
+			
+			String topPageDir = (String) (request.get("topPageDir"));
+
+
+			int newTopPage = mainService.getNewPage(topList, topPageNum, topPageDir);
+
+			topList = mainService.listByNewPage(topList, newTopPage);
+
+			response.put("topList", topList);
+			response.put("newTopPage", newTopPage);
+
 		}
 
-		bottomList = mainService.sortBySubject(bottomList, selectedSubject);
-		bottomList = mainService.sortByRemainTime(bottomList);
+		if (request.get("bottomPageNum") != null) {
+			System.out.println("bottomPage : " + request.get("bottomPageNum"));
+			
+			List<MainSurveyObj> bottomList = mainService.generateMainList();
 
-		int currentTopPageNum = mainService.getCurrentPage(topList, topPageNum);
-		int currentBottomPageNum = mainService.getCurrentPage(bottomList, bottomPageNum);
+			bottomList = mainService.sortBySubject(bottomList, selectedSubject);
+			bottomList = mainService.sortByRemainTime(bottomList);
 
-		topList = mainService.listByPage(topList, currentTopPageNum);
-		bottomList = mainService.listByPage(bottomList, currentBottomPageNum);
+			
+			Object bottomPageNumObj = request.get("bottomPageNum");
+			int bottomPageNum = Integer.parseInt(bottomPageNumObj.toString());
+			
+			String bottomPageDir = (String) (request.get("bottomPageDir"));
 
-		Map<String, Object> response = new HashMap<>();
-		response.put("topList", topList);
-		response.put("bottomList", bottomList);
-		response.put("currentTopPageNum", currentTopPageNum);
-		response.put("currentBottomPageNum", currentBottomPageNum);
+			int newBottomPage = mainService.getNewPage(bottomList, bottomPageNum, bottomPageDir);
+
+			bottomList = mainService.listByNewPage(bottomList, newBottomPage);
+
+			response.put("bottomList", bottomList);
+			response.put("newBottomPage", newBottomPage);
+
+		}
 
 		return response;
 	}

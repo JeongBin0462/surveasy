@@ -18,8 +18,11 @@ public interface MainService {
 
 	List<MainSurveyObj> sortByBookmark(List<MainSurveyObj> mainSurveyList);
 
-	int getCurrentPage(List<MainSurveyObj> list, int pageNum);
+	List<MainSurveyObj> listByNewPage(List<MainSurveyObj> list, int newPage);
 
-	List<MainSurveyObj> listByPage(List<MainSurveyObj> list, int currentPage);
+	int getMaxPage(List<MainSurveyObj> list);
 
+	int getNewPage(List<MainSurveyObj> list, int currentPage, String dir);
+
+	
 }
