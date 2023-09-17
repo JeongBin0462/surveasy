@@ -114,9 +114,6 @@ function validateField(inputElement) {
 	if (!targetHighlightElement) {
 		return;
 	}
-
-	targetHighlightElement.classList.remove('error-highlight');
-
 	targetHighlightElement.classList.remove('error-highlight');
 
 	if (checkboxes.length) {
@@ -250,7 +247,11 @@ function submitData(event) {
 
 	// 필수 항목 검증
 	const mandatoryFieldsValid = [...document.querySelectorAll('.question-div')]
-		.every(questionDiv => !questionDiv.querySelector('p span:first-child').classList.contains('error-highlight'));
+    	.every(questionDiv => {
+        	const spanElement = questionDiv.querySelector('p span:first-child');
+        	return spanElement ? !spanElement.classList.contains('error-highlight') : true;
+    	});
+
 
 	if (!mandatoryFieldsValid) {
 		return;
