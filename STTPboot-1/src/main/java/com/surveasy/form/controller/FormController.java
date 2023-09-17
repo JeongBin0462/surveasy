@@ -28,7 +28,7 @@ public class FormController {
 
 	@ResponseBody
 	@PostMapping("/submit")
-	public Map<String, Object> createSurvey(@RequestBody SurveyDTO surveyDTO, Model model) {
+	public Map<String, Object> createSurvey(@RequestBody SurveyDTO surveyDTO) {
 		Map<String, Object> response = new HashMap<>();
 		System.out.println("이거야?" + surveyDTO);
 
