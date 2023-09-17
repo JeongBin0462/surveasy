@@ -161,3 +161,24 @@
 
   text-align: center;
 }
+
+.page-number-div {
+	width: 80%;
+	
+	display: flex;
+	justify-content: flex-end;
+}
+
+.page-number-list {
+	margin-top: 15px;
+	margin-left: 20px;
+}
+
+.highlight-number {
+	font-weight: bold;
+	color: red;
+}
+
+.page-span {
+	cursor: pointer;
+}
