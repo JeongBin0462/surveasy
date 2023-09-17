@@ -3,6 +3,9 @@ fetch("/surveasy/makesurvey/success/req", {
   headers: {
     "Content-Type": "application/json",
   },
+  body: JSON.stringify({
+    test: "테스트",
+  }),
 })
   .then((response) => response.json())
   .then((data) => {

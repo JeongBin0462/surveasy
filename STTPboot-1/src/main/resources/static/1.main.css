@@ -78,7 +78,7 @@
 }
 
 .survey-view-column-title {
-  flex: 2.6;
+  flex: 2.5;
   font-weight: bolder;
   display: flex;
   justify-content: left;
@@ -127,7 +127,7 @@
 }
 
 .survey-view-text-rdate {
-  flex: 1;
+  flex: 1.5;
   display: flex;
   justify-content: center;
   align-items: center;

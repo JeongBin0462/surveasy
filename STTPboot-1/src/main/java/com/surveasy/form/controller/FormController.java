@@ -65,6 +65,7 @@ public class FormController {
 		return response;
 	}
 	
+	@ResponseBody
 	@PostMapping("/success/req")
 	public Map<String, String> successMakeSurvey() {
 		
