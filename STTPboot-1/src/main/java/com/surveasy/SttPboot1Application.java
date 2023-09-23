@@ -8,10 +8,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class SttPboot1Application extends SpringBootServletInitializer {
 	
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(SttPboot1Application.class);
-	}
+//	@Override
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//		return builder.sources(SttPboot1Application.class);
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SttPboot1Application.class, args);
