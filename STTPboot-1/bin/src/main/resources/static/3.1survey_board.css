@@ -23,6 +23,9 @@
   font-size: 40px;
   background-color: transparent;
   color: #1D7659;
+  
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .surveyOption {
@@ -51,6 +54,11 @@
 
 #survey-view-title {
 	margin-top: 25px;
+	
+	font-weight: 800;
+	
+	user-select: none;
+  	cursor: default;
 }
 
 .survey-view-container {
@@ -66,11 +74,12 @@
 
   border-bottom: 1px;
   border-style: solid;
-
   padding-bottom: 4px;
 
   position: relative;
   bottom: 15px;
+  
+  font-variant-numeric: tabular-nums;
 }
 
 .survey-urls-div {
@@ -79,10 +88,10 @@
 }
 
 .survey-view-text-title {
-  margin-left: 30px;
   margin-top: 20px;
 
-  width: 400px;
+  max-width: 350px;
+  min-width: 350px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -92,19 +101,31 @@
   margin-left: 30px;
   margin-top: 20px;
 
-  width: 150px;
+  min-width: 100px;
+  max-width: 100px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.survey-view-text-date {
+.survey-view-text-regidate {
   margin-left: 30px;
   margin-top: 20px;
 
   width: 220px;
 
   display: flex;
+}
+
+.survey-view-text-deadline {
+  margin-left: 30px;
+  margin-top: 20px;
+
+  width: 220px;
+
+  display: flex;
+  
+  
 }
 
 .survey-view-text-number {
@@ -139,4 +160,25 @@
   border-style: solid;
 
   text-align: center;
+}
+
+.page-number-div {
+	width: 80%;
+	
+	display: flex;
+	justify-content: flex-end;
+}
+
+.page-number-list {
+	margin-top: 15px;
+	margin-left: 20px;
+}
+
+.highlight-number {
+	font-weight: bold;
+	color: red;
+}
+
+.page-span {
+	cursor: pointer;
 }
