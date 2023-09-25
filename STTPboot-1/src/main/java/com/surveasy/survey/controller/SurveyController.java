@@ -94,7 +94,7 @@ public class SurveyController {
 			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(response);
 		}
 
-		return "/3.1survey_board";
+		return "3.1survey_board";
 	}
 
 	// 3-2 각 설문의 대략적인 정보 화면
@@ -113,7 +113,7 @@ public class SurveyController {
 		model.addAttribute("checkBookmark", checkBookmark);
 		model.addAttribute("surveyPaper", surveyPaper);
 		model.addAttribute("surveyPaperList", surveyPaperList);
-		return "/3.2survey_board_start";
+		return "3.2survey_board_start";
 	}
 	
 	// 3-2 즐겨찾기
@@ -138,20 +138,20 @@ public class SurveyController {
 
 		// 올바른 주소인지 확인
 		if (surveyPaper == null) {
-			return "/1.main";
+			return "1.main";
 		}
 		int surveyNo = surveyPaper.getSurveyno();
 
 		// 이미 참여한 설문인지 확인
 		if (!surveyService.getUserSurvey(surveyNo)) {
 			model.addAttribute("alertMessage", "이미 참여한 설문입니다.");
-			return "/0.error";
+			return "0.error";
 		}
 		
 		// 본인이 만든 설문인지 확인
 		if (!surveyService.surveyMine(surveyNo)) {
 			model.addAttribute("alertMessage", "본인이 만든 설문은 참여할 수 없습니다.");
-			return "/0.error";
+			return "0.error";
 		}
 
 		// 동적페이지 구성을 위한 객체 생성
@@ -174,6 +174,6 @@ public class SurveyController {
 		model.addAttribute("countAnswers", countAnswers);
 		model.addAttribute("count", 0);
 
-		return "/3.3survey_board_participate";
+		return "3.3survey_board_participate";
 	}
 }

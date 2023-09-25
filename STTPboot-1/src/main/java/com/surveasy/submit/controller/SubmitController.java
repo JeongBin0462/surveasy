@@ -53,6 +53,6 @@ public class SubmitController {
 	    model.addAttribute("url", url);
 	    model.addAttribute("surveyPaperList", surveyPaperList);
 
-	    return "/3.4survey_board_result";
+	    return "3.4survey_board_result";
 	}
 }	

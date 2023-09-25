@@ -38,7 +38,7 @@ public class MainController {
 		model.addAttribute("topList", topList);
 		model.addAttribute("bottomList", bottomList);
 
-		return "/1.main";
+		return "1.main";
 	}
 
 	@PostMapping("/update")

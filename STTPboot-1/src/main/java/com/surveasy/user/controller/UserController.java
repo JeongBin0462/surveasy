@@ -48,14 +48,14 @@ public class UserController {
 	@GetMapping(value = "/joinagree")
 	public String joinagree() {
 
-		return "/7.1join_agree";
+		return "7.1join_agree";
 	}
 	
 	// 회원가입 화면
 	@GetMapping(value = "/join")
 	public String join(Model model) {
 		model.addAttribute("user", new User());
-		return "/7.2join";
+		return "7.2join";
 	}
 	
 	// 아이디 확인
@@ -178,12 +178,12 @@ public class UserController {
 	// 로그인 화면
 	@GetMapping(value = "/login")
     public String login() {
-        return "/7.3login";
+        return "7.3login";
     }
 	
 	// 로그인 완료
 	@PostMapping(value = "/login")
 	public String loginSuccess() {
-		return "/1.main";
+		return "1.main";
 	}
 }
